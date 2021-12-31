@@ -1,6 +1,8 @@
-CREATE DATABASE IF NOT EXISTS laboratorios_termodinamica;
 
-USE laboratorios_termodinamica;
+
+CREATE DATABASE IF NOT EXISTS laboratorio_termodinamica;
+
+USE laboratorio_termodinamica;
 
 CREATE TABLE IF NOT EXISTS usuarios (
   numero_cuenta VARCHAR(30) NOT NULL,
