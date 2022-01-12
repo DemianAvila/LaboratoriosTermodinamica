@@ -1,5 +1,3 @@
-
-
 CREATE DATABASE IF NOT EXISTS laboratorio_termodinamica;
 
 USE laboratorio_termodinamica;

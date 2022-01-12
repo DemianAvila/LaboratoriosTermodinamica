@@ -6,11 +6,50 @@
 #IMPORTA EL ARCHIVO DE VARIABLES DE ENTORNO
 source .env
 ################
-docker build -t db_laboratorio_termo . \
--e MARIADB_VERSION=$MARIADB_VERSION 
-
-docker run -p 3307:3306 \
---name prueba \
+#CONSTRUYE LA IMAGEN
+docker build -t $DOCKER_IMG_NAME . \
+--build-arg MARIADB_VERSION=$MARIADB_VERSION 
+################
+#EJECUTA LA IMAGEN CON LOS PARAMETROS
+docker run -d -p $EXIT_PORT:$IN_PORT \
+--name $DOCKER_PS_NAME \
 -e MARIADB_VERSION=$MARIADB_VERSION \
 -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
-db_laboratorio_termo
+$DOCKER_IMG_NAME
+################
+#CREAR LOS USUARIOS
+#CREAR USUARIO GET
+mysql -h $HOST -P $EXIT_PORT \
+-u root --password=$MYSQL_ROOT_PASSWORD \
+-e "\"CREATE USER '"$USER_GET"'@localhost IDENTIFIED BY '"$PASS_GET"';\""
+#OTORGAR PERMISOS DE LECTURA
+mysql -h $HOST -P $EXIT_PORT \
+-u root --password=$MYSQL_ROOT_PASSWORD \
+-e "\"GRANT SELECT ON *.* TO '"$USER_GET"'@localhost IDENTIFIED BY '"$PASS_GET"';FLUSH PRIVILEGES;\""
+#################
+#CREAR USUARIO POST
+mysql -h $HOST -P $EXIT_PORT \
+-u root --password=$MYSQL_ROOT_PASSWORD \
+-e "\"CREATE USER '"$USER_POST"'@localhost IDENTIFIED BY '"$PASS_POST"';\""
+#OTORGAR PERMISOS DE ESCRITURA
+mysql -h $HOST -P $EXIT_PORT \
+-u root --password=$MYSQL_ROOT_PASSWORD \
+-e "\"GRANT INSERT ON *.* TO '"$USER_POST"'@localhost IDENTIFIED BY '"$PASS_POST"';FLUSH PRIVILEGES;\""
+##################
+#CREAR USUARIO POST
+mysql -h $HOST -P $EXIT_PORT \
+-u root --password=$MYSQL_ROOT_PASSWORD \
+-e "\"CREATE USER '"$USER_DELETE"'@localhost IDENTIFIED BY '"$PASS_DELETE"';\""
+#OTORGAR PERMISOS DE BORRADO
+mysql -h $HOST -P $EXIT_PORT \
+-u root --password=$MYSQL_ROOT_PASSWORD \
+-e "\"GRANT DELETE ON *.* TO '"$USER_DELETE"'@localhost IDENTIFIED BY '"$PASS_DELETE"';FLUSH PRIVILEGES;\""
+##################
+#CREAR USUARIO POST
+mysql -h $HOST -P $EXIT_PORT \
+-u root --password=$MYSQL_ROOT_PASSWORD \
+-e "\"CREATE USER '"$USER_PUT_PATCH"'@localhost IDENTIFIED BY '"$PASS_PUT_PATCH"';\""
+#OTORGAR PERMISOS DE BORRADO
+mysql -h $HOST -P $EXIT_PORT \
+-u root --password=$MYSQL_ROOT_PASSWORD \
+-e "\"GRANT UPDATE ON *.* TO '"$USER_PUT_PATCH"'@localhost IDENTIFIED BY '"$PASS_PUT_PATCH"';FLUSH PRIVILEGES;\""
