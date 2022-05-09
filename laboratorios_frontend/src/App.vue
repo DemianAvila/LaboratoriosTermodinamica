@@ -6,6 +6,11 @@
         bg-cover
         bg-no-repeat
         bg-center
+        lg:bg-scroll
+        lg:bg-cover
+        lg:bg-no-repeat
+        lg:w-full
+        lg:h-full
         "
         style="background-image:url(https://drive.google.com/uc?export=view&id=1OFFEYVQzewzqZwC3sNMAUaN5v9QSVxB_)">
             <router-view/>

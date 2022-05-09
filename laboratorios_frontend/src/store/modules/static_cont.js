@@ -9,7 +9,8 @@ export default {
             checked: "https://drive.google.com/uc?export=view&id=1dSDZ8ZclTT7iHnEWmKU2-8ASU8XeFUia",
             drop_down: "https://drive.google.com/uc?export=view&id=1lPnrVGGAljJARQkuwcA86GjJ_3PHcPgY",
             disabled: "https://drive.google.com/uc?export=view&id=1tCYAB6v9xR5CB120hHKfVASITZZgCGdt",
-            exclamation: "https://drive.google.com/uc?export=view&id=1vC_tQAcWumO7H8xnhmLxlCZQ0Mp9uk-B"
+            exclamation: "https://drive.google.com/uc?export=view&id=1vC_tQAcWumO7H8xnhmLxlCZQ0Mp9uk-B",
+            progress: "https://drive.google.com/uc?export=view&id=1WbcLVO0U8_rNttmU1_N2Pna_58CKlvxl"
         }
     },
     getters: {

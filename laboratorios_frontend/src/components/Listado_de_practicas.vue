@@ -1,10 +1,15 @@
 <template>
   <div class="p-8
-  text-slate-50">
+  text-slate-50
+  grid
+  grid-cols-1
+  lg:grid-cols-2
+  lg:gap-4">
     <h1 class="
     text-center
     text-5xl
-    my-4">
+    my-4
+    lg:col-span-2">
       Prácticas
     </h1>
     <div v-for="(item, index) in $store.state.practicas.practicas" :key="index">
@@ -12,7 +17,7 @@
       <div v-if="$store.getters.get_usuario_practica_data(item.id).avance==100"
       class="bg-emerald-600
       w-full
-      my-6
+      my-4
       grid 
       grid-cols-8
       gap-2
@@ -34,13 +39,13 @@
           alt="menu"
           class="object-fill w-4 h-4">
         </div>
-      </div>
+      </div> 
       <!--SI AUN NO SE TERMINA PERO LA FECHA DE ENTREGA ES OPTIMA, PINTALA DE MORADO-->
       <div v-else-if="$store.getters.get_usuario_practica_data(item.id).avance<100 &&
       item.fecha_entrega>new Date() && item.disponible"
       class="bg-purple-600
       w-full
-      my-6
+      my-4
       grid 
       grid-cols-8
       gap-2
@@ -69,7 +74,7 @@
       item.fecha_entrega<new Date() && item.disponible"
       class="bg-yellow-600
       w-full
-      my-6
+      my-4
       grid 
       grid-cols-8
       gap-2
@@ -96,7 +101,7 @@
       <div v-else-if="!item.disponible"
       class="bg-gray-600
       w-full
-      my-6
+      my-4
       grid 
       grid-cols-8
       gap-2
