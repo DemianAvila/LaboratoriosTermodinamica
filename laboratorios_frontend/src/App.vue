@@ -6,8 +6,7 @@
         bg-cover
         bg-no-repeat
         bg-center
-        w-full
-        h-full"
+        "
         style="background-image:url(https://drive.google.com/uc?export=view&id=1OFFEYVQzewzqZwC3sNMAUaN5v9QSVxB_)">
             <router-view/>
       </div>

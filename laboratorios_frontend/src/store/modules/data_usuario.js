@@ -32,6 +32,10 @@ export default {
                 avance: 28 
             },
             {
+                id_prac: 5,
+                avance: 70 
+            },
+            {
                 id_prac: 6,
                 avance: 63 
             },
