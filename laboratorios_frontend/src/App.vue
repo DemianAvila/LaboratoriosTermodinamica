@@ -6,6 +6,9 @@
         bg-cover
         bg-no-repeat
         bg-center
+        w-full
+        h-full
+        overflow-y-auto
         lg:bg-scroll
         lg:bg-cover
         lg:bg-no-repeat
