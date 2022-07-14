@@ -10,7 +10,8 @@
     lg:col-span-2">
       {{$store.state.practicas.practicas[($store.state.practicas.modal_subtareas.id_practica)-1].titulo}} 
     </h1>
-    <div class="mx-10
+    <div class="
+    w-5/6
     lg:w-1/2"
     v-for="(item, index) in 
     $store.state.practicas.practicas[($store.state.practicas.modal_subtareas.id_practica)-1].subtareas"
@@ -20,7 +21,7 @@
       :index="index">
       </ButtonSubtareas>
     </div>
-    <div class="mx-10
+    <div class="w-5/6
     lg:w-1/2">
       <button @click="salir_modal()"
       class="bg-purple-600

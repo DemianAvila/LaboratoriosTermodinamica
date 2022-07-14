@@ -39,12 +39,14 @@ export default {
   methods: {
     show_modal: function (item){
       let ruta = this.$store.state.practicas.practicas[
-        this.$store.state.practicas.modal_subtareas.id_practica].nombre
+        this.$store.state.practicas.modal_subtareas.id_practica-1].nombre
       ruta = ruta.concat('/').concat(item.titulo)
+      ruta = '/'+ruta
       console.log(ruta)
       try{
-        this.$route.push(ruta)
+        this.$router.push(ruta)
       }catch(error){
+        console.log(error)
         alert("Esta ruta aún no está programada")
       }
     }
