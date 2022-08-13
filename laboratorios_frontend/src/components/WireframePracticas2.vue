@@ -1,7 +1,10 @@
 <template>
   <div class="h-full
   w-full">
-    <div>
+    <div class="bg-slate-400
+    w-full
+    h-full">
+      <p>Hola</p>
     </div>
   </div>
 </template>

@@ -15,6 +15,9 @@ export default {
                 `fuerza normal (F), ejercida sobre un área (A) en cualquier punto de la frontera de un `+
                 `sistema. Sus unidades en el SI es el Pascal [Pa], definido como [N/m2].`,
             wireframe: 0
+        },
+        {
+            fragments: []
         }
     ]
   },

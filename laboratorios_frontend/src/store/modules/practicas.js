@@ -25,7 +25,12 @@ export default {
           {
             id_subtarea: 2,
             titulo: "Desarrollo"
-          }
+          },
+            {
+                id_subtarea:3, 
+                titulo: "Conslusiones"
+            }
+
         ],
         mostrar_subtareas: false
       },

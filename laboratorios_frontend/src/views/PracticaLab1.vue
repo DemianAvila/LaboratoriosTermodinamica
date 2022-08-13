@@ -14,9 +14,15 @@
       <button v-if="$store.state.practica1.vista>0"
       class="bg-slate-50
       w-full
-      h-[7%]"
+      h-[7%]
+      rounded-full
+      flex
+      justify-items-center
+      items-center"
       @click="prev_page">
-        &lt;
+        <p class="text-center">
+          &lt;
+        </p>
       </button>
     </div>
     <div class="p-8
@@ -43,11 +49,36 @@
       <button v-if="$store.state.practica1.vista<($store.state.practica1.desarrollo.length-1)"
       class="bg-slate-50
       w-full
-      h-[7%]"
+      h-[7%]
+      rounded-full
+      justify-items-center
+      items-center"
       @click="next_page">
-        >
+        <p class="text-center">
+          >
+        </p>
       </button>
     </div>
+    <div
+    class="
+    w-full
+    h-[7%]
+    my-2
+    lg:hidden
+    overflow-y-auto
+    flex
+    flex-col
+    items-center
+    justify-items-center">
+      <button class="h-full
+      w-[7%]">
+        <p class="text-xl
+        text-justify">
+          ↓ 
+        </p>
+      </button>
+    </div>
+
   </div>
  
 </template>
@@ -66,6 +97,7 @@ export default {
   methods: {
     next_page: function(){
       this.$store.state.practica1.vista += 1
+      console.log(this.$store.state.practica1.vista)
     },
     prev_page: function(){
       this.$store.state.practica1.vista -= 1
