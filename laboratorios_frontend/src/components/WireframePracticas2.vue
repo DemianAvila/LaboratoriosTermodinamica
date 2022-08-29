@@ -26,8 +26,8 @@
         justify-center
         items-center">
           <div
-            v-if="typeof(item.attachment_type) != 'undefined' && item.attachment_type == 'formula'"
-            v-html="formula_renderer(item.attachment)">
+            v-if="typeof(item.attachment_type) != 'undefined' && item.attachment_type == 'formula'">
+              <FormulaRendering :formula="item.attachment"></FormulaRendering>
           </div>
         </div>
       </div>  
@@ -38,10 +38,14 @@
 
 <script>
   import katex from 'katex';
+  import FormulaRendering from './FormulaRendering.vue'
 
 
   export default {
     name: 'WireframePracticas2',
+    components: {
+    FormulaRendering
+    },
     props: ['prop'],
     methods: {
       formula_renderer: function (string) {
