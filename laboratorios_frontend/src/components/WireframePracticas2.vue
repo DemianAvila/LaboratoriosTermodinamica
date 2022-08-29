@@ -1,19 +1,64 @@
 <template>
+
+  <!--INDEFINITE CONTENT CARROUSEL, SORT LIKE A COMPARISON TABLE-->
   <div class="h-full
   w-full">
-    <div class="bg-slate-400
-    w-full
-    h-full">
-      <p>Hola</p>
+    <div class="w-full
+    max-h-[75%]
+    overflow-y-scroll">
+      <!--MUST CREATE RECURSIVE BOXES OF CONTENT ABLE TO SCROLL -->
+      <!--BORDER THE BOX-->
+      <div v-for="(item,index) in prop.fragments"
+      class="border
+      border-slate-50
+      p-2
+      divide-y
+      my-5"
+      :key="index">
+        <h1 class="text-2xl
+        text-center">
+          {{item.header}}
+        </h1>
+        <p>
+          {{item.text}}
+        </p>
+        <div class="flex
+        justify-center
+        items-center">
+          <div
+            v-if="typeof(item.attachment_type) != 'undefined' && item.attachment_type == 'formula'"
+            v-html="formula_renderer(item.attachment)">
+          </div>
+        </div>
+      </div>  
     </div>
   </div>
 </template>
 
-<script>
 
-export default {
-  name: 'WireframePracticas2',
-}
+<script>
+  import katex from 'katex';
+
+
+  export default {
+    name: 'WireframePracticas2',
+    props: ['prop'],
+    methods: {
+      formula_renderer: function (string) {
+        if(typeof(string)=='undefined'){
+          return ""
+        }
+          let html = katex.renderToString(string, {
+          throwOnError: false,
+          output: "mathml"
+        });
+        console.log(string)
+        console.log(html)
+        return html
+      }
+    }
+  }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

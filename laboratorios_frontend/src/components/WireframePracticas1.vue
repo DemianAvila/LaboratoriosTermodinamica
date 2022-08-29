@@ -1,4 +1,5 @@
 <template>
+  <!--SIMPLE IMAGE - TEXT WIREFRAME -->
   <div class="h-full
   w-full">
     <div id="titulo"
@@ -36,7 +37,7 @@
       h-[30%]
       my-2
       lg:w-1/2
-      lg:mx-2
+      lg:mx-20
       lg:h-[70%]
       overflow-y-auto
       flex

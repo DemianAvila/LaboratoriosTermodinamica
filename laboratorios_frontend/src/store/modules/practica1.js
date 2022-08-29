@@ -17,7 +17,32 @@ export default {
             wireframe: 0
         },
         {
-            fragments: []
+            fragments: [
+                {
+                    header: "Presión absoluta",
+                    text: `Es la presión en un punto determinado del sistema`+
+                        `que se mide con respecto a la presión cero absoluto`
+                },
+                {
+                    header: "Presión relativa",
+                    text: `Es la diferencia entre dos presiones absolutas (por lo`+
+                        `general, la Patm es una de ellas). La medición de la presión con un manómetro es`+
+                        `un ejemplo de presión relativa, y ésta puede ser positiva o negativa`
+                },
+                {
+                    header: "Presión relativa positiva",
+                    attachment_type: "formula",
+                    attachment: "P_{abs} = P_{atm} + P_{man}"
+
+                },
+                {
+                    header: "Presión relativa negativa"
+                },
+                {
+                    header: "Presión barométrica o atmosférica"
+                },
+            ],
+            wireframe: 1
         }
     ]
   },
