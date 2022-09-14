@@ -5,32 +5,54 @@
   w-full">
     <div class="w-full
     max-h-[75%]
-    overflow-y-scroll">
+    flex
+    flex-col
+    justify-center
+    items-center
+    lg:w-full
+    lg:h-full
+    lg:flex-row">
       <!--MUST CREATE RECURSIVE BOXES OF CONTENT ABLE TO SCROLL -->
       <!--BORDER THE BOX-->
-      <div v-for="(item,index) in prop.fragments"
-      class="border
-      border-slate-50
-      p-2
-      divide-y
-      my-5"
-      :key="index">
-        <h1 class="text-2xl
-        text-center">
-          {{item.header}}
-        </h1>
-        <p>
-          {{item.text}}
-        </p>
-        <div class="flex
-        justify-center
-        items-center">
-          <div
-            v-if="typeof(item.attachment_type) != 'undefined' && item.attachment_type == 'formula'">
-              <FormulaRendering :formula="item.attachment"></FormulaRendering>
+      <div class="w-full
+      h-full
+      overflow-y-scroll
+      lg:overflow-x-scroll
+      flex
+      flex-col
+      lg:flex-row">
+        <div v-for="(item,index) in prop.fragments"
+        class="border
+        border-slate-50
+        p-2
+        divide-y
+        my-5
+        lg:mx-5
+        lg:h-[80%]
+        lg:min-w-[30rem]"
+        :key="index">
+          <h1 class="text-2xl
+          text-center
+          lg:text-4xl
+          lg:h-[30%]">
+            {{item.header}}
+          </h1>
+          <p class="lg:h-[50%]
+          lg:text-2xl">
+            {{item.text}}
+          </p>
+          <div class="flex
+          justify-center
+          items-center
+          lg:h-[20%]">
+            <div
+              v-if="typeof(item.attachment_type) != 'undefined' && item.attachment_type == 'formula'">
+                <FormulaRendering class="lg:hidden" :tamanio="null" :formula="item.attachment"></FormulaRendering>
+                <FormulaRendering class="hidden lg:flex" tamanio="Huge" :formula="item.attachment"></FormulaRendering>
+            </div>
           </div>
-        </div>
-      </div>  
+        </div>  
+      </div>
     </div>
   </div>
 </template>
