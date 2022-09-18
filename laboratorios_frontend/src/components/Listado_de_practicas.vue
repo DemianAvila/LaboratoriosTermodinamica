@@ -18,36 +18,39 @@
     h-full
     bg-[rgba(0,0,0,0.9)]">
     </ModalPracticas>
-    <h1 class="
-    text-center
-    text-5xl
-    my-4
-    lg:col-span-2">
-      Prácticas
-    </h1>
-    <div v-for="(item, index) in $store.state.practicas.practicas" :key="index">
-      <ButtonFinished  
-      v-if="$store.getters.get_usuario_practica_data(item.id).avance==100"
-      :item="item"
-      :index="index">
-      </ButtonFinished>      
-      <ButtonUnfinished
-      v-else-if="$store.getters.get_usuario_practica_data(item.id).avance<100 &&
-      item.fecha_entrega>new Date() && item.disponible"
-      :item="item"
-      :index="index">
-      </ButtonUnfinished>
-      <ButtonOutOfTime
-      v-else-if="$store.getters.get_usuario_practica_data(item.id).avance<100 &&
-      item.fecha_entrega<new Date() && item.disponible"
-      :item="item"
-      :index="index">
-      </ButtonOutOfTime>
-      <ButtonUnavailable
-      v-else-if="!item.disponible"
-      :item="item"
-      :index="index">
-      </ButtonUnavailable>
+    <div class="w-full h-full overflow-y-auto">
+      <h1 class="
+      text-center
+      text-5xl
+      my-4
+      lg:col-span-2">
+        Prácticas
+      </h1>
+      <div v-for="(item, index) in $store.state.practicas.practicas" 
+      :key="index">
+        <ButtonFinished  
+        v-if="$store.getters.get_usuario_practica_data(item.id).avance==100"
+        :item="item"
+        :index="index">
+        </ButtonFinished>      
+        <ButtonUnfinished
+        v-else-if="$store.getters.get_usuario_practica_data(item.id).avance<100 &&
+        item.fecha_entrega>new Date() && item.disponible"
+        :item="item"
+        :index="index">
+        </ButtonUnfinished>
+        <ButtonOutOfTime
+        v-else-if="$store.getters.get_usuario_practica_data(item.id).avance<100 &&
+        item.fecha_entrega<new Date() && item.disponible"
+        :item="item"
+        :index="index">
+        </ButtonOutOfTime>
+        <ButtonUnavailable
+        v-else-if="!item.disponible"
+        :item="item"
+        :index="index">
+        </ButtonUnavailable>
+      </div>
     </div>
   </div>
 </template>

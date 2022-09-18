@@ -18,10 +18,12 @@ const routes = [
   {
     path: '/practica_1/Previo',
     name: 'practica1_previo',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-      component: () => import('../views/PracticaLab1_previo.vue')
+    component: () => import('../views/PracticaLab1_previo.vue')
+  },
+  {
+    path: '/practica_1/Desarrollo',
+    name: 'practica1_desarrollo',
+    component: () => import('../views/PracticaLab_desarrollo.vue')
   }
 
 ]
