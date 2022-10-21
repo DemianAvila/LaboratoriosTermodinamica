@@ -11,10 +11,10 @@
   </div>
   <div class="flex
     flex-row"
-    v-for="punto, index in this.$store.state.practica1.valores_experimentales.puntos" :key="index">
-      <input type="number" :v-model="punto[0]" class="w-[45%] m-3">
-      <input type="number" :v-model="punto[1]" class="w-[45%] m-3">
-      <button class="w-[10%]" @click="this.$store.state.practica1.valores_experimentales.puntos.splice(index, 1)">
+    v-for="punto, index in this.$store.state.practica1.valores_experimentales.datasets.datasets[0].data" :key="index">
+      <input type="number" v-model="punto.x" class="w-[45%] m-3 text-black">
+      <input type="number" v-model="punto.y" class="w-[45%] m-3 text-black">
+      <button class="w-[10%]" @click="this.$store.state.practica1.valores_experimentales.datasets.datasets[0].data.splice(index, 1)">
         <i class="fa-solid fa-minus"></i>
       </button>
     </div>
@@ -22,7 +22,7 @@
     flex-row
     justify-center
     items-center">
-      <button @click="this.$store.state.practica1.valores_experimentales.puntos.push([0,0])">
+      <button @click="this.$store.state.practica1.valores_experimentales.datasets.datasets[0].data.push({x:0, y:0})">
         <i class="fa-solid fa-plus"></i>
       </button>
     </div>

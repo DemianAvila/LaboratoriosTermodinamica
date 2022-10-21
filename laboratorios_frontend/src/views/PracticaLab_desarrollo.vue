@@ -9,8 +9,8 @@
     bg-[rgba(0,0,0,0.9)]"
     v-if="this.$store.state.practica1.valores_experimentales.modal">
       <ModalValoresExperimentales tipo="plano_cartesiano"
-      eje_x="Profundidad de la campana en el vaso"
-      eje_y="Diferencia de altura en el manómetro">
+      :eje_x="this.$store.state.practica1.valores_experimentales.general_data.eje_x"
+      :eje_y="this.$store.state.practica1.valores_experimentales.general_data.eje_y">
       </ModalValoresExperimentales>
     </div>
     <div>

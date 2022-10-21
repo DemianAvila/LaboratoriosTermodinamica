@@ -3,7 +3,9 @@
     class="w-full h-full bg-[rgba(0,0,0,0.9) flex flex-col justify-center items-center rounded-lg">
     <div class="bg-slate-900 w-[90%] h-[90%] overflow-y-scroll">
       <div class="flex
-      flex-col"> 
+      flex-col
+      h-full
+      w-full"> 
         <div class="flex
         flex-row-reverse">
           <button class="mx-3"
@@ -19,12 +21,14 @@
           <p v-if="index=='plano'">Ver plano cartesiano</p>
         </button>
         <InsertarPuntos v-if="this.$store.state.practica1.valores_experimentales.menus.puntos" :eje_x="eje_x" :eje_y="eje_y"></InsertarPuntos>
+        <PlanoCartesiano v-if="this.$store.state.practica1.valores_experimentales.menus.plano"></PlanoCartesiano>
       </div>
     </div>
   </div>
 </template>
 <script>
 import InsertarPuntos from "./ValoresExperimentales/InsertarPuntos.vue";
+import PlanoCartesiano from "./ValoresExperimentales/PlanoCartesiano.vue";
 export default {
   name: "ModalValoresExperimentales",
   props: ["tipo", "eje_x", "eje_y"],
@@ -40,6 +44,6 @@ export default {
       }
     }
   },
-  components: { InsertarPuntos },
+  components: { InsertarPuntos, PlanoCartesiano },
 };
 </script>

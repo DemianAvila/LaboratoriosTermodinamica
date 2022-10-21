@@ -65,11 +65,24 @@ export default {
     ],
     valores_experimentales:{
       modal: false,
-      puntos: [[0,0]],
+      datasets: {
+        datasets: [{
+          label: "Relacion entre presion absoluta y profundidad",
+          data: [{x:0, y:0}],
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1,
+          pointRadius: 5
+        }]
+      },
+      general_data: {
+        eje_x: "Profundidad de la campana en el vaso",
+        eje_y: "Presión absoluta",
+      },
       menus: {
         puntos: true,
         plano: false
-      }
+      },
     }
   },
   getters: {},
