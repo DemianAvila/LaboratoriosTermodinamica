@@ -1,10 +1,20 @@
 <template>
   <div>
     <p>
-      {{obejct.question}}
+      - {{object.question}}
     </p>
     <div>
-      <input :type="obejct.answer.type" v-model="object.answer.answer">
+      <textarea class="w-full"
+      v-if="object.answer.type=='textarea'"
+      :type="object.answer.type" 
+      @change="onChange(local_answer)"
+      v-model="local_answer"></textarea>
+
+      <input class="w-full"
+      v-else
+      :type="object.answer.type" 
+      @change="onChange(local_answer)"
+      v-model="local_answer">
     </div>
   </div>
 </template>
@@ -12,6 +22,16 @@
 <script>
 export default {
   name: "OpenQuestion",
-  props: [object]
+  data: function() {
+    return{
+      local_answer: ""
+    }
+  },
+  props: ["object", "answer"],
+  methods: {
+    onChange: function(local_answer) {
+      this.$emit("update:answer", local_answer)
+    }
+  }
 }
 </script>

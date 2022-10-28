@@ -2,7 +2,7 @@
   <div>
     <div>
       <p>
-        {{ objet.question }}
+        {{ object.question }}
       </p>
     </div>
     <div class="overflow-x-scroll overflow-y-scroll"
@@ -23,15 +23,28 @@
 <script>
 export default {
   name: "AttachmentQuestion",
-  props: [object],
+  data: function() {
+    return {
+      att: ""
+    }
+  },
+  props: ["object"],
   methods: {
     encode_file: function() {
       let file = this.$refs.attachment.files[0];
       let reader = new FileReader();
-      object.attachment = reader.readAsDataURL(file);
+      this.att = reader.readAsDataURL(file);
+      this.$emit("update_attachment", this.att);
     }
   }
 }
 </script>
+
+<style>
+td, th{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+</style>
 
 

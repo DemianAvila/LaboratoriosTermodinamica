@@ -1,15 +1,23 @@
 <template>
   <div>
     <p>
-      {{object.question}}
+      - {{object.question}}
     </p>
   </div>
   <div>
-    <div v-for="field, index in object.fields" :key="index">
-      <p>
-        {{field.field}}
-        <input :type="field.type" v-model="field.answer">
+    <div class="ml-5"
+    v-for="field, index in object.fields" 
+    :key="index">
+      <p> 
+        • {{field.field}}
       </p>
+      <textarea class="w-full"
+      v-if="field.type=='textarea'"
+      v-model="field.answer"></textarea>
+      <input class="w-full"
+      v-else
+      :type="field.type" 
+      v-model="field.answer">
     </div>
   </div>
   
@@ -19,6 +27,6 @@
 <script>
 export default {
     name: "MultipleQuestion",
-    props: [object]
+    props: ["object"]
 }
 </script>
