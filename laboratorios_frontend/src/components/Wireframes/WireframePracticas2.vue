@@ -47,7 +47,7 @@
 
 <script>
 import katex from "katex";
-import FormulaRendering from "./FormulaRendering.vue";
+import FormulaRendering from "@/components/GeneralComponents/FormulaRendering.vue";
 
 export default {
   name: "WireframePracticas2",

@@ -27,8 +27,8 @@
   </div>
 </template>
 <script>
-import InsertarPuntos from "./ValoresExperimentales/InsertarPuntos.vue";
-import PlanoCartesiano from "./ValoresExperimentales/PlanoCartesiano.vue";
+import InsertarPuntos from "@/components/ValoresExperimentales/InsertarPuntos.vue";
+import PlanoCartesiano from "@/components/ValoresExperimentales/PlanoCartesiano.vue";
 export default {
   name: "ModalValoresExperimentales",
   props: ["tipo", "eje_x", "eje_y"],

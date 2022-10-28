@@ -7,7 +7,88 @@ export default {
   state: {
     //SUSTITUIR POR UN FETCH CUANDO LA API ESTE LISTA
     vista: 0,
-    desarrollo: [
+    previo: [
+      {
+        question_type: "multiple_question",
+        question: "Defina:",
+        fields: [
+          {
+            field: "Presión",
+            answer: "",
+            type: "text"
+          },
+          {
+            field: "Presión absoluta",
+            answer: "",
+            type: "text"
+          },
+          {
+            field: "Presión relativa (manométrica y vacuométrica)",
+            answer: "",
+            type: "text"
+          }
+        ]
+      },
+      {
+        question_type: "answer_list",
+        question: "Mencione las unidades en que puede expresarse la presión (al menos cinco unidades distintas).",
+        answers: ["", "", "", "", "", ""]
+      },
+      {
+        question_type: "answer_list",
+        question: "Mencione al menos cinco instrumentos para medir la presión y explique brevemente su principio de funcionamiento.",
+        answers: ["", "", "", "", "", ""]
+      },
+      {
+        question_type: "open",
+        question: "¿Qué es la presión atmosférica y cómo se mide?",
+        answer: {
+          answer: "",
+          type: "text"
+        }
+      },
+      {
+        question_type: "table",
+        question: "Dé el valor de la presión atmosférica en las siguientes localidades:",
+        table: {
+          cols: [
+            "Playa Dos Bocas", 
+            "Tabasco",
+            "Ciudad de México"],
+          rows: [
+            "mm de mercurio", 
+            "pascales",
+            "kilopascales"
+          ]
+        },
+        answers: {}
+      },
+      {
+        question_type: "open",
+        question: "La presión, ¿es una propiedad extensiva o intensiva? Justifique su respuesta.",
+        answer: {
+          answer: "",
+          type: "text"
+        }
+      },
+      {
+        question_type: "attachemnt",
+        media: "<table> <tr> <th>Altura h[m]Hg</th> <th>0.25</th> <th>0.35</th> <th>0.45</th> <th>0.55</th> <th>0.65</th> <th>0.75</th> </tr> <tr> <td><b>P<sub>atm</sub>[kPa]</b></td> <td>110.90</td> <td>124.03</td> <td>134.40</td> <td>150.00</td> <td>163.00</td> <td>175.80</td> </tr> </table>",
+        question: "Use el método de los mínimos cuadrados para obtener el modelo matemático de la presión en función de la altura y determine el valor de la presión atmosférica a una altura de 0.50 [m]Hg.",
+        attachment: ""
+      },
+      {
+        question_type: "open",
+        question: "Indique cómo varía la presión en un fluido que se encuentra estático",
+        answer: ""
+      },
+      {
+        question_type: "math",
+        question: "Escriba la ecuación del gradiente de presión.",
+        answer: ""
+      },
+    ],
+    introduccion: [
       {
         title: "Presiones",
         img: "https://static-int.testo.com/media/dc/fd/8313e81a8482/Pressure-Formula-1050x700px-EN_im4c.jpg",

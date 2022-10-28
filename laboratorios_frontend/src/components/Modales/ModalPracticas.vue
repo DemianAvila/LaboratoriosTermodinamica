@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import ButtonSubtareas from "@/components/ButtonSubtareas.vue";
+import ButtonSubtareas from "@/components/Botones/ButtonSubtareas.vue";
 
 export default {
   name: "ModalPracticas",

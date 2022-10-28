@@ -19,15 +19,19 @@ export default {
         fecha_entrega: new Date().setDate(new Date().getDate() - 140),
         subtareas: [
           {
-            id_subtarea: 1,
+            id_subtarea: 2,
             titulo: "Previo",
           },
           {
             id_subtarea: 2,
-            titulo: "Desarrollo",
+            titulo: "Introducción",
           },
           {
             id_subtarea: 3,
+            titulo: "Desarrollo",
+          },
+          {
+            id_subtarea: 4,
             titulo: "Conslusiones",
           },
         ],

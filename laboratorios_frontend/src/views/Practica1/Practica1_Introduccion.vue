@@ -29,18 +29,18 @@
     <div class="p-8 text-slate-50 lg:w-[98%] w-full h-full">
       <WireframePracticas1
         v-if="
-          $store.state.practica1.desarrollo[$store.state.practica1.vista]
+          $store.state.practica1.introduccion[$store.state.practica1.vista]
             .wireframe == 0
         "
-        :prop="$store.state.practica1.desarrollo[$store.state.practica1.vista]"
+        :prop="$store.state.practica1.introduccion[$store.state.practica1.vista]"
       >
       </WireframePracticas1>
       <WireframePracticas2
         v-else-if="
-          $store.state.practica1.desarrollo[$store.state.practica1.vista]
+          $store.state.practica1.introduccion[$store.state.practica1.vista]
             .wireframe == 1
         "
-        :prop="$store.state.practica1.desarrollo[$store.state.practica1.vista]"
+        :prop="$store.state.practica1.introduccion[$store.state.practica1.vista]"
       >
       </WireframePracticas2>
     </div>
@@ -52,7 +52,7 @@
       <button
         v-if="
           $store.state.practica1.vista <
-          $store.state.practica1.desarrollo.length - 1
+          $store.state.practica1.introduccion.length - 1
         "
         class="bg-slate-50 w-[40px] h-[40px] rounded-full flex justify-center items-center"
         @click="next_page"
@@ -67,7 +67,7 @@
       <button
         v-if="
           $store.state.practica1.vista <
-          $store.state.practica1.desarrollo.length - 1
+          $store.state.practica1.introduccion.length - 1
         "
         class="bg-slate-50 w-[40px] h-[40px] rounded-full flex justify-center items-center"
         @click="next_page"
@@ -79,8 +79,8 @@
 </template>
 
 <script>
-import WireframePracticas1 from "@/components/WireframePracticas1";
-import WireframePracticas2 from "@/components/WireframePracticas2";
+import WireframePracticas1 from "@/components/Wireframes/WireframePracticas1";
+import WireframePracticas2 from "@/components/Wireframes/WireframePracticas2";
 
 export default {
   name: "PracticaLab1",

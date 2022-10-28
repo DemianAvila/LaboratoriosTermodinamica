@@ -49,11 +49,11 @@
 </template>
 
 <script>
-import ButtonFinished from "@/components/ButtonFinished.vue";
-import ButtonUnfinished from "@/components/ButtonUnfinished.vue";
-import ButtonOutOfTime from "@/components/ButtonOutOfTime.vue";
-import ButtonUnavailable from "@/components/ButtonUnavailable.vue";
-import ModalPracticas from "@/components/ModalPracticas.vue";
+import ButtonFinished from "@/components/Botones/ButtonFinished.vue";
+import ButtonUnfinished from "@/components/Botones/ButtonUnfinished.vue";
+import ButtonOutOfTime from "@/components/Botones/ButtonOutOfTime.vue";
+import ButtonUnavailable from "@/components/Botones/ButtonUnavailable.vue";
+import ModalPracticas from "@/components/Modales/ModalPracticas.vue";
 
 export default {
   name: "Listado_de_practicas",

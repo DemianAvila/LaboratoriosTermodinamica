@@ -10,12 +10,14 @@
   "dependencies": {
     "chart.js": "^3.9.1",
     "core-js": "^3.8.3",
+    "fs": "^0.0.1-security",
     "katex": "^0.16.1",
     "tailwind": "^2.2.0",
     "three": "^0.144.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
