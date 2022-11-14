@@ -1,6 +1,7 @@
 from typing import Union
-
 from fastapi import FastAPI
+from .endpoints.config.get_mongo_client import get_mongo_client
+
 
 app = FastAPI()
 
@@ -14,3 +15,10 @@ def read_root():
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
+
+
+@app.get("/practicas/", tags=["practicas"])
+async def practicas():
+    db = get_mongo_client()
+
+    return db.practicas.find()
