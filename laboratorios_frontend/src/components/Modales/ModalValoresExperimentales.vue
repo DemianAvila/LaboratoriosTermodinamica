@@ -1,27 +1,37 @@
 <template>
   <div
-    class="w-full h-full bg-[rgba(0,0,0,0.9) flex flex-col justify-center items-center rounded-lg">
+    class="w-full h-full bg-[rgba(0,0,0,0.9) flex flex-col justify-center items-center rounded-lg"
+  >
     <div class="bg-slate-900 w-[90%] h-[90%] overflow-y-scroll">
-      <div class="flex
-      flex-col
-      h-full
-      w-full"> 
-        <div class="flex
-        flex-row-reverse">
-          <button class="mx-3"
-          @click="this.$store.state.practica1.valores_experimentales.modal=false">
+      <div class="flex flex-col h-full w-full">
+        <div class="flex flex-row-reverse">
+          <button
+            class="mx-3"
+            @click="
+              this.$store.state.practica1.valores_experimentales.modal = false
+            "
+          >
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
-        <button v-for="item, index in this.$store.state.practica1.valores_experimentales.menus" 
-        :key="index"
-        class="bg-emerald-600 rounded-lg m-2"
-        @click="show_menu(index)">
-          <p v-if="index=='puntos'">Insertar puntos</p>
-          <p v-if="index=='plano'">Ver plano cartesiano</p>
+        <button
+          v-for="(item, index) in this.$store.state.practica1
+            .valores_experimentales.menus"
+          :key="index"
+          class="bg-emerald-600 rounded-lg m-2"
+          @click="show_menu(index)"
+        >
+          <p v-if="index == 'puntos'">Insertar puntos</p>
+          <p v-if="index == 'plano'">Ver plano cartesiano</p>
         </button>
-        <InsertarPuntos v-if="this.$store.state.practica1.valores_experimentales.menus.puntos" :eje_x="eje_x" :eje_y="eje_y"></InsertarPuntos>
-        <PlanoCartesiano v-if="this.$store.state.practica1.valores_experimentales.menus.plano"></PlanoCartesiano>
+        <InsertarPuntos
+          v-if="this.$store.state.practica1.valores_experimentales.menus.puntos"
+          :eje_x="eje_x"
+          :eje_y="eje_y"
+        ></InsertarPuntos>
+        <PlanoCartesiano
+          v-if="this.$store.state.practica1.valores_experimentales.menus.plano"
+        ></PlanoCartesiano>
       </div>
     </div>
   </div>
@@ -34,15 +44,19 @@ export default {
   props: ["tipo", "eje_x", "eje_y"],
   methods: {
     show_menu: function (item) {
-      for (let propr in this.$store.state.practica1.valores_experimentales.menus){
-        if (propr != item){
-          this.$store.state.practica1.valores_experimentales.menus[propr] = false;
-        }
-        else {
-          this.$store.state.practica1.valores_experimentales.menus[propr] = true;
+      for (let propr in this.$store.state.practica1.valores_experimentales
+        .menus) {
+        if (propr != item) {
+          this.$store.state.practica1.valores_experimentales.menus[
+            propr
+          ] = false;
+        } else {
+          this.$store.state.practica1.valores_experimentales.menus[
+            propr
+          ] = true;
         }
       }
-    }
+    },
   },
   components: { InsertarPuntos, PlanoCartesiano },
 };

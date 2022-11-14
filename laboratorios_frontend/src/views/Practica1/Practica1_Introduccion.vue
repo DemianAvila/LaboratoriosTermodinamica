@@ -32,7 +32,9 @@
           $store.state.practica1.introduccion[$store.state.practica1.vista]
             .wireframe == 0
         "
-        :prop="$store.state.practica1.introduccion[$store.state.practica1.vista]"
+        :prop="
+          $store.state.practica1.introduccion[$store.state.practica1.vista]
+        "
       >
       </WireframePracticas1>
       <WireframePracticas2
@@ -40,7 +42,9 @@
           $store.state.practica1.introduccion[$store.state.practica1.vista]
             .wireframe == 1
         "
-        :prop="$store.state.practica1.introduccion[$store.state.practica1.vista]"
+        :prop="
+          $store.state.practica1.introduccion[$store.state.practica1.vista]
+        "
       >
       </WireframePracticas2>
     </div>

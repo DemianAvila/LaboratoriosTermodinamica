@@ -1,2 +1,2 @@
 *.env
-./db/data_storage/*
+db/data_storage/*

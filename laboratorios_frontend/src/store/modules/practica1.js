@@ -15,102 +15,92 @@ export default {
           {
             field: "Presión",
             answer: "",
-            type: "textarea"
+            type: "textarea",
           },
           {
             field: "Presión absoluta",
             answer: "",
-            type: "textarea"
+            type: "textarea",
           },
           {
             field: "Presión relativa (manométrica y vacuométrica)",
             answer: "",
-            type: "textarea"
-          }
-        ]
+            type: "textarea",
+          },
+        ],
       },
       {
         question_type: "answer_list",
-        question: "Mencione las unidades en que puede expresarse la presión (al menos cinco unidades distintas).",
+        question:
+          "Mencione las unidades en que puede expresarse la presión (al menos cinco unidades distintas).",
         answers: [
-          {answer: "",
-          type: "textarea"},
-          {answer: "",
-          type: "textarea"},
-          {answer: "",
-          type: "textarea"},
-          {answer: "",
-          type: "textarea"},
-          {answer: "",
-          type: "textarea"}
-        ]
+          { answer: "", type: "textarea" },
+          { answer: "", type: "textarea" },
+          { answer: "", type: "textarea" },
+          { answer: "", type: "textarea" },
+          { answer: "", type: "textarea" },
+        ],
       },
       {
         question_type: "answer_list",
-        question: "Mencione al menos cinco instrumentos para medir la presión y explique brevemente su principio de funcionamiento.",
+        question:
+          "Mencione al menos cinco instrumentos para medir la presión y explique brevemente su principio de funcionamiento.",
         answers: [
-          {answer: "",
-          type: "textarea"},
-          {answer: "",
-          type: "textarea"},
-          {answer: "",
-          type: "textarea"},
-          {answer: "",
-          type: "textarea"},
-          {answer: "",
-          type: "textarea"}
-        ]
+          { answer: "", type: "textarea" },
+          { answer: "", type: "textarea" },
+          { answer: "", type: "textarea" },
+          { answer: "", type: "textarea" },
+          { answer: "", type: "textarea" },
+        ],
       },
       {
         question_type: "open",
         question: "¿Qué es la presión atmosférica y cómo se mide?",
         answer: {
           answer: "",
-          type: "textarea"
-        }
+          type: "textarea",
+        },
       },
       {
         question_type: "table",
-        question: "Dé el valor de la presión atmosférica en las siguientes localidades:",
+        question:
+          "Dé el valor de la presión atmosférica en las siguientes localidades:",
         table: {
-          cols: [
-            "Playa Dos Bocas", 
-            "Tabasco",
-            "Ciudad de México"],
-          rows: [
-            "mm de mercurio", 
-            "pascales",
-            "kilopascales"
-          ]
+          cols: ["Playa Dos Bocas", "Tabasco", "Ciudad de México"],
+          rows: ["mm de mercurio", "pascales", "kilopascales"],
         },
-        answers: {}
+        answers: {},
       },
       {
         question_type: "open",
-        question: "La presión, ¿es una propiedad extensiva o intensiva? Justifique su respuesta.",
+        question:
+          "La presión, ¿es una propiedad extensiva o intensiva? Justifique su respuesta.",
         answer: {
           answer: "",
-          type: "textarea"
-        }
+          type: "textarea",
+        },
       },
       {
         question_type: "attachment",
-        media: "<table class='w-full border border-white'> <tr> <th class='border border-white'>Altura h[m]Hg</th> <th class='border border-white'>0.25</th> <th class='border border-white'>0.35</th> <th class='border border-white'>0.45</th> <th class='border border-white'>0.55</th> <th class='border border-white'>0.65</th> <th class='border border-white'>0.75</th> </tr> <tr> <td class='border border-white'><b>P<sub>atm</sub>[kPa]</b></td> <td class='border border-white'>110.90</td> <td class='border border-white'>124.03</td class='border border-white'> <td class='border border-white'>134.40</td> <td class='border border-white'>150.00</td> <td class='border border-white'>163.00</td> <td class='border border-white'>175.80</td> </tr> </table>",
-        question: "Use el método de los mínimos cuadrados para obtener el modelo matemático de la presión en función de la altura y determine el valor de la presión atmosférica a una altura de 0.50 [m]Hg.",
-        attachment: ""
+        media:
+          "<table class='w-full border border-white'> <tr> <th class='border border-white'>Altura h[m]Hg</th> <th class='border border-white'>0.25</th> <th class='border border-white'>0.35</th> <th class='border border-white'>0.45</th> <th class='border border-white'>0.55</th> <th class='border border-white'>0.65</th> <th class='border border-white'>0.75</th> </tr> <tr> <td class='border border-white'><b>P<sub>atm</sub>[kPa]</b></td> <td class='border border-white'>110.90</td> <td class='border border-white'>124.03</td class='border border-white'> <td class='border border-white'>134.40</td> <td class='border border-white'>150.00</td> <td class='border border-white'>163.00</td> <td class='border border-white'>175.80</td> </tr> </table>",
+        question:
+          "Use el método de los mínimos cuadrados para obtener el modelo matemático de la presión en función de la altura y determine el valor de la presión atmosférica a una altura de 0.50 [m]Hg.",
+        attachment: "",
       },
       {
         question_type: "open",
-        question: "Indique cómo varía la presión en un fluido que se encuentra estático",
+        question:
+          "Indique cómo varía la presión en un fluido que se encuentra estático",
         answer: {
-          answer:"",
-          type: "textarea"
-        }
+          answer: "",
+          type: "textarea",
+        },
       },
       {
         question_type: "math",
         question: "Escriba la ecuación del gradiente de presión.",
-        answer: ""
+        answer: "",
       },
     ],
     introduccion: [
@@ -169,17 +159,19 @@ export default {
         wireframe: 1,
       },
     ],
-    valores_experimentales:{
+    valores_experimentales: {
       modal: false,
       datasets: {
-        datasets: [{
-          label: "Relacion entre presion absoluta y profundidad",
-          data: [{x:0, y:0}],
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1,
-          pointRadius: 5
-        }]
+        datasets: [
+          {
+            label: "Relacion entre presion absoluta y profundidad",
+            data: [{ x: 0, y: 0 }],
+            fill: false,
+            borderColor: "rgb(75, 192, 192)",
+            tension: 0.1,
+            pointRadius: 5,
+          },
+        ],
       },
       general_data: {
         eje_x: "Profundidad de la campana en el vaso",
@@ -187,9 +179,9 @@ export default {
       },
       menus: {
         puntos: true,
-        plano: false
+        plano: false,
       },
-    }
+    },
   },
   getters: {},
   mutations: {},
