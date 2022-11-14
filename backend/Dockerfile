@@ -6,4 +6,6 @@ COPY app .
 
 RUN pip install fastapi uvicorn[standard] pymongo
 
-CMD uvicorn main:app --reload
+#CMD tail -f /dev/null
+
+CMD uvicorn main:app --reload --host 0.0.0.0 --port 80
