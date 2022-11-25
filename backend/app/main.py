@@ -20,5 +20,4 @@ def read_item(item_id: int, q: Union[str, None] = None):
 @app.get("/practicas/", tags=["practicas"])
 async def practicas():
     db = get_mongo_client()
-
     return db.practicas.find()
