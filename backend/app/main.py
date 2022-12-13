@@ -1,6 +1,7 @@
+import logging
 from typing import Union
 from fastapi import FastAPI
-from .endpoints.config.get_mongo_client import get_mongo_client
+from endpoints.config.get_mongo_client import get_mongo_client
 
 
 app = FastAPI()
@@ -20,4 +21,11 @@ def read_item(item_id: int, q: Union[str, None] = None):
 @app.get("/practicas/", tags=["practicas"])
 async def practicas():
     db = get_mongo_client()
-    return db.practicas.find()
+    logging.warning("-----------------")
+    #logging.warning(db.practicas.find())
+    for practica in db.practicas.find():
+        logging.warning(practica)
+    logging.warning("-----------------")
+    return {
+        "a": "b"
+    }

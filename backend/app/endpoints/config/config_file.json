@@ -1,6 +1,8 @@
 {
     "mongo_ip": "database",
-    "mongo_port": "27071",
-    "mongo_username": "db_admin",
-    "mongo_pass": "1234"
+    "mongo_port": "27017",
+    "mongo_username": "demian_admin",
+    "mongo_pass": "1234",
+    "mongo_auth_db": "admin",
+    "database": "laboratorio_info"
 }

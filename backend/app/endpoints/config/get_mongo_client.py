@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 from pymongo import MongoClient
 
 def get_mongo_client():
@@ -7,10 +8,15 @@ def get_mongo_client():
     path = os.path.join(path, "config_file.json")
     #READ THE JSON FILE
     mongo_params = json.load(open(path, "r"))
-    client = MongoClient(
-        f"mongodb://{mongo_params['mongo_username']}:{mongo_params['mongo_pass']}@{mongo_params['mongo_ip']}:{mongo_params['mongo_port']}"
-    )
-    return client
+    uri = f"mongodb://{mongo_params['mongo_username']}:"
+    uri += f"{mongo_params['mongo_pass']}@"
+    uri += f"{mongo_params['mongo_ip']}:{mongo_params['mongo_port']}"
+    uri += f"/?authMechanism=DEFAULT"
+    uri += f"&authSource={mongo_params['mongo_auth_db']}"
+    client = MongoClient(uri)
+    logging.warning(uri)
+    return client[mongo_params["database"]]
+
 
 
     
