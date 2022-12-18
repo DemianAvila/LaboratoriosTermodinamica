@@ -5,7 +5,6 @@
       class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full h-full bg-[rgba(0,0,0,0.9)]"
     >
     </ModalPracticas>
-    <!--
     <div class="w-full h-full overflow-y-auto">
       <h1 class="text-center text-5xl my-4 lg:col-span-2">Prácticas</h1>
       <div
@@ -13,15 +12,15 @@
         :key="index"
       >
         <ButtonFinished
-          v-if="$store.getters.get_usuario_practica_data(item.id).avance == 100"
+          v-if="item.avance == 100"
           :item="item"
           :index="index"
         >
         </ButtonFinished>
         <ButtonUnfinished
-          v-else-if="
-            $store.getters.get_usuario_practica_data(item.id).avance < 100 &&
-            item.fecha_entrega > new Date() &&
+          v-if="
+            item.avance < 100 &&
+            item.fecha_entrega > Date.now() &&
             item.disponible
           "
           :item="item"
@@ -29,9 +28,9 @@
         >
         </ButtonUnfinished>
         <ButtonOutOfTime
-          v-else-if="
-            $store.getters.get_usuario_practica_data(item.id).avance < 100 &&
-            item.fecha_entrega < new Date() &&
+          v-if="
+            item.avance < 100 &&
+            item.fecha_entrega < Date.now() &&
             item.disponible
           "
           :item="item"
@@ -39,31 +38,31 @@
         >
         </ButtonOutOfTime>
         <ButtonUnavailable
-          v-else-if="!item.disponible"
+          v-if="!item.disponible"
           :item="item"
           :index="index"
         >
         </ButtonUnavailable>
       </div>
-    </div> -->
+    </div> 
   </div>
 </template>
 
 <script>
-/*import ButtonFinished from "@/components/Botones/ButtonFinished.vue";
+import ButtonFinished from "@/components/Botones/ButtonFinished.vue";
 import ButtonUnfinished from "@/components/Botones/ButtonUnfinished.vue";
 import ButtonOutOfTime from "@/components/Botones/ButtonOutOfTime.vue";
-import ButtonUnavailable from "@/components/Botones/ButtonUnavailable.vue";*/
+import ButtonUnavailable from "@/components/Botones/ButtonUnavailable.vue";
 import ModalPracticas from "@/components/Modales/ModalPracticas.vue";
 import axios from "axios";
 
 export default {
   name: "Listado_de_practicas",
   components: {
-    //ButtonFinished,
-    //ButtonUnfinished,
-    //ButtonOutOfTime,
-    //ButtonUnavailable,
+    ButtonFinished,
+    ButtonUnfinished,
+    ButtonOutOfTime,
+    ButtonUnavailable,
     ModalPracticas,
   },
   async mounted() {
@@ -74,9 +73,24 @@ export default {
         method: "get",
       });
 
-      this.$store.state.practicas.practicas = response.data;
+      this.$store.state.practicas.practicas = response.data.practicas;
+
     } catch (err) {
       console.log(err);
+    }
+
+    const url_avances = `${this.$store.state.config_info.api_url}/get_avances?email=${localStorage.email}`;
+    try{
+      const response = await axios({
+        url: url_avances,
+        method: "get",
+      });
+      for (let avance of response.data.avance_practicas){
+        let practica = this.$store.state.practicas.practicas.filter(x=>x.id == avance.id_prac)
+        practica[0].avance  = avance.avance
+      }
+    } catch(err){
+      console.log(err)
     }
   },
 };

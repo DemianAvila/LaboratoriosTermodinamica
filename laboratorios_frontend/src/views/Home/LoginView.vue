@@ -61,18 +61,18 @@ export default {
         });
         google_render = true;
       } catch (err) {
-        google_render = false;
+        google_render = true;
       }
     }
     const url = this.$store.state.config_info.api_url;
     const push = this.$router.push;
     async function getToken(response) {
       try {
-        console.log(`${url}/signin_or_login`);
         let session_req = await axios.post(`${url}/signin_or_login`, {
           token: response.credential,
         });
         localStorage.jwt = session_req.data.token;
+        localStorage.email = session_req.data.email;
         push("/");
       } catch (err) {
         console.log(err);

@@ -5,7 +5,7 @@ db.practicas.insertMany([
     nombre: "practica_1",
     titulo: "Presiones",
     disponible: true,
-    fecha_entrega: new Date(),
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 2,
@@ -31,7 +31,7 @@ db.practicas.insertMany([
     nombre: "practica_2",
     titulo: "Temperatura",
     disponible: true,
-    fecha_entrega: new Date(),
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 1,
@@ -47,9 +47,9 @@ db.practicas.insertMany([
   {
     id: 3,
     nombre: "practica_3",
-    titulo: "Calorim",
+    titulo: "Calorimetría",
     disponible: true,
-    fecha_entrega: new Date(),
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 1,
@@ -67,7 +67,7 @@ db.practicas.insertMany([
     nombre: "practica_4",
     titulo: "Capacidad térmica específica de metales",
     disponible: true,
-    fecha_entrega: new Date(),
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 1,
@@ -85,7 +85,7 @@ db.practicas.insertMany([
     nombre: "practica_5",
     titulo: "Conversión de trabajo en calor",
     disponible: true,
-    fecha_entrega: new Date(),
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 1,
@@ -103,7 +103,7 @@ db.practicas.insertMany([
     nombre: "practica_6",
     titulo: "Entalpia de transformación",
     disponible: true,
-    fecha_entrega: new Date(),
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 1,
@@ -121,7 +121,7 @@ db.practicas.insertMany([
     nombre: "practica_7",
     titulo: "Gasto másico, potencia y eficiencia de una bomba",
     disponible: true,
-    fecha_entrega: new Date(),
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 1,
@@ -139,7 +139,7 @@ db.practicas.insertMany([
     nombre: "practica_8",
     titulo: "Ley de Charles",
     disponible: true,
-    fecha_entrega: new Date(),
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 1,
@@ -156,8 +156,8 @@ db.practicas.insertMany([
     id: 9,
     nombre: "practica_9",
     titulo: "Ley de Boyle-Mariotte",
-    disponible: false,
-    fecha_entrega: new Date(),
+    disponible: true,
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 1,
@@ -174,8 +174,8 @@ db.practicas.insertMany([
     id: 10,
     nombre: "practica_10",
     titulo: "Constante particular del aire",
-    disponible: false,
-    fecha_entrega: new Date(),
+    disponible: true,
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 1,
@@ -192,8 +192,8 @@ db.practicas.insertMany([
     id: 11,
     nombre: "practica_11",
     titulo: "Coeficiente de Joule-Thomson",
-    disponible: false,
-    fecha_entrega: new Date(),
+    disponible: true,
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 1,
@@ -210,8 +210,8 @@ db.practicas.insertMany([
     id: 12,
     nombre: "practica_12",
     titulo: "Análisis energético en un compresor",
-    disponible: false,
-    fecha_entrega: new Date(),
+    disponible: true,
+    fecha_entrega: Date.now(),
     subtareas: [
       {
         id_subtarea: 1,

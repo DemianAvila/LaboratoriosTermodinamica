@@ -43,7 +43,8 @@ async def signin_or_login(token: JWT):
     })
 
     return {
-        "token": token.token
+        "token": token.token,
+        "email": decoded_jwt["email"]
     }
 
 
