@@ -5,6 +5,7 @@
       class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full h-full bg-[rgba(0,0,0,0.9)]"
     >
     </ModalPracticas>
+    <!--
     <div class="w-full h-full overflow-y-auto">
       <h1 class="text-center text-5xl my-4 lg:col-span-2">Prácticas</h1>
       <div
@@ -44,26 +45,46 @@
         >
         </ButtonUnavailable>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import ButtonFinished from "@/components/Botones/ButtonFinished.vue";
+/*import ButtonFinished from "@/components/Botones/ButtonFinished.vue";
 import ButtonUnfinished from "@/components/Botones/ButtonUnfinished.vue";
 import ButtonOutOfTime from "@/components/Botones/ButtonOutOfTime.vue";
-import ButtonUnavailable from "@/components/Botones/ButtonUnavailable.vue";
+import ButtonUnavailable from "@/components/Botones/ButtonUnavailable.vue";*/
 import ModalPracticas from "@/components/Modales/ModalPracticas.vue";
+import axios from 'axios';
 
 export default {
   name: "Listado_de_practicas",
   components: {
-    ButtonFinished,
-    ButtonUnfinished,
-    ButtonOutOfTime,
-    ButtonUnavailable,
+    //ButtonFinished,
+    //ButtonUnfinished,
+    //ButtonOutOfTime,
+    //ButtonUnavailable,
     ModalPracticas,
   },
+  async mounted () {
+    const url = this.$store.state.config_info.api_url+"/practicas";
+    try {
+      const response = await axios(
+        {
+          url: url,
+          method: "get"
+        }
+      )
+
+      this.$store.state.practicas.practicas = response.data;
+
+    } catch(err){
+      console.log(err)
+    }
+
+
+    }
+     
 };
 </script>
 

@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY app .
 
-RUN pip install fastapi uvicorn[standard] pymongo
+RUN rm -rf *__pycache__*
+
+RUN pip install fastapi uvicorn[standard] pymongo pyjwt
 
 #CMD tail -f /dev/null
 
