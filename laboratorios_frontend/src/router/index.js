@@ -1,21 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/Home/HomeView.vue";
 import LoginView from "@/views/Home/LoginView.vue";
-import store from "@/store/index.js"
-import axios from 'axios';
-
+import store from "@/store/index.js";
+import axios from "axios";
 
 const meta_student_auth = {
   requiresAuth: true,
-  beStudent: true
-}
+  beStudent: true,
+};
 
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomeView,
-    meta: meta_student_auth
+    meta: meta_student_auth,
   },
   {
     path: "/login",
@@ -26,19 +25,19 @@ const routes = [
     path: "/practica_1/Introducción",
     name: "practica1_introduccion",
     component: () => import("../views/Practica1/Practica1_Introduccion.vue"),
-    meta: meta_student_auth
+    meta: meta_student_auth,
   },
   {
     path: "/practica_1/Desarrollo",
     name: "practica1_desarrollo",
     component: () => import("../views/Practica1/Practica1_Desarrollo.vue"),
-    meta: meta_student_auth
+    meta: meta_student_auth,
   },
   {
     path: "/practica_1/Previo",
     name: "practica1_previo",
     component: () => import("../views/Practica1/Practica1_Previo.vue"),
-    meta: meta_student_auth
+    meta: meta_student_auth,
   },
 ];
 
@@ -47,32 +46,26 @@ const router = createRouter({
   routes,
 });
 
-
-router.beforeEach(async (to) =>{
-  if (to.meta.requiresAuth){
-    if (localStorage.jwt){
+router.beforeEach(async (to) => {
+  if (to.meta.requiresAuth) {
+    if (localStorage.jwt) {
       //CALL THE API
-      const url = store.state.config_info.api_url+"/active_session";
+      const url = store.state.config_info.api_url + "/active_session";
       try {
-        const response = await axios.post(
-          url,
-          {
-            token: localStorage.jwt
-          }
-        )
-        if (response.data.active_session === false){
-          return {name: "login"}
-        }        
-   
-      } catch(err){
-        console.log(err)
-        return {name: "login"}
+        const response = await axios.post(url, {
+          token: localStorage.jwt,
+        });
+        if (response.data.active_session === false) {
+          return { name: "login" };
+        }
+      } catch (err) {
+        console.log(err);
+        return { name: "login" };
       }
-    }
-    else{
-      return {name: "login"}
+    } else {
+      return { name: "login" };
     }
   }
-})
+});
 
 export default router;

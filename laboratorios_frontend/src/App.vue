@@ -3,7 +3,9 @@
     <div class="w-screen h-screen">
       <div
         class="bg-scroll bg-cover bg-no-repeat bg-center w-full h-full overflow-y-hidden flex flex-col lg:bg-scroll lg:bg-cover lg:bg-no-repeat lg:w-full lg:h-full"
-        style="background-image: url(https://drive.google.com/uc?export=view&id=1OFFEYVQzewzqZwC3sNMAUaN5v9QSVxB_);"
+        style="
+          background-image: url(https://drive.google.com/uc?export=view&id=1OFFEYVQzewzqZwC3sNMAUaN5v9QSVxB_);
+        "
       >
         <div
           v-if="!inForbiddenRoute()"
@@ -118,10 +120,10 @@ export default {
       this.subtask.for_task = null;
       this.subtask.subtareas = [];
     },
-    inForbiddenRoute: function() {
+    inForbiddenRoute: function () {
       const forbiddenRoutes = ["login"];
       return forbiddenRoutes.includes(this.$route.name);
-    }
+    },
   },
 };
 </script>

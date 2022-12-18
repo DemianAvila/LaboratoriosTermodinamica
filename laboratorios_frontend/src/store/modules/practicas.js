@@ -9,7 +9,7 @@ export default {
     modal_subtareas: {
       show: false,
       id_practica: null,
-    }
+    },
   },
   getters: {},
   mutations: {},

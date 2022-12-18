@@ -55,7 +55,7 @@ import ButtonUnfinished from "@/components/Botones/ButtonUnfinished.vue";
 import ButtonOutOfTime from "@/components/Botones/ButtonOutOfTime.vue";
 import ButtonUnavailable from "@/components/Botones/ButtonUnavailable.vue";*/
 import ModalPracticas from "@/components/Modales/ModalPracticas.vue";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "Listado_de_practicas",
@@ -66,25 +66,19 @@ export default {
     //ButtonUnavailable,
     ModalPracticas,
   },
-  async mounted () {
-    const url = this.$store.state.config_info.api_url+"/practicas";
+  async mounted() {
+    const url = this.$store.state.config_info.api_url + "/practicas";
     try {
-      const response = await axios(
-        {
-          url: url,
-          method: "get"
-        }
-      )
+      const response = await axios({
+        url: url,
+        method: "get",
+      });
 
       this.$store.state.practicas.practicas = response.data;
-
-    } catch(err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
-
-
-    }
-     
+  },
 };
 </script>
 

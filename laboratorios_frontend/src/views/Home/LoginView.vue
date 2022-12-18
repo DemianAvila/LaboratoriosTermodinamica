@@ -1,20 +1,12 @@
 <template>
-    <div
-    id="backg"
-    class="w-full h-full overflow-y-hidden"
-  >
-    <div
-      id="pagina"
-      class="h-4/6 grid grid-rows-6 px-6 lg:grid lg:grid-cols-2"
-    >
+  <div id="backg" class="w-full h-full overflow-y-hidden">
+    <div id="pagina" class="h-4/6 grid grid-rows-6 px-6 lg:grid lg:grid-cols-2">
       <div
         id="titulo"
         class="flex justify-center grid grid-cols-2 row-start-2 lg:col-start-1 lg:row-start-3"
       >
         <div class="col-span-2 grid grid-cols-4">
-          <h1
-            class="text-sky-100 text-center text-4xl lg:text-7xl col-span-3"
-          >
+          <h1 class="text-sky-100 text-center text-4xl lg:text-7xl col-span-3">
             Laboratorio de termodinámica
           </h1>
           <img
@@ -26,9 +18,7 @@
       <div
         class="h-0 lg:h-full lg:col-start-1 lg:border-r-2 lg:border-sky-100 lg:row-start-2 lg:row-span-4"
       ></div>
-      <div
-        class="grid grid-flow-row row-start-3 lg:col-start-1 lg:w-0 lg:h-0"
-      >
+      <div class="grid grid-flow-row row-start-3 lg:col-start-1 lg:w-0 lg:h-0">
         <div class="lg:border-r-2 border-sky-100"></div>
         <div class="border-t-2 border-sky-100 lg:w-0 lg:h-0"></div>
       </div>
@@ -43,10 +33,11 @@
           </h1>
         </div>
       </div>
-     
-      <div class="w-full flex flex-row justify-center" ref="google_button">
-      
-      </div>
+
+      <div
+        class="w-full flex flex-row justify-center"
+        ref="google_button"
+      ></div>
     </div>
   </div>
 </template>
@@ -55,49 +46,38 @@ import axios from "axios";
 
 export default {
   name: "LoginView",
-  mounted: async function (){ 
+  mounted: async function () {
     let google_render = false;
-    while (! google_render){
+    while (!google_render) {
       try {
-        await window.google.accounts.id.initialize(
-          {
-            client_id: this.$store.state.config_info.google_id,
-            callback: getToken
-          }
-        );
+        await window.google.accounts.id.initialize({
+          client_id: this.$store.state.config_info.google_id,
+          callback: getToken,
+        });
 
-        await window.google.accounts.id.renderButton(
-          this.$refs.google_button,
-          {
-            theme: "outline", 
-            size: "large" 
-          } 
-        );
+        await window.google.accounts.id.renderButton(this.$refs.google_button, {
+          theme: "outline",
+          size: "large",
+        });
         google_render = true;
-      }catch(err){
+      } catch (err) {
         google_render = false;
       }
     }
     const url = this.$store.state.config_info.api_url;
-    const push = this.$router.push
-    async function getToken(response){
+    const push = this.$router.push;
+    async function getToken(response) {
       try {
         console.log(`${url}/signin_or_login`);
-        let session_req = await axios.post(
-          `${url}/signin_or_login`,
-          {
-            token: response.credential
-          }
-        )
+        let session_req = await axios.post(`${url}/signin_or_login`, {
+          token: response.credential,
+        });
         localStorage.jwt = session_req.data.token;
-        push("/")
-      } catch(err){
-        console.log(err)
+        push("/");
+      } catch (err) {
+        console.log(err);
       }
-      
     }
-
-    
-  }    
-}
+  },
+};
 </script>

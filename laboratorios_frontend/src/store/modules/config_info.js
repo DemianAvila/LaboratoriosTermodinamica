@@ -1,16 +1,13 @@
-
-
 export default {
-    namespaced: true,
-    state: { 
-        //CAMBIA ADENTRO DEL CONTENEDOR LOCALHOST POR EL NOMBRE DEL SERVICIO BACKEND
-        api_url: "http://localhost:81",
-        google_id: "215749545338-43mpi73rhbkbj6gl9v6009qub2fvfgti.apps.googleusercontent.com",
-
-    },
-    getters: {},
-    mutations: {},
-    actions: {},
-    modules: {},
-  };
-  
+  namespaced: true,
+  state: {
+    //CAMBIA ADENTRO DEL CONTENEDOR LOCALHOST POR EL NOMBRE DEL SERVICIO BACKEND
+    api_url: "http://localhost:81",
+    google_id:
+      "215749545338-43mpi73rhbkbj6gl9v6009qub2fvfgti.apps.googleusercontent.com",
+  },
+  getters: {},
+  mutations: {},
+  actions: {},
+  modules: {},
+};

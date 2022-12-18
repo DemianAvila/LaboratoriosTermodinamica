@@ -3,7 +3,7 @@ import practicas from "./modules/practicas";
 import data_usuario from "./modules/data_usuario";
 import static_cont from "./modules/static_cont";
 import practica1 from "./modules/practica1";
-import config_info from "./modules/config_info"
+import config_info from "./modules/config_info";
 
 export default createStore({
   state: {
@@ -12,7 +12,7 @@ export default createStore({
     avance_practicas: data_usuario.state.avance_practicas,
     static_cont: static_cont.state.static_cont,
     practica1: practica1.state,
-    config_info: config_info.state
+    config_info: config_info.state,
   },
   getters: {
     //ITERAR SOBRE CADA UNO DE LOS AVANCES DEL USUARIO
