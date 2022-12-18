@@ -14,19 +14,7 @@ export default createStore({
     practica1: practica1.state,
     config_info: config_info.state,
   },
-  getters: {
-    //ITERAR SOBRE CADA UNO DE LOS AVANCES DEL USUARIO
-    //RETORNAR AQUEL QUE COINCIDA CON EL ID ARGUMENTO
-    get_usuario_practica_data: (state) => (id) => {
-      let coincide_id = null;
-      state.avance_practicas.forEach((element) => {
-        if (element.id_prac == id) {
-          coincide_id = element;
-        }
-      });
-      return coincide_id;
-    },
-  },
+  getters: {},
   mutations: {},
   actions: {},
   modules: {

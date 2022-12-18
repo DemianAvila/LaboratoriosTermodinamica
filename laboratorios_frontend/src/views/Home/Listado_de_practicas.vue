@@ -67,16 +67,23 @@ export default {
   },
   async mounted() {
     const url = this.$store.state.config_info.api_url + "/practicas";
+    const push_route = this.$router.push;
+
     try {
       const response = await axios({
         url: url,
         method: "get",
+        headers: {
+          "token": localStorage.jwt
+        }
       });
 
       this.$store.state.practicas.practicas = response.data.practicas;
 
     } catch (err) {
       console.log(err);
+      this.$store.state.config_info.full_error = err;
+      push_route("/error");
     }
 
     const url_avances = `${this.$store.state.config_info.api_url}/get_avances?email=${localStorage.email}`;
@@ -84,13 +91,18 @@ export default {
       const response = await axios({
         url: url_avances,
         method: "get",
+        headers: {
+          "token": localStorage.jwt
+        }
       });
       for (let avance of response.data.avance_practicas){
         let practica = this.$store.state.practicas.practicas.filter(x=>x.id == avance.id_prac)
         practica[0].avance  = avance.avance
       }
     } catch(err){
-      console.log(err)
+      console.log(err);
+      this.$store.state.config_info.full_error = err;
+      push_route("/error");
     }
   },
 };

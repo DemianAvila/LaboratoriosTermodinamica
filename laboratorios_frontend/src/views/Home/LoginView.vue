@@ -76,6 +76,8 @@ export default {
         push("/");
       } catch (err) {
         console.log(err);
+        this.$store.state.config_info.full_error = err;
+        push("/error");
       }
     }
   },
