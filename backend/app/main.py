@@ -2,7 +2,8 @@
 from fastapi import FastAPI
 from endpoints import (
     get_practicas,
-    signin_login)
+    signin_login,
+    preguntas)
 from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
@@ -17,4 +18,4 @@ app.add_middleware(
 
 app.include_router(get_practicas.router)
 app.include_router(signin_login.router)
-
+app.include_router(preguntas.router)
