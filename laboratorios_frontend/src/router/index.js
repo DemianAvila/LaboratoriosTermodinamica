@@ -28,7 +28,7 @@ const routes = [
     component: ErrorScreen,
   },
   {
-    path: "/practica_1/Introducción",
+    path: "/Introducción",
     name: "practica1_introduccion",
     component: () => import("../views/Practica1/Practica1_Introduccion.vue"),
     meta: meta_student_auth,
@@ -40,7 +40,7 @@ const routes = [
     meta: meta_student_auth,
   },
   {
-    path: "/practica_1/Previo",
+    path: "/Previo",
     name: "practica1_previo",
     component: () => import("../views/Practica1/Practica1_Previo.vue"),
     meta: meta_student_auth,

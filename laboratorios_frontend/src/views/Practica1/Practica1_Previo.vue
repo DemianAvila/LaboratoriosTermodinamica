@@ -80,7 +80,7 @@ export default {
   },
   mounted: async function () {
     let url = this.$store.state.config_info.api_url;
-    url = `${url}/get_preguntas?practica_id=1&email=${localStorage.email}`;
+    url = `${url}/get_preguntas?practica_id=${this.$route.query.practica_id}&email=${localStorage.email}`;
     const push = this.$router.push;
 
     try {
