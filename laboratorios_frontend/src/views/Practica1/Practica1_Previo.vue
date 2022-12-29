@@ -9,7 +9,6 @@
       v-for="(question, index) in $store.state.practica1.previo"
       :key="index"
     >
-      {{ $store.state.practica1.previo[index]}}
       <!---------------COMPONENT FOR OPEN QUESTIONS-------------->
       <OpenQuestion
         v-if="question.question_type == 'open'"
@@ -43,7 +42,7 @@
         class="py-8"
         v-if="question.question_type == 'attachment'"
         :object="question"
-        v-model:attachment="$store.state.practica1.previo[index].attachment"
+        v-model:attachment="$store.state.practica1.previo[index].answer"
       >
       </AttachmentQuestion>
     </div>
@@ -73,11 +72,6 @@ export default {
     TableQuestion,
     AttachmentQuestion,
   },
-  data: function(){
-    return {
-      test: "123"
-    }
-  },
   methods:{
     send: function(){
       console.log(this.$store.state.practica1.previo)
@@ -100,7 +94,6 @@ export default {
         }
       )
       this.$store.state.practica1.previo = response.data.cuestionario_previo;
-      console.log(this.$store.state.practica1.previo)
     } catch(err){
       console.log(url)
       this.$store.state.config_info.error_description = err
