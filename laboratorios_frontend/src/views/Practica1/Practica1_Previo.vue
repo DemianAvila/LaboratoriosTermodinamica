@@ -3,17 +3,20 @@
     <div class="w-full">
       <h1 class="text-5xl mx-4 my-2 text-center">Cuestionario previo</h1>
     </div>
+    
     <div
       class="mx-6 mt-2"
       v-for="(question, index) in $store.state.practica1.previo"
       :key="index"
     >
+      {{ $store.state.practica1.previo[index]}}
       <!---------------COMPONENT FOR OPEN QUESTIONS-------------->
       <OpenQuestion
         v-if="question.question_type == 'open'"
         :object="question"
         v-model:answer="$store.state.practica1.previo[index].answer.answer"
       >
+      
       </OpenQuestion>
       <!--------------COMPONENT FOR NESTED MULTIPLE QUESTIONS------------->
       <MultipleCuestion
@@ -44,6 +47,12 @@
       >
       </AttachmentQuestion>
     </div>
+    <div class="flex flex-col justify-center items-center">
+      <button class="bg-emerald-600 w-1/2 mt-6  h-12 rounded-lg flex flex-col justify-center items-center"
+      @click="send">
+        <p>Guardar</p> 
+      </button>
+    </div>
   </div>
 </template>
 
@@ -53,6 +62,7 @@ import MultipleCuestion from "@/components/Questions/MultipleQuestion.vue";
 import AnswerList from "@/components/Questions/AnswerList.vue";
 import TableQuestion from "@/components/Questions/TableQuestion.vue";
 import AttachmentQuestion from "@/components/Questions/AttachmentQuestion.vue";
+import axios from "axios";
 
 export default {
   name: "Practica1_Previo",
@@ -63,6 +73,42 @@ export default {
     TableQuestion,
     AttachmentQuestion,
   },
+  data: function(){
+    return {
+      test: "123"
+    }
+  },
+  methods:{
+    send: function(){
+      console.log(this.$store.state.practica1.previo)
+
+    }
+  },
+  mounted: async function () {
+    let url = this.$store.state.config_info.api_url;
+    url = `${url}/get_preguntas?practica_id=1&email=${localStorage.email}`;
+    const push = this.$router.push;
+
+    try {
+      const response = await axios(
+        {
+          url: url,
+          method: "get",
+          headers: {
+            token: localStorage.jwt
+          }
+        }
+      )
+      this.$store.state.practica1.previo = response.data.cuestionario_previo;
+      console.log(this.$store.state.practica1.previo)
+    } catch(err){
+      console.log(url)
+      this.$store.state.config_info.error_description = err
+      push("/error");
+    }
+
+    
+  }
 };
 </script>
 

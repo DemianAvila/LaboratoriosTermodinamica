@@ -45,7 +45,7 @@ async def practicas(response: Response,
                             user["respuestas"]
                         )
                     )
-                    field.update({"respuesta": respuesta[0]["respuesta"]})
+                    field.update({"answer": respuesta[0]["answer"]})
                     field["id"] = str(field.pop("_id", None))
             else:
                 respuesta = list(
@@ -54,7 +54,12 @@ async def practicas(response: Response,
                             user["respuestas"]
                         )
                     )
-                pregunta.update({"respuesta": respuesta[0]["respuesta"]})
+                
+                if pregunta["question_type"] == "answer_list":
+                    pregunta.update({"answers": respuesta[0]["answers"]})
+                else:
+                    pregunta.update({"answer": respuesta[0]["answer"]})
+                
             
             pregunta["id"] = str(pregunta.pop("_id", None))
 
@@ -68,7 +73,7 @@ async def practicas(response: Response,
         return {
             "description": "Success",
             "practica_id": practica_id,
-            "cuestionario_previo": []
+            "cuestionario_previo": preguntas
         }
             
     except Exception as e:

@@ -28,12 +28,14 @@ db.cuestionario_previo.insertMany([
     practica_id: practica2,
     question_type: "open",
     question: "¿Qué establece la ley cero de la Termodinámica?",
+    answer_type: "textarea"
   },
   {
     practica_id: practica2,
     question_type: "open",
     question:
       "¿Cuáles son las escalas de temperatura absoluta y relativa en el sistema internacional y en el sistema inglés?",
+    answer_type: "textarea"
   },
 
   {
@@ -41,18 +43,21 @@ db.cuestionario_previo.insertMany([
     question_type: "open",
     question:
       "¿Qué es la temperatura desde el punto de vista de la termodinámica clásica?",
+    answer_type: "textarea"
   },
   {
     practica_id: practica2,
     question_type: "attachment",
     question:
       "Dibuje un esquema de la curva de calentamiento del agua y explíquela.",
+    answer_type: "textarea"
   },
   {
     practica_id: practica2,
     question_type: "open",
     question:
       "¿Cuáles son los puntos de referencia para determinar las escalas empíricas de temperatura?",
+    answer_type: "textarea"
   },
   {
     practica_id: practica2,
@@ -119,6 +124,7 @@ db.cuestionario_previo.insertMany([
     practica_id: practica2,
     question_type: "open",
     question: "¿Qué es el cero absoluto de temperatura?",
+    answer_type: "textarea"
   },
 ]);
 

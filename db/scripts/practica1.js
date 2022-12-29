@@ -29,19 +29,20 @@ db.cuestionario_previo.insertMany([
     question_type: "answer_list",
     question:
       "Mencione las unidades en que puede expresarse la presión (al menos cinco unidades distintas).",
-    needed_answers: 5,
+    needed_answers: ["textarea", "textarea", "textarea", "textarea", "textarea"],
   },
   {
     practica_id: practica1,
     question_type: "answer_list",
     question:
       "Mencione al menos cinco instrumentos para medir la presión y explique brevemente su principio de funcionamiento.",
-    needed_answers: 5,
+    needed_answers: ["textarea", "textarea", "textarea", "textarea", "textarea"],
   },
   {
     practica_id: practica1,
     question_type: "open",
     question: "¿Qué es la presión atmosférica y cómo se mide?",
+    answer_type: "textarea"
   },
   {
     practica_id: practica1,
@@ -58,6 +59,7 @@ db.cuestionario_previo.insertMany([
     question_type: "open",
     question:
       "La presión, ¿es una propiedad extensiva o intensiva? Justifique su respuesta.",
+    answer_type: "textarea"
   },
   {
     practica_id: practica1,
@@ -72,6 +74,7 @@ db.cuestionario_previo.insertMany([
     question_type: "open",
     question:
       "Indique cómo varía la presión en un fluido que se encuentra estático",
+    answer_type: "textarea"
   },
   {
     practica_id: practica1,

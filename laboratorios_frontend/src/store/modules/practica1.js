@@ -7,7 +7,7 @@ export default {
   state: {
     //SUSTITUIR POR UN FETCH CUANDO LA API ESTE LISTA
     vista: 0,
-    previo: [
+    previo: "", /*[
       {
         question_type: "multiple_question",
         question: "Defina:",
@@ -102,7 +102,7 @@ export default {
         question: "Escriba la ecuación del gradiente de presión.",
         answer: "",
       },
-    ],
+    ],*/
     introduccion: [
       {
         title: "Presiones",

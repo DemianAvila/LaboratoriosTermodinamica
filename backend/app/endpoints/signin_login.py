@@ -2,7 +2,9 @@ from fastapi import APIRouter, Response, status
 from pydantic import BaseModel
 from .config.get_mongo_client import get_mongo_client
 import jwt
-import time    
+import time   
+import logging 
+import traceback
 
 class JWT(BaseModel):
     token: str
@@ -34,14 +36,41 @@ async def signin_or_login(response: Response,token: JWT):
                     respuestas.append(
                         {
                             "pregunta_id": field["_id"],
-                            "respuesta": None
+                            "answer": ""
                         }
                     )
+            elif pregunta["question_type"] == "answer_list":
+                answers = []
+                for type_ in pregunta["needed_answers"]:
+                    answers.append(
+                        {
+                            "type": type_,
+                            "answer": ""
+                        }
+                    )
+                
+                respuestas.append(
+                    {
+                        "pregunta_id": pregunta["_id"],
+                        "answers": answers
+                    }
+                )
+            elif pregunta["question_type"] == "open":
+                logging.warning(pregunta)
+                respuestas.append(
+                    {
+                        "pregunta_id": pregunta["_id"],
+                        "answer": {
+                            "answer": "",
+                            "type": pregunta["answer_type"] 
+                        }
+                    }
+                )
             else:
                 respuestas.append(
                         {
                             "pregunta_id": pregunta["_id"],
-                            "respuesta": None
+                            "answer": ""
                         }
                     )
             
@@ -65,7 +94,8 @@ async def signin_or_login(response: Response,token: JWT):
             "token": token.token,
             "email": decoded_jwt["email"]
         }
-    except:
+    except Exception as e:
+        logging.warning(traceback.format_exc())
         response.status_code = status.HTTP_408_REQUEST_TIMEOUT
         return {
             "description": "Could not access the database"
@@ -91,6 +121,7 @@ async def active_session(response: Response,token: JWT):
             "active_session": False if not session else True
         }
     except:
+        logging.warning(traceback.format_exc())
         response.status_code = status.HTTP_408_REQUEST_TIMEOUT
         return {
             "description": "Could not access the database"
