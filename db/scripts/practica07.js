@@ -37,7 +37,7 @@ db.cuestionario_previo.insertMany([
     answer_type: "textarea"
   },
   {
-    practica_id: practica6,
+    practica_id: practica7,
     question_type: "multiple_question",
     question: " Para un sistema abierto, ¿qué es...",
     fields: [

@@ -28,7 +28,7 @@ db.cuestionario_previo.insertMany([
     answer_type: "textarea"
   },
   {
-    practica_id: practica11,
+    practica_id: practica12,
     question_type: "many",
     question: `¿Qué tipos de compresores se utilizan
     industrialmente?`,
@@ -47,7 +47,7 @@ db.cuestionario_previo.insertMany([
     answer_type: "math"
   },
   {
-    practica_id: practica11,
+    practica_id: practica12,
     question_type: "many",
     question: `Explique cada uno de los términos de la ecuación 
     de la primera ley de la termodinámica`,
@@ -68,14 +68,14 @@ db.cuestionario_previo.insertMany([
     answer_type: "math"
   },
   {
-    practica_id: practica11,
+    practica_id: practica12,
     question_type: "many",
     question: `Explique cada uno de los términos de la ecuación 
     del balance de entropía en un compresor`,
     answer_type: "textarea"
   },
   {
-    practica_id: practica11,
+    practica_id: practica12,
     question_type: "multiple_question",
     question: "Investigue y explique qué es:",
     fields: [
