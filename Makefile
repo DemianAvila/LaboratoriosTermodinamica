@@ -12,5 +12,10 @@ build:
 	docker compose build
 
 up:
-	docker rm $(docker ps -aq) --force
+	docker compose up -d
+
+kill:
+	docker rm laboratoriostermodinamica-backend-1 --force 
+	docker rm laboratoriostermodinamica-database-1 --force
+	docker rm laboratoriostermodinamica-frontend-1 --force	
 
