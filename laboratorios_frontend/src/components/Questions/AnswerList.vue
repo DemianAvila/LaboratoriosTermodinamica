@@ -20,6 +20,12 @@
 </template>
 
 <script>
+/*
+5550912414
+6275 3501 6819 8970
+11/27
+282
+*/
 export default {
   name: "AnswerList",
   props: ["object"],

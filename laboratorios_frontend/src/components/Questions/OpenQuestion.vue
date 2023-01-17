@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-5">
     <p>- {{ object.question }}</p>
     <div>
 
@@ -11,6 +11,11 @@
         :value="answer"
       ></textarea>
 
+      <math-field  class="w-full bg-white text-black"
+      v-else-if="object.answer.type == 'math'"
+      @input="$emit('update:answer', $event.target.value)"
+      :value="answer"></math-field>  
+
       <input
         class="w-full"
         v-else
@@ -18,11 +23,14 @@
         @input="$emit('update:answer', $event.target.value)"
         :value="answer"
       />
+
+
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "OpenQuestion",
   data: function () {
@@ -31,13 +39,7 @@ export default {
     };
   },
   props: ["object", "answer"],
-  emits: ["update:answer"]
-  /*
-  methods: {
-    onChange: function (local_answer) {
-      this.$emit("update:answer", local_answer);
-      console.log(local_answer)
-    },
-  },*/
+  emits: ["update:answer"],
+  
 };
 </script>

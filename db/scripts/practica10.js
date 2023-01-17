@@ -40,6 +40,7 @@ db.cuestionario_previo.insertMany([
       "<p>Investiga el valor de la constante “R” de los siguientes gases: O<sub>2</sub>, N<sub>2</sub>, Ar y del aire.</p>",
     question:
       "",
+    answer_type: "textarea"
   },
   {
     practica_id: practica10,

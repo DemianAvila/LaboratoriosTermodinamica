@@ -45,6 +45,14 @@
         v-model:attachment="$store.state.practica1.previo[index].answer"
       >
       </AttachmentQuestion>
+      <!-------------COMPONENT THAT HANDLES MULTIPLE UNDIFINED ANSWERS---------------->
+      <ManyAnswers
+        class="py-8"
+        v-if="question.question_type == 'many'"
+        :object="question"
+        :answer="question.answer"
+        v-model:attachment="$store.state.practica1.previo[index].answer"
+      />
     </div>
     <div class="flex flex-col justify-center items-center">
       <button class="bg-emerald-600 w-1/2 mt-6  h-12 rounded-lg flex flex-col justify-center items-center"
@@ -61,6 +69,7 @@ import MultipleCuestion from "@/components/Questions/MultipleQuestion.vue";
 import AnswerList from "@/components/Questions/AnswerList.vue";
 import TableQuestion from "@/components/Questions/TableQuestion.vue";
 import AttachmentQuestion from "@/components/Questions/AttachmentQuestion.vue";
+import ManyAnswers from "@/components/Questions/ManyAnswers.vue";
 import axios from "axios";
 
 export default {
@@ -71,6 +80,7 @@ export default {
     AnswerList,
     TableQuestion,
     AttachmentQuestion,
+    ManyAnswers
   },
   methods:{
     send: function(){

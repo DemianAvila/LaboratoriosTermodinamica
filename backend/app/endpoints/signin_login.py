@@ -31,6 +31,9 @@ async def signin_or_login(response: Response,token: JWT):
             })
         respuestas = []
         for pregunta in db.cuestionario_previo.find():
+            logging.warning("----------------------------------------")
+            logging.warning(pregunta)
+            logging.warning("----------------------------------------")
             if pregunta["question_type"] == "multiple_question":
                 for field in pregunta["fields"]:
                     respuestas.append(
@@ -56,7 +59,6 @@ async def signin_or_login(response: Response,token: JWT):
                     }
                 )
             elif pregunta["question_type"] == "open":
-                logging.warning(pregunta)
                 respuestas.append(
                     {
                         "pregunta_id": pregunta["_id"],

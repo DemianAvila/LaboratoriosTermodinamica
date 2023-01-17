@@ -57,7 +57,7 @@ db.cuestionario_previo.insertMany([
   },
   {
     practica_id: practica5,
-    question_type: "open",
+    question_type: "many",
     question: `Mencione las unidades del trabajo en el Sistema Internacional`,
     answer_type: "textarea"
   },

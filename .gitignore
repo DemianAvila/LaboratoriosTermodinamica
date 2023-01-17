@@ -1,4 +1,4 @@
 *.env
 db/data_storage/
 node_modules
-__pycache_
+__pycache__
