@@ -63,6 +63,24 @@ db.cuestionario_previo.insertMany([
   },
   {
     practica_id: practica1,
+    question_type: "multiple_question",
+    question: `Investigue las densidades del agua y etilenglicol a la presión de la Ciudad de
+    México y 20 °C.`,
+    fields: [
+      {
+        _id: ObjectId(),
+        field: "Agua",
+        type: "textarea",
+      },
+      {
+        _id: ObjectId(),
+        field: "Etilenglicol",
+        type: "textarea",
+      }
+    ],
+  },
+  {
+    practica_id: practica1,
     question_type: "attachment",
     media:
       "<table class='w-full border border-white'> <tr> <th class='border border-white'>Altura h[m]Hg</th> <th class='border border-white'>0.25</th> <th class='border border-white'>0.35</th> <th class='border border-white'>0.45</th> <th class='border border-white'>0.55</th> <th class='border border-white'>0.65</th> <th class='border border-white'>0.75</th> </tr> <tr> <td class='border border-white'><b>P<sub>atm</sub>[kPa]</b></td> <td class='border border-white'>110.90</td> <td class='border border-white'>124.03</td class='border border-white'> <td class='border border-white'>134.40</td> <td class='border border-white'>150.00</td> <td class='border border-white'>163.00</td> <td class='border border-white'>175.80</td> </tr> </table>",
@@ -78,8 +96,9 @@ db.cuestionario_previo.insertMany([
   },
   {
     practica_id: practica1,
-    question_type: "math",
+    question_type: "open",
     question: "Escriba la ecuación del gradiente de presión.",
+    answer_type: "math"
   },
 ]);
 
