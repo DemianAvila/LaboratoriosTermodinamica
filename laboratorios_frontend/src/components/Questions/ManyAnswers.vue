@@ -4,24 +4,26 @@
       </div>
       <div>
         <div class="mt-2 flex flex-row items-center justify-center" 
-        v-for="(answer, index) in answers" :key="index"
-        @change="$emit('update:answer', answers)">
+        v-for="(answer, index) in answers" :key="index">
           <textarea
             class="w-[90%]"
             v-if="object.answer_type == 'textarea'"
-            v-model="answers[index]"
+            :value="answers[index]"
+            @input="$emit('updateAnswers', $event.target.value)"
           ></textarea>
 
           <math-field  class="w-[90%] bg-white text-black"
           v-else-if="object.answer_type == 'math'"
-          :value="answer"
-          v-model="answers[index]"></math-field> 
+          :value="answers[index]"
+        @input="$emit('updateAnswers', $event.target.value)"
+          ></math-field> 
 
           <input
             class="w-[90%]"
             v-else
             :type="object.answer_type"
-            v-model="answers[index]"
+            :value="answers[index]"
+            @input="$emit('updateAnswers', $event.target.value)"
           />
 
           <button class="w-[10%]" 
@@ -38,8 +40,8 @@
 <script>
 export default {
     name: 'ManyAnswers',
-    props: ["object", "answer"],
-    emits: ["update:answer"],
+    props: ["object"],
+    emits: ["updateAnswers"],
     data: function(){
         return {
             answers: [""]
@@ -47,8 +49,10 @@ export default {
     },
     mounted: function(){
         if (this.object.answer == ""){
-            console.log(this.object.answer == "")
             this.answers = [""]
+        }
+        else {
+            this.answers = this.object.answer
         }
     },
     methods: {

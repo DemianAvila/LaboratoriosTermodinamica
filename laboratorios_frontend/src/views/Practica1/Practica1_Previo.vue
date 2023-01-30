@@ -50,7 +50,7 @@
         class="py-8"
         v-if="question.question_type == 'many'"
         :object="question"
-        :answer="question.answer"
+        v-model:answers="question.answer"
         v-model:attachment="$store.state.practica1.previo[index].answer"
       />
     </div>
