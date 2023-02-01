@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/Home/HomeView.vue";
 import LoginView from "@/views/Home/LoginView.vue";
 import ErrorScreen from "@/views/Home/ErrorScreen.vue";
-import store from "@/store/index.js";
+import store from "@/store/store";
 import axios from "axios";
 
 const meta_student_auth = {
