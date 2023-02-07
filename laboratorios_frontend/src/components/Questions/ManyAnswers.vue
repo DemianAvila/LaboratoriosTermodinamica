@@ -2,28 +2,32 @@
     <div>
         <p>- {{ object.question }}</p>
       </div>
+      <div
+      class="overflow-x-scroll overflow-y-scroll"
+      v-html="object.media"
+    ></div>
       <div>
         <div class="mt-2 flex flex-row items-center justify-center" 
-        v-for="(answer, index) in answers" :key="index">
+        v-for="(answer, index) in internal_answers" :key="index">
           <textarea
             class="w-[90%]"
             v-if="object.answer_type == 'textarea'"
-            :value="answers[index]"
-            @input="$emit('updateAnswers', $event.target.value)"
+            v-model="internal_answers[index]"
+            @change="onChange(internal_answers)"
           ></textarea>
 
           <math-field  class="w-[90%] bg-white text-black"
           v-else-if="object.answer_type == 'math'"
-          :value="answers[index]"
-        @input="$emit('updateAnswers', $event.target.value)"
+          v-model="internal_answers[index]"
+          @change="onChange(internal_answers)"
           ></math-field> 
 
           <input
             class="w-[90%]"
             v-else
             :type="object.answer_type"
-            :value="answers[index]"
-            @input="$emit('updateAnswers', $event.target.value)"
+            v-model="internal_answers[index]"
+            @change="onChange(internal_answers)"
           />
 
           <button class="w-[10%]" 
@@ -32,7 +36,7 @@
         </button>
         </div>
         <button class="w-full my-2 mb-5"
-        @click="answers.push('')">
+        @click="addAnswer">
             <i class="fa-solid fa-circle-plus"></i>
         </button>
       </div>
@@ -40,25 +44,22 @@
 <script>
 export default {
     name: 'ManyAnswers',
-    props: ["object"],
-    emits: ["updateAnswers"],
     data: function(){
-        return {
-            answers: [""]
-        }
+      return {
+        internal_answers: [...this.object.answers]
+      }
     },
-    mounted: function(){
-        if (this.object.answer == ""){
-            this.answers = [""]
-        }
-        else {
-            this.answers = this.object.answer
-        }
-    },
+    props: ["object"],
     methods: {
-        deleteIndex: function(index){
-            this.answers.splice(index,1) 
-        }
+      deleteIndex: function(index){
+          this.internal_answers.splice(index,1) 
+      },
+      addAnswer: function(){
+        this.internal_answers.push("") 
+      },
+      onChange: function (internal_answers) {
+        this.$emit("update:answers", internal_answers);
+      },
     }  
 }
 </script>

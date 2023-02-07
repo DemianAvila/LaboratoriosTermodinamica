@@ -5,6 +5,10 @@
         {{ object.question }}
       </p>
     </div>
+    <div
+      class="overflow-x-scroll overflow-y-scroll"
+      v-html="object.media"
+    ></div>
     <div class="overflow-x-scroll">
       <table class="border border-white p-2">
         <tr>

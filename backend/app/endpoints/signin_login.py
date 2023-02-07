@@ -42,15 +42,18 @@ async def signin_or_login(response: Response,token: JWT):
                             "answer": ""
                         }
                     )
-            elif pregunta["question_type"] == "answer_list":
+            elif pregunta["question_type"] == "answer_list" or pregunta["question_type"] == "many":
                 answers = []
-                for type_ in pregunta["needed_answers"]:
-                    answers.append(
-                        {
-                            "type": type_,
-                            "answer": ""
-                        }
-                    )
+                if pregunta["question_type"] == "answer_list":
+                    for type_ in pregunta["needed_answers"]:
+                        answers.append(
+                            {
+                                "type": type_,
+                                "answer": ""
+                            }
+                        )
+                elif pregunta["question_type"] == "many":
+                        answers.append("")
                 
                 respuestas.append(
                     {
@@ -58,6 +61,7 @@ async def signin_or_login(response: Response,token: JWT):
                         "answers": answers
                     }
                 )
+            
             elif pregunta["question_type"] == "open":
                 respuestas.append(
                     {

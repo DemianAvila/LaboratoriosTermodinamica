@@ -55,7 +55,11 @@ async def practicas(response: Response,
                         )
                     )
                 
-                if pregunta["question_type"] == "answer_list":
+                if pregunta["question_type"] in ["answer_list", "many"] :
+                    logging.warning("========================")
+                    logging.warning(pregunta)
+                    logging.warning(respuesta[0]["answers"])
+                    logging.warning("========================")
                     pregunta.update({"answers": respuesta[0]["answers"]})
                 else:
                     pregunta.update({"answer": respuesta[0]["answer"]})

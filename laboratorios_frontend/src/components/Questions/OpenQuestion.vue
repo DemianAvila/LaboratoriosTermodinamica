@@ -2,7 +2,10 @@
   <div class="my-5">
     <p>- {{ object.question }}</p>
     <div>
-
+      <div
+      class="overflow-x-scroll overflow-y-scroll"
+      v-html="object.media"
+    ></div>
       <textarea
         class="w-full"
         v-if="object.answer.type == 'textarea'"

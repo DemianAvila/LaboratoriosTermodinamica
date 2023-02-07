@@ -61,23 +61,25 @@ export default {
         });
         google_render = true;
       } catch (err) {
-        google_render = true;
+        google_render = false;
       }
     }
     const url = this.$store.state.config_info.api_url;
-    const push = this.$router.push;
+    const router = this.$router;
+    const config_info = this.$store.state.config_info;
     async function getToken(response) {
       try {
         let session_req = await axios.post(`${url}/signin_or_login`, {
           token: response.credential,
         });
+        
         localStorage.jwt = session_req.data.token;
         localStorage.email = session_req.data.email;
-        push("/");
+        router.push("/");
       } catch (err) {
         console.log(err);
-        this.$store.state.config_info.full_error = err;
-        push("/error");
+        config_info.full_error = err;
+        router.push("/error");
       }
     }
   },

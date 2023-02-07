@@ -11,6 +11,12 @@ db.cuestionario_previo.insertMany([
   {
     practica_id: practica3,
     question_type: "open",
+    question: "Explique en que consiste la técnica llamada calorimetría",
+    answer_type: "textarea" 
+  },
+  {
+    practica_id: practica3,
+    question_type: "open",
     question: "Explique que es un calorímetro",
     answer_type: "textarea" 
   },

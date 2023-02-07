@@ -101,7 +101,7 @@ db.cuestionario_previo.insertMany([
     options: [
       {
         option: "a",
-        answer: "potitivo"
+        answer: "positivo"
       },
       {
         option: "b",

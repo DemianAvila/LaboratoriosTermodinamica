@@ -2,6 +2,10 @@
   <div>
     <p>- {{ object.question }}</p>
   </div>
+  <div
+      class="overflow-x-scroll overflow-y-scroll"
+      v-html="object.media"
+    ></div>
   <div>
     <div class="mt-2" v-for="(answer, index) in object.answers" :key="index">
       <textarea

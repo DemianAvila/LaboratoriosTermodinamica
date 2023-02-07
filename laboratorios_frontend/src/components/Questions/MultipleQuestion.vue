@@ -2,6 +2,10 @@
   <div>
     <p>- {{ object.question }}</p>
   </div>
+  <div
+      class="overflow-x-scroll overflow-y-scroll"
+      v-html="object.media"
+    ></div>
   <div>
     <div class="ml-5" v-for="(field, index) in object.fields" :key="index">
       <p>• {{ field.field }}</p>
