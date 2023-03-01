@@ -1,3 +1,9 @@
+include .env 
+export
+
+preparare_env:
+	. setup_scripts/test_env.sh
+
 data_restart:
 	docker rm laboratoriostermodinamica-backend-1 --force 
 	docker rm laboratoriostermodinamica-database-1 --force
@@ -19,3 +25,14 @@ kill:
 	docker rm laboratoriostermodinamica-database-1 --force
 	docker rm laboratoriostermodinamica-frontend-1 --force	
 
+backend_prod:
+	. setup_scripts/backend_prod_mod.sh
+
+backend_dev:
+	. setup_scripts/backend_dev_mod.sh
+
+frontend_prod:
+	. setup_scripts/frontend_prod_mod.sh
+
+frontend_dev:
+	. setup_scripts/frontend_dev_mod.sh
