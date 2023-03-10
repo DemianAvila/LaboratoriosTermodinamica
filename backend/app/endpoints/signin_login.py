@@ -3,8 +3,7 @@ from pydantic import BaseModel
 from .config.get_mongo_client import get_mongo_client
 import jwt
 import time   
-import logging 
-import traceback
+
 
 class JWT(BaseModel):
     token: str
@@ -31,9 +30,6 @@ async def signin_or_login(response: Response,token: JWT):
             })
         respuestas = []
         for pregunta in db.cuestionario_previo.find():
-            logging.warning("----------------------------------------")
-            logging.warning(pregunta)
-            logging.warning("----------------------------------------")
             if pregunta["question_type"] == "multiple_question":
                 for field in pregunta["fields"]:
                     respuestas.append(
@@ -101,7 +97,6 @@ async def signin_or_login(response: Response,token: JWT):
             "email": decoded_jwt["email"]
         }
     except Exception as e:
-        logging.warning(traceback.format_exc())
         response.status_code = status.HTTP_408_REQUEST_TIMEOUT
         return {
             "description": "Could not access the database"
@@ -127,7 +122,6 @@ async def active_session(response: Response,token: JWT):
             "active_session": False if not session else True
         }
     except:
-        logging.warning(traceback.format_exc())
         response.status_code = status.HTTP_408_REQUEST_TIMEOUT
         return {
             "description": "Could not access the database"

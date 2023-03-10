@@ -1,6 +1,5 @@
 import os
 import json
-import logging
 from pymongo import MongoClient
 
 def get_mongo_client():
@@ -14,7 +13,6 @@ def get_mongo_client():
     uri += f"/?authMechanism=DEFAULT"
     uri += f"&authSource={mongo_params['mongo_auth_db']}"
     client = MongoClient(uri)
-    logging.warning(uri)
     return client[mongo_params["database"]]
 
 

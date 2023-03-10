@@ -51,11 +51,21 @@ export default {
       table_answers: {},
     };
   },
-  created: function () {
-    for (let col of this.object.table.cols) {
-      this.table_answers[col] = {};
-      for (let row of this.object.table.rows) {
-        this.table_answers[col][row] = "";
+  beforeMount: function () {
+    if (this.object.answer === ""){
+      for (let col of this.object.table.cols) {
+        this.table_answers[col] = {};
+        for (let row of this.object.table.rows) {
+          this.table_answers[col][row] = "";
+        }
+      }
+    }
+    else {
+      for (let col of this.object.table.cols) {
+        this.table_answers[col] = {};
+        for (let row of this.object.table.rows) {
+          this.table_answers[col][row] = this.object.answer[col][row];
+        }
       }
     }
   },

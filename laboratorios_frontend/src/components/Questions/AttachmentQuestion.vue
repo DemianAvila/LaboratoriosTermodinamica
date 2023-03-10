@@ -12,13 +12,19 @@
     <div>
       <label for="file"> Sube el desarrollo de tu respuesta </label>
       <input type="file" name="file" ref="attachment" @change="encode_file" />
-      <div class="flex flex-row justify-center items-center">
-        <p class="p-2">
-          Tu respuesta:
+      <div class="flex flex-col justify-center items-center" v-if="att.file">
+        <p class="p-2 h-full">
+          Tu respuesta: {{ this.att.name }}
         </p>
-        <a :href="att.file" target="_blank" :download="att.name" class="bg-emerald-600 w-1/4 mt-6  h-12 rounded-lg flex flex-col justify-center items-center p-2">
-          <i class="fa-solid fa-download"></i>
-        </a>
+        <div class="flex flex-row justify-center items-center w-full">
+          <a  :href="att.file" target="_blank" :download="att.name" class="bg-emerald-600 w-1/4  h-12 rounded-lg flex flex-col justify-center items-center p-2">
+            <i class="fa-solid fa-download"></i>
+          </a>
+          <button class="bg-red-600 w-1/4  h-12 rounded-lg flex flex-col justify-center items-center p-2" @click="deleteFile">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+        
       </div>
     </div>
   </div>
@@ -67,8 +73,17 @@ export default {
       }
 
       this.$emit("update:attachment", this.att);
+    },
+    deleteFile: function(){
+      this.att.file = ""
+      this.att.name = ""
+      this.$emit("update:attachment", this.att);
     }
   },
+  beforeMount: function(){
+    this.att.file = this.object.answer.file
+    this.att.name = this.object.answer.name
+  }
 };
 </script>
 

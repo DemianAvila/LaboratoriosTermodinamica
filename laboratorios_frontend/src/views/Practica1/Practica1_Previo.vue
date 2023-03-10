@@ -90,8 +90,33 @@ export default {
     ChoiceQuestion
   },
   methods:{
-    send: function(){
-      console.log(this.$store.state.practica1.previo)
+    send: async function(){
+      let url = this.$store.state.config_info.api_url;
+      url = `${url}/post_respuestas`;
+      const router = this.$router;
+      const config_info = this.$store.state.config_info;
+      try {
+        await axios(
+          {
+            url: url,
+            method: "post",
+            headers: {
+              token: localStorage.jwt
+            },
+            data: {
+              answers: this.$store.state.practica1.previo
+            }
+            //answers: this.$store.state.practica1.previo
+            //answers: "a"
+          }
+        )
+      } catch(err){
+        console.log(url)
+        config_info.error_description = err
+        router.push("/error");
+      }
+      await this.$router.push("/");
+
     },
     loadQuestions: async function(){
       let url = this.$store.state.config_info.api_url;
@@ -117,13 +142,16 @@ export default {
       }
     }
   },
-  mounted: async function () {
+  beforeMount: async function () {
     this.loadQuestions()  
   },
   watch: {
     '$route.query.practica_id'(){
       this.loadQuestions()  
     }
+  },
+  unmounted: function(){
+    window.location.reload();
   }
  
 };

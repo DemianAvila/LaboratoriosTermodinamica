@@ -8,26 +8,26 @@
     ></div>
       <div>
         <div class="mt-2 flex flex-row items-center justify-center" 
-        v-for="(answer, index) in internal_answers" :key="index">
+        v-for="(answer, index) in prop_answers" :key="index">
           <textarea
             class="w-[90%]"
             v-if="object.answer_type == 'textarea'"
-            v-model="internal_answers[index]"
-            @change="onChange(internal_answers)"
+            @input="onChange($event.target.value, index)"
+            :value="answer"
           ></textarea>
 
           <math-field  class="w-[90%] bg-white text-black"
           v-else-if="object.answer_type == 'math'"
-          v-model="internal_answers[index]"
-          @change="onChange(internal_answers)"
+          @input="onChange($event.target.value, index)"
+          :value="answer"
           ></math-field> 
 
           <input
             class="w-[90%]"
             v-else
             :type="object.answer_type"
-            v-model="internal_answers[index]"
-            @change="onChange(internal_answers)"
+            @input="onChange($event.target.value, index)"
+            :value="answer"
           />
 
           <button class="w-[10%]" 
@@ -44,22 +44,24 @@
 <script>
 export default {
     name: 'ManyAnswers',
+    props: ["object"],
     data: function(){
       return {
-        internal_answers: [...this.object.answers]
+        prop_answers: [...this.object.answers]
       }
     },
-    props: ["object"],
     methods: {
       deleteIndex: function(index){
-          this.internal_answers.splice(index,1) 
+          this.prop_answers.splice(index,1) 
       },
       addAnswer: function(){
-        this.internal_answers.push("") 
+        this.prop_answers.push("") 
       },
-      onChange: function (internal_answers) {
-        this.$emit("update:answers", internal_answers);
-      },
+      onChange: function (data, index) {
+        this.prop_answers[index]=data
+        console.log(this.prop_answers)
+        this.$emit("update:answers", this.prop_answers);
+      }
     }  
 }
 </script>
