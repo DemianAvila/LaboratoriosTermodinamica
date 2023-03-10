@@ -34,7 +34,7 @@ const routes = [
     meta: meta_student_auth,
   },
   {
-    path: "/practica_1/Desarrollo",
+    path: "/Desarrollo",
     name: "practica1_desarrollo",
     component: () => import("../views/Practica1/Practica1_Desarrollo.vue"),
     meta: meta_student_auth,

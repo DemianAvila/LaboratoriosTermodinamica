@@ -42,7 +42,36 @@ import ModalValoresExperimentales from "@/components/Modales/ModalValoresExperim
 
 export default {
   name: "PracticaDesarrollo",
-  mounted: function () {
+  mounted: async function () {
+    
+    const payload = {
+      url: this.$store.state.config_info.api_url,
+      token: localStorage.jwt,
+      practica_id:  this.$route.query.practica_id,
+    }
+
+    await this.$store.dispatch('getModels',
+      payload
+    )
+
+    let models = this.$store.state.models3d.current_data.models
+    const dataUrl = `data:${models[0].glb.$type};base64,${models[0].glb.$binary}`;
+    
+   
+
+    // Load the model from the data URL using the GLTFLoader
+    /*
+    const loader = new GLTFLoader();
+    loader.load(dataUrl, (gltf) => {
+      // Add the loaded model to the scene
+      const mesh = gltf.scene;
+      mesh.position.set(0, 0, 0);
+      scene.add(mesh);
+      
+
+    });*/
+
+    
     //GET THE SIZE OF THE COMPONENT
     let height = this.$refs.canvatd.clientHeight;
     let width = this.$refs.canvatd.clientWidth;
@@ -73,24 +102,18 @@ export default {
       renderer.render(scene, camera);
     }
     animate();
-    //GET THE ROUTE THAT CONTAINS THE ANIMATION
-    let elements = this.$route.path.split("/");
-    //ANIMATION ROUTE
-    let anim_route = "/" + elements[1] + "/" + elements[1] + ".glb";
+
     //ANIMATE MY MODEL
     const loader = new GLTFLoader();
-    loader.load(
-      anim_route,
-      function (gltf) {
-        const model = gltf.scene;
-        model.position.set(0, -30, 0);
-        scene.add(model);
-      },
-      undefined,
-      function (error) {
-        console.error(error);
-      }
-    );
+    loader.load(dataUrl, (gltf) => {
+      // Add the loaded model to the scene
+      const mesh = gltf.scene;
+      mesh.position.set(0, 0, 0);
+      scene.add(mesh);
+      
+
+    });
+    
   },
   components: { ModalValoresExperimentales },
 };
