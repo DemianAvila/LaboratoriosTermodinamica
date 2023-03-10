@@ -1,15 +1,17 @@
 version: "3.3"
 services:
   database:
-    image: "mongo:4.4-focal"
+    image: "mongo:6.0.4"
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - ./db/scripts:/docker-entrypoint-initdb.d
       - ./db/data_storage:/data/db
+      - ./db/3d-models:/3d-models
     ports:
       - "27017:27017"
+
   backend:
     build: backend
     ports:
@@ -23,3 +25,8 @@ services:
       - "80:8080"
     volumes:
       - ./laboratorios_frontend:/app
+
+  upload_3d:
+    build: upload_3d
+    depends_on:
+      - database

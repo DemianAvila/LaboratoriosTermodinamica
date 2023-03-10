@@ -28,3 +28,4 @@ s/'    "database".*'/"    \"database\":\ \"${MONGO_DATABASE_DEV}\""/ \
 ${backend_config_file}
 
 
+cp ${backend_config_file} $(pwd)/upload_3d
