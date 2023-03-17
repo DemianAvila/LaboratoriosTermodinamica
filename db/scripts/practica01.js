@@ -164,3 +164,23 @@ db.diapositivas.insertMany([
     wireframe: 1,
   },
 ]);
+
+
+db.metadata.insertOne({
+  practica_id: practica1,
+  slides3D:[{
+    cameraPos: {
+      x: 27.273,
+      y: 42.892,
+      z: 73.987
+    },
+    instrucciones:[
+      {
+        instrucciones: `Sumergir la campana de inmersión, que se encuentra conectada al manómetro \
+        diferencial, en cadauno de los líquidos contenidos en los vasos de precipitados \
+        de 1 litro y observar el cambio en el nivel del líquido manométrico.`,
+        automated_action:""
+      }
+    ]
+  }]
+})
