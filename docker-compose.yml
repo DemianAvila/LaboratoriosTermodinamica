@@ -30,3 +30,5 @@ services:
     build: upload_3d
     depends_on:
       - database
+    volumes: 
+      - ./upload_3d:/app

@@ -80,6 +80,9 @@ export default {
     var clickCampana = false;
     var yWhenClick = 0;
     var animation_time = 0;
+    const rect = this.$refs.canvatd.getBoundingClientRect();
+    const offsetX = rect.left;
+    const offsetY = rect.top;
     // Set a timeout variable
     var timeout = null;
     //BUILD THE COMPONENT
@@ -105,8 +108,8 @@ export default {
     camera.position.set(5, 10, 70);
     controls.update();
     //var x = 0
-    
-
+ 
+   
     //ANIMATE MY MODEL
     const loader = new GLTFLoader();
     loader.load(dataUrl, (gltf) => {
@@ -156,60 +159,55 @@ export default {
      
       console.log(gltf.animations)
       //ANIMATIONS
-      var total_clips = 4
       var mixer = new THREE.AnimationMixer(scene);
       var clip_manguera = THREE.AnimationClip.findByName(gltf.animations, 'manguera_action');
       var manguera_action = mixer.clipAction(clip_manguera);
       manguera_action.loop = THREE.LoopOnce;
       manguera_action.timeScale = 1;
-      manguera_action.weight = 1/total_clips
 
       var clip_campana = THREE.AnimationClip.findByName(gltf.animations, 'campana_action');
       var campana_action = mixer.clipAction(clip_campana)
       campana_action.loop = THREE.LoopOnce;
       campana_action.timeScale = 1;
-      campana_action.weight = 1/total_clips
 
       var fluido_1_clip = THREE.AnimationClip.findByName(gltf.animations, 'Armature.001Action');
       var fluido_1 = mixer.clipAction(fluido_1_clip)
       fluido_1.loop = THREE.LoopOnce;
       fluido_1.timeScale = 1;
-      fluido_1.weight = 1/total_clips
 
       var fluido_2_clip = THREE.AnimationClip.findByName(gltf.animations, 'ArmatureAction');
       var fluido_2 = mixer.clipAction(fluido_2_clip)
       fluido_2.loop = THREE.LoopOnce;
       fluido_2.timeScale = 1;
-      fluido_2.weight = 1/total_clips
+    
       
       var object = gltf.scene.getObjectByName("campana")
       const pointer = new THREE.Vector2()
       const raycaster = new THREE.Raycaster()
       const onMouseMove =   (event) => {
         if (clickCampana){
-          const maxY= window.innerHeight-(window.innerHeight-yWhenClick)
+          const maxY= height-(height-yWhenClick)
           const pointerY = event.clientY
           const y =  maxY-pointerY;
           //console.log(y)
           //RULE OF 3
-          animation_time = (y*20) / (maxY)
+          animation_time = (y*10) / (maxY)
           manguera_action.time = animation_time
           campana_action.time = animation_time
           fluido_1.time = animation_time
           fluido_2.time = animation_time
-          console.log(animation_time)
+          //console.log(animation_time)
           manguera_action.play()
           campana_action.play()
           fluido_1.play()
           fluido_2.play()
         }
-       
-       
         //CHECK BELL
-        pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-        pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        pointer.x = (event.clientX - offsetX) / width * 2 - 1;
+        pointer.y = -(event.clientY - offsetY) / height * 2 + 1;
         raycaster.setFromCamera(pointer, camera);
         const intersects = raycaster.intersectObjects(scene.children);
+        console.log(intersects)
         let isCampana = intersects.filter(x => x.object.name=="campana")
         if (isCampana.length>0){
           inCampana = true
@@ -244,6 +242,9 @@ export default {
       document.addEventListener('mousedown', onMouseDown, false);
       document.addEventListener('mouseup', onMouseUp, false);
 
+
+      var placeRuler = 0;
+
       function onMouseDown(event) {
         isMouseDown = true;
         yWhenClick = event.clientY
@@ -263,7 +264,43 @@ export default {
           else {
             object.material.color.set( 0xffffff );
           }
-        }
+        } 
+        if (!inCampana){
+          if (placeRuler<=1){
+            
+            const sphere = new THREE.SphereGeometry( .2 );
+            const sphereMaterial = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+            const sphereMesh = new THREE.Mesh( sphere, sphereMaterial );
+            var mouse = new THREE.Vector2();
+            mouse.x = (event.clientX - offsetX) / width * 2 - 1;
+            mouse.y = -(event.clientY - offsetY) / height * 2 + 1;
+
+            var raycaster = new THREE.Raycaster();
+            raycaster.setFromCamera( mouse, camera );
+
+            var intersects = raycaster.intersectObjects( scene.children );
+            if ( intersects.length > 0 ) {
+
+              var point = intersects[0].point;
+            
+              sphereMesh.position.copy( point );
+              scene.add( sphereMesh );
+
+            }
+            placeRuler ++
+            if (placeRuler==0){
+              var initPoint = sphereMesh
+            }
+            else if (placeRuler==1){
+              var endPoint = sphereMesh
+            }
+          }
+          else{
+              placeRuler=0
+              scene.remove(initPoint)
+              scene.remove(endPoint)
+            }          
+        }               
       }
 
       function onMouseUp() {
