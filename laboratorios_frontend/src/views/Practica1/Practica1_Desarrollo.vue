@@ -121,7 +121,7 @@ export default {
         object.name=="tubo_fluido"){
           let glass = new THREE.MeshBasicMaterial({
             name: "glass",
-            color: 0xffffff, // glass color
+            color: 0xefefef, // glass color
             metalness: 0, // non-metallic
             roughness: 0, // very smooth surface
             transmission: 0.9, // high transparency
@@ -130,6 +130,9 @@ export default {
             refrmanguera_actionRatio: 0.98, // refractive index of glass (1.5) divided by air (1.0)
           });
           object.material = glass
+        }
+        else if (object.name=="Cube"){
+          object.visible = false
         }
         else if (object.name=="fluido_tubo1" ||
         object.name=="fluido_fondo" ||
@@ -157,7 +160,6 @@ export default {
       gltf.scene.position.set(0, 0, 0);
       scene.add(gltf.scene)
      
-      console.log(gltf.animations)
       //ANIMATIONS
       var mixer = new THREE.AnimationMixer(scene);
       var clip_manguera = THREE.AnimationClip.findByName(gltf.animations, 'manguera_action');
@@ -207,7 +209,6 @@ export default {
         pointer.y = -(event.clientY - offsetY) / height * 2 + 1;
         raycaster.setFromCamera(pointer, camera);
         const intersects = raycaster.intersectObjects(scene.children);
-        console.log(intersects)
         let isCampana = intersects.filter(x => x.object.name=="campana")
         if (isCampana.length>0){
           inCampana = true
@@ -244,6 +245,8 @@ export default {
 
 
       var placeRuler = 0;
+      var ruler = []
+      var line = undefined
 
       function onMouseDown(event) {
         isMouseDown = true;
@@ -268,7 +271,7 @@ export default {
         if (!inCampana){
           if (placeRuler<=1){
             
-            const sphere = new THREE.SphereGeometry( .2 );
+            const sphere = new THREE.SphereGeometry( .5 );
             const sphereMaterial = new THREE.MeshBasicMaterial( {color: 0xff0000} );
             const sphereMesh = new THREE.Mesh( sphere, sphereMaterial );
             var mouse = new THREE.Vector2();
@@ -285,20 +288,42 @@ export default {
             
               sphereMesh.position.copy( point );
               scene.add( sphereMesh );
+              placeRuler ++
+              ruler.push(sphereMesh)
+            }
+            if (placeRuler == 2){
+              const positions = new Float32Array([
+                ruler[0].position.x,
+                ruler[0].position.y,
+                ruler[0].position.z,
+                ruler[0].position.x,
+                ruler[1].position.y,
+                ruler[0].position.z
+              ]);
+              // create a buffer attribute from the positions
+              const positionsAttribute = new THREE.BufferAttribute(positions, 3);
 
-            }
-            placeRuler ++
-            if (placeRuler==0){
-              var initPoint = sphereMesh
-            }
-            else if (placeRuler==1){
-              var endPoint = sphereMesh
+              // create a BufferGeometry and add the positions attribute
+              const lineGeometry = new THREE.BufferGeometry();
+              lineGeometry.setAttribute('position', positionsAttribute);
+
+              // create a material for the line
+              const lineMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
+
+              // create the line
+              line = new THREE.Line(lineGeometry, lineMaterial);
+
+              // add the line to the scene
+              scene.add(line);
             }
           }
           else{
               placeRuler=0
-              scene.remove(initPoint)
-              scene.remove(endPoint)
+              for (let i=0; i<ruler.length; i++){
+                scene.remove(ruler[i])
+              }
+              scene.remove(line)
+              ruler=[]
             }          
         }               
       }
