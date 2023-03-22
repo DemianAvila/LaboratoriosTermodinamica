@@ -26,10 +26,24 @@
       </button>
     </div>
     <div
-      class="h-full w-[90%] my-8 rounded-lg bg-white"
+      class="h-full w-[90%] my-8 rounded-lg bg-white relative"
       ref="canvatd"
       id="canvatd"
-    ></div>
+    >
+      <div v-if="showMeasuresDiv"
+      class="absolute bottom-0 right-0 bg-black w-[50%]">
+        <p v-for="(measure, index) in measures" :key="index" class="text-xl m-3">
+          {{ measure.value }}{{ measure.key }}
+        </p>
+      </div>
+      <div
+        class="absolute top-[25%] right-0  w-[10%] h-[50%] overflow-y-scroll">
+          <MeasureButtons v-for="(instrument, index) in instrumentButtons" 
+          :key="index" 
+          :properties="instrument"
+          v-model:inUse="instrument.inUse"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -39,11 +53,24 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import ModalValoresExperimentales from "@/components/Modales/ModalValoresExperimentales.vue";
+import MeasureButtons from "@/components/Botones/MeasureButtons.vue"
 
 export default {
   name: "PracticaDesarrollo",
+  data: function(){
+    return {
+      showMeasuresDiv: false,
+      measures: [],
+      instrumentButtons: [
+        {
+          name: "ruler",
+          inUse: false
+        }  
+      ]
+    }
+  },
   mounted: async function () {
-    
+    const data = this
     const payload = {
       url: this.$store.state.config_info.api_url,
       token: localStorage.jwt,
@@ -269,7 +296,11 @@ export default {
           }
         } 
         if (!inCampana){
-          if (placeRuler<=1){
+          //IS THE RULER ACTIVATED
+          var rulerActivated = data.instrumentButtons.filter(x => x.name=="ruler")
+          rulerActivated = rulerActivated[0].inUse
+          if (rulerActivated){
+            if (placeRuler<=1){
             
             const sphere = new THREE.SphereGeometry( .5 );
             const sphereMaterial = new THREE.MeshBasicMaterial( {color: 0xff0000} );
@@ -315,6 +346,11 @@ export default {
 
               // add the line to the scene
               scene.add(line);
+              data.showMeasuresDiv=true
+              data.measures.push({
+                value: Math.abs(ruler[1].position.y - ruler[0].position.y),
+                key: "cm"
+              })
             }
           }
           else{
@@ -324,7 +360,20 @@ export default {
               }
               scene.remove(line)
               ruler=[]
-            }          
+              data.showMeasuresDiv = false
+              data.measures = []
+            }
+          }
+          else {
+            placeRuler=0
+            for (let i=0; i<ruler.length; i++){
+                scene.remove(ruler[i])
+              }
+            scene.remove(line)
+            ruler=[]
+            data.showMeasuresDiv = false
+            data.measures = []
+          }        
         }               
       }
 
@@ -344,6 +393,7 @@ export default {
   });
         
   },
-  components: { ModalValoresExperimentales },
+  components: { ModalValoresExperimentales,
+   MeasureButtons},
 };
 </script>
