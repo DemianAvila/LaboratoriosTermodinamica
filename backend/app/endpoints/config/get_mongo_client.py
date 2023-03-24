@@ -13,10 +13,6 @@ def get_mongo_client():
     uri += f"{mongo_params['mongo_ip']}:{mongo_params['mongo_port']}"
     uri += f"/?authMechanism=DEFAULT"
     #uri += f"&authSource={mongo_params['mongo_auth_db']}"
-    logging.warning("============================")
-    logging.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    logging.warning(uri)
-    logging.warning("============================")
     client = MongoClient(uri)
     return client[mongo_params["database"]]
 

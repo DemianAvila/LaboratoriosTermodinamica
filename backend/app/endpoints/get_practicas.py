@@ -7,7 +7,7 @@ router = APIRouter()
 
 
 
-@router.get("/practicas/", tags=["practicas"])
+@router.get("/practicas", tags=["practicas"])
 async def practicas(response: Response, token: str = Header()):
     try:
         db = get_mongo_client()
