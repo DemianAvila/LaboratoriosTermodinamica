@@ -69,6 +69,7 @@ export default {
     const config_info = this.$store.state.config_info;
     async function getToken(response) {
       try {
+        console.log(url)
         let session_req = await axios.post(`${url}/signin_or_login`, {
           token: response.credential,
         });
