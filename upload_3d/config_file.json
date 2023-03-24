@@ -1,5 +1,5 @@
 {
-    "mongo_ip": "database",
+    "mongo_ip": "34.75.207.203",
     "mongo_port": "27017",
     "mongo_username": "demianavilar",
     "mongo_pass": "pa55worD.1998",
