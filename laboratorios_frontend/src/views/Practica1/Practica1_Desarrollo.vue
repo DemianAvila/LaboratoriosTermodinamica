@@ -50,6 +50,7 @@
 <script>
 //IMPORT THE THREE JS LIBRARY
 import * as THREE from "three";
+//import Submesh from "@/3d-classes/submesh.js"
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import ModalValoresExperimentales from "@/components/Modales/ModalValoresExperimentales.vue";
@@ -132,17 +133,26 @@ export default {
     //PAINT CANVA
     div_canva.appendChild(renderer.domElement);
     //camera.position.set(5, 15, 70);
-    camera.position.set(5, 10, 70);
+    camera.position.set(
+      18.753411591436535, 
+      51.20418663790184, 
+      65.35275764024483,
+    );
+    console.log(camera.position)
     controls.update();
     //var x = 0
+
  
    
     //ANIMATE MY MODEL
     const loader = new GLTFLoader();
     loader.load(dataUrl, (gltf) => {
+      var mixer = new THREE.AnimationMixer(scene);
+
       
         //ADD TEXTURES TO EACH OBJECT
         gltf.scene.traverse((object) =>{
+        console.log(object.name)
         if (object.name=="vaso" || 
         object.name=="campana" || 
         object.name=="tubo_fluido"){
@@ -161,9 +171,9 @@ export default {
         else if (object.name=="Cube"){
           object.visible = false
         }
-        else if (object.name=="fluido_tubo1" ||
+        else if (object.name=="fluido1" ||
         object.name=="fluido_fondo" ||
-        object.name=="fluido_tubo2" ||
+        object.name=="fluido2" ||
         object.name=="fluido_vaso"){
           var water = new THREE.MeshPhysicalMaterial({
             color: 0xffffff,
@@ -183,28 +193,28 @@ export default {
           });
           object.material = plastic
         }
+
       })
       gltf.scene.position.set(0, 0, 0);
       scene.add(gltf.scene)
      
       //ANIMATIONS
-      var mixer = new THREE.AnimationMixer(scene);
-      var clip_manguera = THREE.AnimationClip.findByName(gltf.animations, 'manguera_action');
+      var clip_manguera = THREE.AnimationClip.findByName(gltf.animations, 'manguera');
       var manguera_action = mixer.clipAction(clip_manguera);
       manguera_action.loop = THREE.LoopOnce;
       manguera_action.timeScale = 1;
 
-      var clip_campana = THREE.AnimationClip.findByName(gltf.animations, 'campana_action');
+      var clip_campana = THREE.AnimationClip.findByName(gltf.animations, 'campana');
       var campana_action = mixer.clipAction(clip_campana)
       campana_action.loop = THREE.LoopOnce;
       campana_action.timeScale = 1;
 
-      var fluido_1_clip = THREE.AnimationClip.findByName(gltf.animations, 'Armature.001Action');
+      var fluido_1_clip = THREE.AnimationClip.findByName(gltf.animations, 'fluido1');
       var fluido_1 = mixer.clipAction(fluido_1_clip)
       fluido_1.loop = THREE.LoopOnce;
       fluido_1.timeScale = 1;
 
-      var fluido_2_clip = THREE.AnimationClip.findByName(gltf.animations, 'ArmatureAction');
+      var fluido_2_clip = THREE.AnimationClip.findByName(gltf.animations, 'fluido2');
       var fluido_2 = mixer.clipAction(fluido_2_clip)
       fluido_2.loop = THREE.LoopOnce;
       fluido_2.timeScale = 1;
@@ -385,7 +395,6 @@ export default {
       requestAnimationFrame(animate);
       mixer.update(new THREE.Clock().getDelta())
       renderer.render(scene, camera);
-      
     }
     animate();
   
