@@ -72,33 +72,40 @@ export default {
   },
   mounted: async function () {
     const data = this
-    const payload = {
+    //GET THE 3D MODELS
+    var payload = {
       url: this.$store.state.config_info.api_url,
       token: localStorage.jwt,
       practica_id:  this.$route.query.practica_id,
     }
-
     await this.$store.dispatch('getModels',
       payload
     )
-
     let models = this.$store.state.models3d.current_data.models
     const dataUrl = `data:${models[0].glb.$type};base64,${models[0].glb.$binary}`;
-    
-   
-
-    // Load the model from the data URL using the GLTFLoader
-    /*
-    const loader = new GLTFLoader();
-    loader.load(dataUrl, (gltf) => {
-      // Add the loaded model to the scene
-      const mesh = gltf.scene;
-      mesh.position.set(0, 0, 0);
-      scene.add(mesh);
-      
-
-    });*/
-
+    //GET METADATA
+    payload = {
+      url: this.$store.state.config_info.api_url,
+      token: localStorage.jwt,
+      practica_id:  this.$route.query.practica_id,
+    }
+    await this.$store.dispatch('getMetadata',
+      payload
+    )
+    var metadata = this.$store.state.metadata_practice.metadata
+    //GET THE TEXTURES
+    var textures = this.$store.state.textures
+    for (let i=0; i<metadata.needed_textures.length; i++){
+      payload = {
+      url: this.$store.state.config_info.api_url,
+      token: localStorage.jwt,
+      texture:  metadata.needed_textures[i],
+    }
+      await this.$store.dispatch('getTexture',
+      payload
+      )
+    }
+    console.log(textures)
     
     //GET THE SIZE OF THE COMPONENT
     var height = this.$refs.canvatd.clientHeight;
@@ -140,19 +147,20 @@ export default {
     );
     console.log(camera.position)
     controls.update();
-    //var x = 0
-
- 
    
     //ANIMATE MY MODEL
     const loader = new GLTFLoader();
     loader.load(dataUrl, (gltf) => {
       var mixer = new THREE.AnimationMixer(scene);
-
       
         //ADD TEXTURES TO EACH OBJECT
         gltf.scene.traverse((object) =>{
         console.log(object.name)
+        //FOR EACH OBJECT, PAIR ITS NAME WITH THE TAXTURE IN THE METADATA
+        object.material = new THREE.MeshPhysicalMaterial(
+          textures[ metadata.textures[object.name]]
+        )
+        /* 
         if (object.name=="vaso" || 
         object.name=="campana" || 
         object.name=="tubo_fluido"){
@@ -192,7 +200,7 @@ export default {
             roughness: 0.5,
           });
           object.material = plastic
-        }
+        }*/
 
       })
       gltf.scene.position.set(0, 0, 0);
