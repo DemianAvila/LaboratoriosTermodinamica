@@ -107,6 +107,13 @@ export default {
       )
     }
 
+    
+   
+    //ANIMATE MY MODEL
+    const loader = new GLTFLoader();
+    loader.load(dataUrl, (gltf) => {
+      //===========================================
+      //VALUES OF INIT THREEJS
     //GET THE SIZE OF THE COMPONENT
     var height = this.$refs.canvatd.clientHeight;
     var width = this.$refs.canvatd.clientWidth;
@@ -142,14 +149,12 @@ export default {
     div_canva.appendChild(renderer.domElement);
     //camera.position.set(5, 15, 70);
     camera.position.set(
-      18.753411591436535, 
-      51.20418663790184, 
-      65.35275764024483,
+      metadata.camera.x,
+      metadata.camera.y,
+      metadata.camera.z
     );
-   
-    //ANIMATE MY MODEL
-    const loader = new GLTFLoader();
-    loader.load(dataUrl, (gltf) => {
+
+      //==========================================
       var generalMesh = new GeneralMesh([])
       var mixer = new THREE.AnimationMixer(scene);
         //ADD TEXTURES AND ANIMATIONS TO EACH OBJECT
