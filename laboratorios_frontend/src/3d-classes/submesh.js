@@ -1,13 +1,14 @@
 export default class Submesh{
     constructor(object){
+
         this.name = object.name
         this.mesh = object.mesh
         this.texture = object.texture
         this.animation = object.animation
         this.userControlled = object.userControlled
         this.isClickable = object.isClickable
-        this.mesh.material = object.texture
         this.clipAction = object.clipAction
+        this.mesh.material = object.texture
     }
 
     getName(){

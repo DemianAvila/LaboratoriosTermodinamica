@@ -108,54 +108,65 @@ export default {
     }
 
     
-   
     //ANIMATE MY MODEL
     const loader = new GLTFLoader();
     loader.load(dataUrl, (gltf) => {
       //===========================================
       //VALUES OF INIT THREEJS
-    //GET THE SIZE OF THE COMPONENT
-    var height = this.$refs.canvatd.clientHeight;
-    var width = this.$refs.canvatd.clientWidth;
-    /*
-    var isMouseDown = false;
-    var inCampana = false;
-    var clickCampana = false;
-    var yWhenClick = 0;
-    var animation_time = 0;
-    const rect = this.$refs.canvatd.getBoundingClientRect();
-    const offsetX = rect.left;
-    const offsetY = rect.top;*/
-    // Set a timeout variable
-    //var timeout = null;
-    //BUILD THE COMPONENT
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(width, height);
-    renderer.setClearColor(15790320, 0.1);
-    const axesHelper = new THREE.AxesHelper(30);
-    scene.add(axesHelper);
-    const light = new THREE.AmbientLight(15790320);
-    scene.add(light);
-    const directionalLight = new THREE.DirectionalLight(16777215, 2);
-    directionalLight.position.set(10, 10, 10);
-    scene.add(directionalLight);
-    //CONTROL CAMERAS
-    const controls = new OrbitControls(camera, renderer.domElement);
-    //GET THE DIV
-    const div_canva = document.getElementById("canvatd");
-    //PAINT CANVA
-    div_canva.appendChild(renderer.domElement);
-    //camera.position.set(5, 15, 70);
-    camera.position.set(
-      metadata.camera.x,
-      metadata.camera.y,
-      metadata.camera.z
-    );
+      //GET THE SIZE OF THE COMPONENT
+      const canvas = this.$refs.canvatd
+      var height = canvas.clientHeight;
+      var width = canvas.clientWidth;
+      /*
+      var isMouseDown = false;
+      var inCampana = false;
+      var clickCampana = false;
+      var yWhenClick = 0;
+      var animation_time = 0;*/
+      const rect = this.$refs.canvatd.getBoundingClientRect();
+      const offsetX = rect.left;
+      const offsetY = rect.top;
+      // Set a timeout variable
+      //var timeout = null;
+      //BUILD THE COMPONENT
+      const scene = new THREE.Scene();
+
+      const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+      camera.position.set(0, 0, 5);
+
+      const renderer = new THREE.WebGLRenderer({  });
+      renderer.setSize(width, height);
+      renderer.setClearColor(15790320, 0.1);
+
+      const axesHelper = new THREE.AxesHelper(30);
+      scene.add(axesHelper);
+      const light = new THREE.AmbientLight(15790320);
+      scene.add(light);
+      const directionalLight = new THREE.DirectionalLight(16777215, 2);
+      directionalLight.position.set(10, 10, 10);
+      scene.add(directionalLight);
+      //CONTROL CAMERAS
+      const controls = new OrbitControls(camera, renderer.domElement);
+      //GET THE DIV
+      const div_canva = document.getElementById("canvatd");
+      //PAINT CANVA
+      div_canva.appendChild(renderer.domElement);
+  
+    
+      
 
       //==========================================
-      var generalMesh = new GeneralMesh([])
+      var generalMesh = new GeneralMesh([],
+        {
+          ThreeInstance: THREE,
+          height: height,
+          width: width,
+          offsetX: offsetX,
+          offsetY: offsetY,
+          camera: camera,
+          scene: scene
+        }
+      )
       var mixer = new THREE.AnimationMixer(scene);
         //ADD TEXTURES AND ANIMATIONS TO EACH OBJECT
         gltf.scene.traverse((object) =>{
@@ -179,11 +190,31 @@ export default {
           )           
         }
       })
+        
+      // get the bounding box of the loaded model
+      const box = new THREE.Box3().setFromObject(generalMesh.getMeshByName("Cube").getMesh());
 
-      
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+
+      const size = new THREE.Vector3();
+      box.getSize(size);
+
+      const distance = size.length() * 0.5 / Math.tan(Math.PI / 180.0 * camera.fov * 0.5);
+
+      camera.position.copy(center);
+      camera.position.add(new THREE.Vector3(0, 0, distance));
+      camera.lookAt(center);
+
+ 
 
       gltf.scene.position.set(0, 0, 0);
       scene.add(gltf.scene)
+
+      window.addEventListener('mousemove', (event) => {
+        generalMesh.onMouseMove(event)
+      }, false);
+
      
       /*
       //ANIMATIONS
