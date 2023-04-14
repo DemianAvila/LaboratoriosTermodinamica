@@ -6,6 +6,8 @@ export default class Submesh{
         this.animation = object.animation
         this.userControlled = object.userControlled
         this.isClickable = object.isClickable
+        this.mesh.material = object.texture
+        this.clipAction = object.clipAction
     }
 
     getName(){
@@ -30,14 +32,28 @@ export default class Submesh{
 
     setTexture(texture){
         this.texture = texture
+        this.mesh.material = this.texture
     }
 
     getAnimation(){
         return this.animation
     }
 
-    setAnimation(animation){
+    setAnimation(animation, mixer, loop, timeScale){
         this.animation = animation
+        this.clipAction = mixer.clipAction(animation)
+        this.clipAction.loop = loop
+        this.clipAction.timeScale = timeScale;
+    }
+
+    getClipAction(){
+        return this.clipAction
+    }
+
+    setClipAction(animation, mixer, loop, timeScale){
+        this.clipAction = mixer.clipAction(animation)
+        this.clipAction.loop = loop
+        this.clipAction.timeScale = timeScale;
     }
 
     setAnimationTime(time){

@@ -50,7 +50,8 @@
 <script>
 //IMPORT THE THREE JS LIBRARY
 import * as THREE from "three";
-//import Submesh from "@/3d-classes/submesh.js"
+import Submesh from "@/3d-classes/submesh.js"
+import GeneralMesh from "@/3d-classes/generalMesh.js"
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import ModalValoresExperimentales from "@/components/Modales/ModalValoresExperimentales.vue";
@@ -71,7 +72,7 @@ export default {
     }
   },
   mounted: async function () {
-    const data = this
+    //const data = this
     //GET THE 3D MODELS
     var payload = {
       url: this.$store.state.config_info.api_url,
@@ -105,11 +106,11 @@ export default {
       payload
       )
     }
-    console.log(textures)
-    
+
     //GET THE SIZE OF THE COMPONENT
     var height = this.$refs.canvatd.clientHeight;
     var width = this.$refs.canvatd.clientWidth;
+    /*
     var isMouseDown = false;
     var inCampana = false;
     var clickCampana = false;
@@ -117,9 +118,9 @@ export default {
     var animation_time = 0;
     const rect = this.$refs.canvatd.getBoundingClientRect();
     const offsetX = rect.left;
-    const offsetY = rect.top;
+    const offsetY = rect.top;*/
     // Set a timeout variable
-    var timeout = null;
+    //var timeout = null;
     //BUILD THE COMPONENT
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
@@ -131,7 +132,7 @@ export default {
     const light = new THREE.AmbientLight(15790320);
     scene.add(light);
     const directionalLight = new THREE.DirectionalLight(16777215, 2);
-    directionalLight.position.set(15, 15, 15);
+    directionalLight.position.set(10, 10, 10);
     scene.add(directionalLight);
     //CONTROL CAMERAS
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -145,67 +146,41 @@ export default {
       51.20418663790184, 
       65.35275764024483,
     );
-    console.log(camera.position)
-    controls.update();
    
     //ANIMATE MY MODEL
     const loader = new GLTFLoader();
     loader.load(dataUrl, (gltf) => {
+      var generalMesh = new GeneralMesh([])
       var mixer = new THREE.AnimationMixer(scene);
-      
-        //ADD TEXTURES TO EACH OBJECT
+        //ADD TEXTURES AND ANIMATIONS TO EACH OBJECT
         gltf.scene.traverse((object) =>{
-        console.log(object.name)
-        //FOR EACH OBJECT, PAIR ITS NAME WITH THE TAXTURE IN THE METADATA
-        object.material = new THREE.MeshPhysicalMaterial(
-          textures[ metadata.textures[object.name]]
+        generalMesh.addMesh(
+          new Submesh(
+            {
+              name: object.name,
+              mesh: object,
+              texture: new THREE.MeshPhysicalMaterial(
+                textures[ metadata.textures[object.name]]
+              ),
+            }
+          )
         )
-        /* 
-        if (object.name=="vaso" || 
-        object.name=="campana" || 
-        object.name=="tubo_fluido"){
-          let glass = new THREE.MeshBasicMaterial({
-            name: "glass",
-            color: 0xefefef, // glass color
-            metalness: 0, // non-metallic
-            roughness: 0, // very smooth surface
-            transmission: 0.9, // high transparency
-            transparent: true, // enable transparency
-            opacity: 0.7, // set the opacity of the material
-            refrmanguera_actionRatio: 0.98, // refractive index of glass (1.5) divided by air (1.0)
-          });
-          object.material = glass
+        if (THREE.AnimationClip.findByName(gltf.animations, object.name) != null){
+          generalMesh.getMeshByName(object.name).setAnimation(
+            THREE.AnimationClip.findByName(gltf.animations, object.name),
+            mixer,
+            THREE.LoopOnce, 
+            1
+          )           
         }
-        else if (object.name=="Cube"){
-          object.visible = false
-        }
-        else if (object.name=="fluido1" ||
-        object.name=="fluido_fondo" ||
-        object.name=="fluido2" ||
-        object.name=="fluido_vaso"){
-          var water = new THREE.MeshPhysicalMaterial({
-            color: 0xffffff,
-            metalness: 0.9,
-            roughness: 0.1,
-            transmission: 0.9,
-            transparent: true,
-            opacity: 0.8
-          });
-          object.material = water
-        }
-        else if (object.name=="manguera"){
-          var plastic = new THREE.MeshStandardMaterial({
-            color: 0x000000,
-            metalness: 0.1,
-            roughness: 0.5,
-          });
-          object.material = plastic
-        }*/
-
       })
+
+      
+
       gltf.scene.position.set(0, 0, 0);
       scene.add(gltf.scene)
      
+      /*
       //ANIMATIONS
       var clip_manguera = THREE.AnimationClip.findByName(gltf.animations, 'manguera');
       var manguera_action = mixer.clipAction(clip_manguera);
@@ -225,9 +200,9 @@ export default {
       var fluido_2_clip = THREE.AnimationClip.findByName(gltf.animations, 'fluido2');
       var fluido_2 = mixer.clipAction(fluido_2_clip)
       fluido_2.loop = THREE.LoopOnce;
-      fluido_2.timeScale = 1;
+      fluido_2.timeScale = 1;*/
     
-      
+      /*
       var object = gltf.scene.getObjectByName("campana")
       const pointer = new THREE.Vector2()
       const raycaster = new THREE.Raycaster()
@@ -398,11 +373,13 @@ export default {
       function onMouseUp() {
         isMouseDown = false;
       }
-
+      */
     function animate() {
       requestAnimationFrame(animate);
       mixer.update(new THREE.Clock().getDelta())
       renderer.render(scene, camera);
+      controls.update();
+
     }
     animate();
   
