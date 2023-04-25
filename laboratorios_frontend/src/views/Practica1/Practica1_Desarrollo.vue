@@ -164,7 +164,8 @@ export default {
           offsetX: offsetX,
           offsetY: offsetY,
           camera: camera,
-          scene: scene
+          scene: scene,
+          metadata: metadata
         }
       )
       var mixer = new THREE.AnimationMixer(scene);
@@ -178,6 +179,7 @@ export default {
               texture: new THREE.MeshPhysicalMaterial(
                 textures[ metadata.textures[object.name]]
               ),
+              userControlled: metadata.userControlledObjeects.includes(object.name) ? true : false
             }
           )
         )
@@ -190,7 +192,8 @@ export default {
           )           
         }
       })
-        
+      
+      generalMesh.initializeAnimationSystem()
       // get the bounding box of the loaded model
       const box = new THREE.Box3().setFromObject(generalMesh.getMeshByName("Cube").getMesh());
 
@@ -213,6 +216,10 @@ export default {
 
       window.addEventListener('mousemove', (event) => {
         generalMesh.onMouseMove(event)
+      }, false);
+
+      window.addEventListener('mousedown', ()=>{
+        generalMesh.onMouseDown()
       }, false);
 
      

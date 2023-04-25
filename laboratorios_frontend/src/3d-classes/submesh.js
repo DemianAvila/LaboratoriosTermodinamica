@@ -6,9 +6,15 @@ export default class Submesh{
         this.texture = object.texture
         this.animation = object.animation
         this.userControlled = object.userControlled
-        this.isClickable = object.isClickable
         this.clipAction = object.clipAction
         this.mesh.material = object.texture
+        this.onHover = false
+        this.originalColor = object.texture.color
+        this.selected = false
+        this.dependants = []
+        this.isDependentOf = null 
+        this.animationType = null
+        this.interactions=[]
     }
 
     getName(){
@@ -62,22 +68,76 @@ export default class Submesh{
     }
 
     isUserControlled(){
-        return this.isUserControlled
+        return this.userControlled
     }
 
     setControlUser(userControlled){
         this.userControlled = userControlled
     }
 
-    isClickable(){
-        return this.isClickable
-    }
-
-    changeIfClickable(isClickable){
-        this.isClickable = isClickable
-    }
-
     changeColor(color){
         this.mesh.material.color.set(color);
     }
+
+    isOnHover(){
+        return this.onHover
+    }
+
+    changeHover(isHover){
+        this.onHover = isHover
+    }
+
+    isSelected(){
+        return this.selected
+    }
+
+    select(selection){
+        this.selected = selection
+    }
+
+    getDependants(){
+        return this.dependants
+    }
+
+    addDependant(dep){
+        this.dependants.push(dep)
+    }
+
+    getDependantByName(name){
+        for(let i=0; i<this.getDependants().length; i++){
+            if (name === this.getDependants()[i].getByName()){
+                return this.getDependants()[i]
+            }
+        }
+    }
+
+    getIsDepentFrom(){
+        return this.isDependentOf
+    }
+
+    setIsDepentFrom(whoIsDepent){
+        this.isDependentOf = whoIsDepent
+    }
+
+    getInteractions(){
+        return this.interactions
+    }
+
+    addInteraction(interaction){
+        this.interactions.push(interaction)
+    }
+
+    deleteInteraction(interaction){
+        for(let i=0; i<this.getInteractions().length; i++){
+            if(interaction===this.getInteractions()[i]){
+                return this.interactions.splice(i,1)
+            }
+        }
+        return null
+    }
+
+    existsInteraction(interaction){
+        return this.getInteractions().includes(interaction)
+    }
+
 }

@@ -53,6 +53,19 @@ db.metadata.insertOne({
             "invisible",
             "plastic"
         ],
+        animations_info:[
+            {
+                main_animation: "campana",
+                dependant_animations: [
+                    "fluido1",
+                    "fluido2"
+                ],
+                interactions:[
+                    "mouseY",
+                    "range"
+                ]
+            }
+        ],
         camera: {
             x: 18.753411591436535, 
             y: 51.20418663790184, 
@@ -61,6 +74,9 @@ db.metadata.insertOne({
         clickableColors: {
             hover: 0xFFFF00,
             click: 0x002A77,
-        }
+        },
+        userControlledObjeects: [
+            "campana"
+        ]
     }
 })
