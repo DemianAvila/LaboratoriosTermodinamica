@@ -230,9 +230,7 @@ export default class GeneralMesh{
                 depentFrom.addDependant(dependant)
                 dependant.setIsDepentFrom(depentFrom)
                 dependant.animationType = "son"
-                console.log(dependant)
             }
-            console.log(depentFrom)
         }
     }
 }
