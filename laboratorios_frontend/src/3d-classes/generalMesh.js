@@ -10,6 +10,8 @@ export default class GeneralMesh{
         this.scene = object.scene
         this.metadata = object.metadata
         this.animationSystem = this.metadata.animations_info
+        this.clickedEvent = null
+        this.canvas = object.canvas
     }
 
     getAllMeshes(){
@@ -72,7 +74,7 @@ export default class GeneralMesh{
     getParentAnimations(){
         let ret = []
         for (let i=0; i<this.getAllMeshes().length; i++){
-            if (!this.getAllMeshes()[i].animationType==="parent"){
+            if (this.getAllMeshes()[i].animationType==="parent"){
                 ret.push(this.getAllMeshes()[i])
             }
         }
@@ -82,7 +84,7 @@ export default class GeneralMesh{
     getSonAnimations(){
         let ret = []
         for (let i=0; i<this.getAllMeshes().length; i++){
-            if (!this.getAllMeshes()[i].animationType==="son"){
+            if (this.getAllMeshes()[i].animationType==="son"){
                 ret.push(this.getAllMeshes()[i])
             }
         }
@@ -164,21 +166,23 @@ export default class GeneralMesh{
     }
 
     onMouseMove(event){
-        event 
         let intersects = this.getIntsesectObjects(event)
         if(intersects.length >0){
             this.checkHoveredElements(intersects)
             this.controlColorOfHovered(intersects)
         } 
-        this.animationsManage()
+        this.interactionMouseY(event)
+
     }
 
-    handleSelect(){  
+   
+    handleSelect(event){  
         for(let i=0; i<this.getAllMeshes().length; i++){
             if(this.getAllMeshes()[i].isOnHover() &&
             !this.getAllMeshes()[i].isSelected() &&
             this.getAllMeshes()[i].isUserControlled()){
-                this.getAllMeshes()[i].select(true)  
+                this.getAllMeshes()[i].select(true)
+                this.clickedEvent = event
             }
             else if (this.getAllMeshes()[i].isOnHover() &&
             this.getAllMeshes()[i].isSelected() &&
@@ -206,30 +210,71 @@ export default class GeneralMesh{
         }
     }
 
-    interactionMouseY(){
-
-    }    
-
-    onMouseDown(){
-        this.handleSelect()
+    onMouseDown(event){
+        this.handleSelect(event)
         this.controlColorOfSelected()
         this.returnToOriginalColor() 
+    }
+
+
+    interactionMouseY(event){
+        //IF THERE IS A SELECTED ELEMENT THAT HAS A INTERACTION OF TYPE MOUSEY
+        let selected = this.getSelectedMeshes()
+        if(selected){
+            let selectedWithMouseYInteraction = selected.filter(
+                x => x.existsInteraction("mouseY")
+            )
+            if (selectedWithMouseYInteraction.length == 1){
+                //CONTROL THE ANIMATIONS ACORDING TO THE MOUSE Y MOVEMENT
+                selectedWithMouseYInteraction = selectedWithMouseYInteraction[0]
+                //THE CLICKED Y POSITION MARKS THE 0 SECS ANIMATION
+                //WHEN IT CHANGES THE ANIMATION MUST CHANGE ITS POSITION
+                let top = this.canvas.getBoundingClientRect().top
+                const yDistance = (this.clickedEvent.clientY - top) - (event.clientY - top);
+                //console.log(y)
+                //RULE OF 3
+                let animation_time = -1* ((yDistance*10) / (top-this.clickedEvent.clientY))
+                /*if (animation_time>9.8){
+                    animation_time = 9.8
+                }
+
+                if(animation_time<0.2){
+                    animation_time = 0.2
+                }*/
+
+                this.handleAnimationTime(selectedWithMouseYInteraction, animation_time)
+            }
+        }
+    }
+
+    handleAnimationTime(mesh, time){
+        //FOR THE MESH THAT IS BEING PASSED, CHANGE THE TIME OF PARENT AND SONS
+        mesh.getClipAction().play()
+        console.log(mesh)
+        console.log(time)
+        //mesh.setAnimationTime(time)
+        /*for(let i=0; i<mesh.getDependants().length; i++){
+            let dependant = mesh.getDependants()[i]
+            dependant.getClipAction().play()
+            dependant.setAnimationTime(time)
+        }*/
     }
 
     initializeAnimationSystem(){
         //FOR EACH ONE OF THE ANIMATIONS, GET ITS DEPENDANTS AND IF IT DEPENDS
         for(let i=0; i<this.animationSystem.length; i++){
-            let depentFrom= this.getMeshByName(this.animationSystem[i].main_animation)
+            let depentFrom= this.getMeshByName(this.animationSystem[i].main_animation.name)
             depentFrom.animationType = "parent"
             //ADD ALL THE INTERACTIONS FROM THE MEETADATA TO THE PARENT 
             for(let k=0; k<this.animationSystem[i].interactions.length; k++){
                 depentFrom.addInteraction(this.animationSystem[i].interactions[k])
             }
             for(let j=0; j<this.animationSystem[i].dependant_animations.length; j++){
-                let dependant = this.getMeshByName(this.animationSystem[i].dependant_animations[j])
+                let dependant = this.getMeshByName(this.animationSystem[i].dependant_animations[j].name)
                 depentFrom.addDependant(dependant)
                 dependant.setIsDepentFrom(depentFrom)
                 dependant.animationType = "son"
+                dependant.timeRelations = this.animationSystem[i].dependant_animations[j].time_relations
             }
         }
     }

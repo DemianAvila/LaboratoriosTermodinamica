@@ -165,51 +165,57 @@ export default {
           offsetY: offsetY,
           camera: camera,
           scene: scene,
-          metadata: metadata
+          metadata: metadata,
+          canvas: canvas
         }
       )
       var mixer = new THREE.AnimationMixer(scene);
         //ADD TEXTURES AND ANIMATIONS TO EACH OBJECT
         gltf.scene.traverse((object) =>{
-        generalMesh.addMesh(
-          new Submesh(
-            {
-              name: object.name,
-              mesh: object,
-              texture: new THREE.MeshPhysicalMaterial(
-                textures[ metadata.textures[object.name]]
-              ),
-              userControlled: metadata.userControlledObjeects.includes(object.name) ? true : false
+          if(metadata.scene_meshes.includes(object.name)){
+            generalMesh.addMesh(
+              new Submesh(
+                {
+                  name: object.name,
+                  mesh: object,
+                  texture: new THREE.MeshPhysicalMaterial(
+                    textures[ metadata.textures[object.name]]
+                  ),
+                  userControlled: metadata.userControlledObjects.includes(object.name) ? true : false,
+                  timeControlled: metadata.timeControlledObjects.includes(object.name) ? true : false,
+                }
+              )
+            )
+          
+            if (THREE.AnimationClip.findByName(gltf.animations, object.name) != null){
+              generalMesh.getMeshByName(object.name).setClipAction(
+                THREE.AnimationClip.findByName(gltf.animations, object.name),
+                mixer,
+                THREE.LoopOnce, 
+                1,
+              )           
             }
-          )
-        )
-        if (THREE.AnimationClip.findByName(gltf.animations, object.name) != null){
-          generalMesh.getMeshByName(object.name).setAnimation(
-            THREE.AnimationClip.findByName(gltf.animations, object.name),
-            mixer,
-            THREE.LoopOnce, 
-            1
-          )           
+          }
         }
-      })
+      )
       
       generalMesh.initializeAnimationSystem()
+      console.log(generalMesh)
       // get the bounding box of the loaded model
-      const box = new THREE.Box3().setFromObject(generalMesh.getMeshByName("Cube").getMesh());
+      //const box = new THREE.Box3().setFromObject(generalMesh.getMeshByName("Cube").getMesh());
 
-      const center = new THREE.Vector3();
-      box.getCenter(center);
+      //const center = new THREE.Vector3();
+      //box.getCenter(center);
 
-      const size = new THREE.Vector3();
-      box.getSize(size);
+      //const size = new THREE.Vector3();
+      //box.getSize(size);
 
-      const distance = size.length() * 0.5 / Math.tan(Math.PI / 180.0 * camera.fov * 0.5);
+      //const distance = size.length() * 0.5 / Math.tan(Math.PI / 180.0 * camera.fov * 0.5);
 
-      camera.position.copy(center);
-      camera.position.add(new THREE.Vector3(0, 0, distance));
-      camera.lookAt(center);
+      //camera.position.copy(center);
+      //camera.position.add(new THREE.Vector3(0, 0, distance));
+      //camera.lookAt(center);
 
- 
 
       gltf.scene.position.set(0, 0, 0);
       scene.add(gltf.scene)
@@ -218,11 +224,11 @@ export default {
         generalMesh.onMouseMove(event)
       }, false);
 
-      window.addEventListener('mousedown', ()=>{
-        generalMesh.onMouseDown()
+      window.addEventListener('mousedown', (event)=>{
+        generalMesh.onMouseDown(event)
       }, false);
 
-     
+      
       /*
       //ANIMATIONS
       var clip_manguera = THREE.AnimationClip.findByName(gltf.animations, 'manguera');

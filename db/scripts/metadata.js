@@ -9,7 +9,7 @@ db.textures.insertMany([
         transmission: 0.9, // high transparency
         transparent: true, // enable transparency
         opacity: 0.7, // set the opacity of the material
-        refrmanguera_actionRatio: 0.98, // refractive index of glass (1.5) divided by air (1.0)
+        actionRatio: 0.98, // refractive index of glass (1.5) divided by air (1.0)
     },
     {
         name: "genericWater",
@@ -47,6 +47,17 @@ db.metadata.insertOne({
             Cube: "invisible",
             manguera: "plastic"
         },
+        scene_meshes: [
+            "fluido1",
+            "fluido2",
+            "fluido_fondo",
+            "fluido_vaso",
+            "campana",
+            "vaso",
+            "tubo_fluido",
+            "Cube",
+            "manguera",
+        ],
         needed_textures: [
             "genericWater",
             "glass",
@@ -55,10 +66,25 @@ db.metadata.insertOne({
         ],
         animations_info:[
             {
-                main_animation: "campana",
+                main_animation: {
+                    name: "campana",
+                },
                 dependant_animations: [
-                    "fluido1",
-                    "fluido2"
+                    {
+                        name: "fluido1",
+                        play: "normal",
+                        time_relations:[1]
+                    },
+                    {
+                        name: "fluido2",
+                        play: "normal",
+                        time_relations:[1]
+                    },
+                    {
+                        name: "manguera",
+                        play: "normal",
+                        time_relations:[1]
+                    }
                 ],
                 interactions:[
                     "mouseY",
@@ -75,8 +101,9 @@ db.metadata.insertOne({
             hover: 0xFFFF00,
             click: 0x002A77,
         },
-        userControlledObjeects: [
+        userControlledObjects: [
             "campana"
-        ]
+        ],
+        timeControlledObjects: []
     }
 })

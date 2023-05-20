@@ -6,6 +6,7 @@ export default class Submesh{
         this.texture = object.texture
         this.animation = object.animation
         this.userControlled = object.userControlled
+        this.timeControlled= object.timeControlled
         this.clipAction = object.clipAction
         this.mesh.material = object.texture
         this.onHover = false
@@ -15,6 +16,7 @@ export default class Submesh{
         this.isDependentOf = null 
         this.animationType = null
         this.interactions=[]
+        this.timeRelations=[]
     }
 
     getName(){
@@ -46,12 +48,12 @@ export default class Submesh{
         return this.animation
     }
 
-    setAnimation(animation, mixer, loop, timeScale){
+    /*setAnimation(animation, mixer, loop, timeScale){
         this.animation = animation
         this.clipAction = mixer.clipAction(animation)
         this.clipAction.loop = loop
         this.clipAction.timeScale = timeScale;
-    }
+    }*/
 
     getClipAction(){
         return this.clipAction
@@ -61,10 +63,11 @@ export default class Submesh{
         this.clipAction = mixer.clipAction(animation)
         this.clipAction.loop = loop
         this.clipAction.timeScale = timeScale;
+        //this.clipAction.play()
     }
 
     setAnimationTime(time){
-        this.animation.time = time
+        this.getClipAction().time = time
     }
 
     isUserControlled(){
@@ -138,6 +141,15 @@ export default class Submesh{
 
     existsInteraction(interaction){
         return this.getInteractions().includes(interaction)
+    }
+
+    getTimeRelations(){
+        return this.timeRelations
+    }
+
+
+    addTimeRelation(controlTime){
+        this.timeRelations.push(controlTime)
     }
 
 }
