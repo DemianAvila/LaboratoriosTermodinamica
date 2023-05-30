@@ -4,8 +4,8 @@ db.textures.insertMany([
     {
         name: "glass",
         color: 0xefefef, // glass color
-        metalness: 0, // non-metallic
-        roughness: 0, // very smooth surface
+        metalness: 0.1, // non-metallic
+        roughness: 0.1, // very smooth surface
         transmission: 0.9, // high transparency
         transparent: true, // enable transparency
         opacity: 0.7, // set the opacity of the material
@@ -13,7 +13,7 @@ db.textures.insertMany([
     },
     {
         name: "genericWater",
-        color: 0xffffff,
+        color: 0x008000,
         metalness: 0.9,
         roughness: 0.1,
         transmission: 0.9,
@@ -37,9 +37,7 @@ db.metadata.insertOne({
     practica_id: 1,
     metadata: {
         textures: {
-            fluido1: "genericWater",
-            fluido2: "genericWater",
-            fluido_fondo: "genericWater",
+            fluido_tubo: "genericWater",
             fluido_vaso: "genericWater",
             campana: "glass",
             vaso: "glass",
@@ -48,9 +46,7 @@ db.metadata.insertOne({
             manguera: "plastic"
         },
         scene_meshes: [
-            "fluido1",
-            "fluido2",
-            "fluido_fondo",
+            "fluido_tubo",
             "fluido_vaso",
             "campana",
             "vaso",
@@ -71,12 +67,7 @@ db.metadata.insertOne({
                 },
                 dependant_animations: [
                     {
-                        name: "fluido1",
-                        play: "normal",
-                        time_relations:[1]
-                    },
-                    {
-                        name: "fluido2",
+                        name: "fluido_tubo",
                         play: "normal",
                         time_relations:[1]
                     },

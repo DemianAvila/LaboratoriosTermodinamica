@@ -234,13 +234,13 @@ export default class GeneralMesh{
                 //console.log(y)
                 //RULE OF 3
                 let animation_time = -1* ((yDistance*10) / (top-this.clickedEvent.clientY))
-                /*if (animation_time>9.8){
+                if (animation_time>9.8){
                     animation_time = 9.8
                 }
 
                 if(animation_time<0.2){
                     animation_time = 0.2
-                }*/
+                }
 
                 this.handleAnimationTime(selectedWithMouseYInteraction, animation_time)
             }
@@ -249,15 +249,13 @@ export default class GeneralMesh{
 
     handleAnimationTime(mesh, time){
         //FOR THE MESH THAT IS BEING PASSED, CHANGE THE TIME OF PARENT AND SONS
-        mesh.getClipAction().play()
-        console.log(mesh)
-        console.log(time)
-        //mesh.setAnimationTime(time)
-        /*for(let i=0; i<mesh.getDependants().length; i++){
+     
+        mesh.setAnimationTime(time)
+        for(let i=0; i<mesh.getDependants().length; i++){
             let dependant = mesh.getDependants()[i]
             dependant.getClipAction().play()
             dependant.setAnimationTime(time)
-        }*/
+        }
     }
 
     initializeAnimationSystem(){

@@ -136,15 +136,21 @@ export default {
 
       const renderer = new THREE.WebGLRenderer({  });
       renderer.setSize(width, height);
-      renderer.setClearColor(15790320, 0.1);
+      renderer.setClearColor(0xf5ede0, 0.1);
 
-      const axesHelper = new THREE.AxesHelper(30);
-      scene.add(axesHelper);
-      const light = new THREE.AmbientLight(15790320);
-      scene.add(light);
-      const directionalLight = new THREE.DirectionalLight(16777215, 2);
+      //const axesHelper = new THREE.AxesHelper(30);
+      //scene.add(axesHelper);
+      //const light = new THREE.AmbientLight(0xFFFFFF, 10);
+      //scene.add(light);
+      
+      const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 4);
       directionalLight.position.set(10, 10, 10);
       scene.add(directionalLight);
+      const backLight = new THREE.DirectionalLight(0xFFFFFF, 3);
+      backLight.position.set(-10, -10, -10);
+      scene.add(backLight);
+
+
       //CONTROL CAMERAS
       const controls = new OrbitControls(camera, renderer.domElement);
       //GET THE DIV
@@ -173,6 +179,9 @@ export default {
         //ADD TEXTURES AND ANIMATIONS TO EACH OBJECT
         gltf.scene.traverse((object) =>{
           if(metadata.scene_meshes.includes(object.name)){
+            console.log(object.name)
+            console.log(metadata.textures[object.name])
+            console.log(textures[ metadata.textures[object.name]])
             generalMesh.addMesh(
               new Submesh(
                 {
@@ -186,7 +195,7 @@ export default {
                 }
               )
             )
-          
+            //submesh.setTexture(textures[ metadata.textures[object.name]])  
             if (THREE.AnimationClip.findByName(gltf.animations, object.name) != null){
               generalMesh.getMeshByName(object.name).setClipAction(
                 THREE.AnimationClip.findByName(gltf.animations, object.name),
@@ -200,21 +209,20 @@ export default {
       )
       
       generalMesh.initializeAnimationSystem()
-      console.log(generalMesh)
       // get the bounding box of the loaded model
-      //const box = new THREE.Box3().setFromObject(generalMesh.getMeshByName("Cube").getMesh());
+      const box = new THREE.Box3().setFromObject(generalMesh.getMeshByName("Cube").getMesh());
 
-      //const center = new THREE.Vector3();
-      //box.getCenter(center);
+      const center = new THREE.Vector3();
+      box.getCenter(center);
 
-      //const size = new THREE.Vector3();
-      //box.getSize(size);
+      const size = new THREE.Vector3();
+      box.getSize(size);
 
-      //const distance = size.length() * 0.5 / Math.tan(Math.PI / 180.0 * camera.fov * 0.5);
+      const distance = size.length() * 0.5 / Math.tan(Math.PI / 180.0 * camera.fov * 0.5);
 
-      //camera.position.copy(center);
-      //camera.position.add(new THREE.Vector3(0, 0, distance));
-      //camera.lookAt(center);
+      camera.position.copy(center);
+      camera.position.add(new THREE.Vector3(0, 0, distance));
+      camera.lookAt(center);
 
 
       gltf.scene.position.set(0, 0, 0);
@@ -227,6 +235,8 @@ export default {
       window.addEventListener('mousedown', (event)=>{
         generalMesh.onMouseDown(event)
       }, false);
+
+      console.log(generalMesh)
 
       
       /*
