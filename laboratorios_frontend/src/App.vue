@@ -89,7 +89,6 @@ export default {
       this.subtask.show = false;
       this.subtask.for_task = null;
       this.subtask.subtareas = [];
-      
     },
     show_menu: function () {
       this.menu = !this.menu;
@@ -114,13 +113,13 @@ export default {
       }
     },
     redirect: function (item, subtask) {
-      let ruta = `${subtask}?practica_id=${item.id}`
-      this.$router.push(ruta)
+      let ruta = `${subtask}?practica_id=${item.id}`;
+      this.$router.push(ruta);
       //RESET
       this.menu = false;
       this.subtask.show = false;
       this.subtask.for_task = null;
-      this.subtask.subtareas = [];      
+      this.subtask.subtareas = [];
     },
     inForbiddenRoute: function () {
       const forbiddenRoutes = ["login"];

@@ -52,15 +52,14 @@ export default {
     };
   },
   beforeMount: function () {
-    if (this.object.answer === ""){
+    if (this.object.answer === "") {
       for (let col of this.object.table.cols) {
         this.table_answers[col] = {};
         for (let row of this.object.table.rows) {
           this.table_answers[col][row] = "";
         }
       }
-    }
-    else {
+    } else {
       for (let col of this.object.table.cols) {
         this.table_answers[col] = {};
         for (let row of this.object.table.rows) {

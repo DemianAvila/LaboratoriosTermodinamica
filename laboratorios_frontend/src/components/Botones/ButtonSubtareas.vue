@@ -31,10 +31,11 @@ export default {
   props: ["item"],
   methods: {
     show_modal: function (item) {
-      let id = this.$store.state.practicas.practicas[
+      let id =
+        this.$store.state.practicas.practicas[
           this.$store.state.practicas.modal_subtareas.id_practica - 1
-        ].id
-      let ruta = `${item.titulo}?practica_id=${id}`
+        ].id;
+      let ruta = `${item.titulo}?practica_id=${id}`;
       console.log(ruta);
       try {
         this.$router.push(ruta);

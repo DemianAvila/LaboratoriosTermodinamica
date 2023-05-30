@@ -69,11 +69,11 @@ export default {
     const config_info = this.$store.state.config_info;
     async function getToken(response) {
       try {
-        console.log(url)
+        console.log(url);
         let session_req = await axios.post(`${url}/signin_or_login`, {
           token: response.credential,
         });
-        
+
         localStorage.jwt = session_req.data.token;
         localStorage.email = session_req.data.email;
         router.push("/");

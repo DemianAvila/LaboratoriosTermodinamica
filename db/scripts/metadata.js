@@ -8,8 +8,8 @@ db.textures.insertMany([
         roughness: 0.1, // very smooth surface
         transmission: 0.9, // high transparency
         transparent: true, // enable transparency
-        opacity: 0.7, // set the opacity of the material
-        actionRatio: 0.98, // refractive index of glass (1.5) divided by air (1.0)
+        opacity: 0.3, // set the opacity of the material
+        needsUpdate: true
     },
     {
         name: "genericWater",
@@ -18,13 +18,15 @@ db.textures.insertMany([
         roughness: 0.1,
         transmission: 0.9,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.4,
+        needsUpdate: true
     },
     {
         name: "plastic",
         color: 0x000000,
         metalness: 0.1,
         roughness: 0.5,
+        needsUpdate: true
     },
     {
         name: "invisible",
@@ -41,7 +43,7 @@ db.metadata.insertOne({
             fluido_vaso: "genericWater",
             campana: "glass",
             vaso: "glass",
-            tubo_fluido: "glass",
+            tubo_fluido: "invisible",
             Cube: "invisible",
             manguera: "plastic"
         },

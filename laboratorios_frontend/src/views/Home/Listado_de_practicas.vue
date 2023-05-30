@@ -11,11 +11,7 @@
         v-for="(item, index) in $store.state.practicas.practicas"
         :key="index"
       >
-        <ButtonFinished
-          v-if="item.avance == 100"
-          :item="item"
-          :index="index"
-        >
+        <ButtonFinished v-if="item.avance == 100" :item="item" :index="index">
         </ButtonFinished>
         <ButtonUnfinished
           v-if="
@@ -37,14 +33,10 @@
           :index="index"
         >
         </ButtonOutOfTime>
-        <ButtonUnavailable
-          v-if="!item.disponible"
-          :item="item"
-          :index="index"
-        >
+        <ButtonUnavailable v-if="!item.disponible" :item="item" :index="index">
         </ButtonUnavailable>
       </div>
-    </div> 
+    </div>
   </div>
 </template>
 
@@ -74,12 +66,11 @@ export default {
         url: url,
         method: "get",
         headers: {
-          "token": localStorage.jwt
-        }
+          token: localStorage.jwt,
+        },
       });
 
       this.$store.state.practicas.practicas = response.data.practicas;
-
     } catch (err) {
       console.log(err);
       this.$store.state.config_info.full_error = err;
@@ -87,19 +78,21 @@ export default {
     }
 
     const url_avances = `${this.$store.state.config_info.api_url}/get_avances?email=${localStorage.email}`;
-    try{
+    try {
       const response = await axios({
         url: url_avances,
         method: "get",
         headers: {
-          "token": localStorage.jwt
-        }
+          token: localStorage.jwt,
+        },
       });
-      for (let avance of response.data.avance_practicas){
-        let practica = this.$store.state.practicas.practicas.filter(x=>x.id == avance.id_prac)
-        practica[0].avance  = avance.avance
+      for (let avance of response.data.avance_practicas) {
+        let practica = this.$store.state.practicas.practicas.filter(
+          (x) => x.id == avance.id_prac
+        );
+        practica[0].avance = avance.avance;
       }
-    } catch(err){
+    } catch (err) {
       console.log(err);
       this.$store.state.config_info.full_error = err;
       push_route("/error");

@@ -7,7 +7,7 @@ export default {
       "215749545338-43mpi73rhbkbj6gl9v6009qub2fvfgti.apps.googleusercontent.com",
     error: false,
     error_description: "",
-    full_error: ""
+    full_error: "",
   },
   getters: {},
   mutations: {},

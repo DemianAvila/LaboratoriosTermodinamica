@@ -13,7 +13,7 @@ export default {
       id_grupo: 0,
       id_user: 0,
       google_session_id: 0,
-    }
+    },
   },
   getters: {},
   mutations: {},

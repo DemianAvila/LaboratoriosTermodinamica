@@ -3,9 +3,9 @@
     <p>- {{ object.question }}</p>
     <div>
       <div
-      class="overflow-x-scroll overflow-y-scroll"
-      v-html="object.media"
-    ></div>
+        class="overflow-x-scroll overflow-y-scroll"
+        v-html="object.media"
+      ></div>
       <textarea
         class="w-full"
         v-if="object.answer.type == 'textarea'"
@@ -14,10 +14,12 @@
         :value="answer"
       ></textarea>
 
-      <math-field  class="w-full bg-white text-black"
-      v-else-if="object.answer.type == 'math'"
-      @input="$emit('update:answer', $event.target.value)"
-      :value="answer"></math-field>  
+      <math-field
+        class="w-full bg-white text-black"
+        v-else-if="object.answer.type == 'math'"
+        @input="$emit('update:answer', $event.target.value)"
+        :value="answer"
+      ></math-field>
 
       <input
         class="w-full"
@@ -26,14 +28,11 @@
         @input="$emit('update:answer', $event.target.value)"
         :value="answer"
       />
-
-
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "OpenQuestion",
   data: function () {
@@ -43,6 +42,5 @@ export default {
   },
   props: ["object", "answer"],
   emits: ["update:answer"],
-  
 };
 </script>

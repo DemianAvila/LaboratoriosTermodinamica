@@ -3,7 +3,7 @@
     <div class="w-full">
       <h1 class="text-5xl mx-4 my-2 text-center">Cuestionario previo</h1>
     </div>
-    
+
     <div
       class="mx-6 mt-2"
       v-for="(question, index) in $store.state.practica1.previo"
@@ -15,7 +15,6 @@
         :object="question"
         v-model:answer="$store.state.practica1.previo[index].answer.answer"
       >
-      
       </OpenQuestion>
       <!--------------COMPONENT FOR NESTED MULTIPLE QUESTIONS------------->
       <MultipleCuestion
@@ -60,9 +59,11 @@
       />
     </div>
     <div class="flex flex-col justify-center items-center">
-      <button class="bg-emerald-600 w-1/2 mt-6  h-12 rounded-lg flex flex-col justify-center items-center"
-      @click="send">
-        <p>Guardar</p> 
+      <button
+        class="bg-emerald-600 w-1/2 mt-6 h-12 rounded-lg flex flex-col justify-center items-center"
+        @click="send"
+      >
+        <p>Guardar</p>
       </button>
     </div>
   </div>
@@ -87,73 +88,67 @@ export default {
     TableQuestion,
     AttachmentQuestion,
     ManyAnswers,
-    ChoiceQuestion
+    ChoiceQuestion,
   },
-  methods:{
-    send: async function(){
+  methods: {
+    send: async function () {
       let url = this.$store.state.config_info.api_url;
       url = `${url}/post_respuestas`;
       const router = this.$router;
       const config_info = this.$store.state.config_info;
       try {
-        await axios(
-          {
-            url: url,
-            method: "post",
-            headers: {
-              token: localStorage.jwt
-            },
-            data: {
-              answers: this.$store.state.practica1.previo
-            }
-            //answers: this.$store.state.practica1.previo
-            //answers: "a"
-          }
-        )
-      } catch(err){
-        console.log(url)
-        config_info.error_description = err
+        await axios({
+          url: url,
+          method: "post",
+          headers: {
+            token: localStorage.jwt,
+          },
+          data: {
+            answers: this.$store.state.practica1.previo,
+          },
+          //answers: this.$store.state.practica1.previo
+          //answers: "a"
+        });
+      } catch (err) {
+        console.log(url);
+        config_info.error_description = err;
         router.push("/error");
       }
       await this.$router.push("/");
-
     },
-    loadQuestions: async function(){
+    loadQuestions: async function () {
       let url = this.$store.state.config_info.api_url;
       url = `${url}/get_preguntas?practica_id=${this.$route.query.practica_id}&email=${localStorage.email}`;
       const router = this.$router;
-      const config_info = this.$store.state.config_info
+      const config_info = this.$store.state.config_info;
       try {
-        const response = await axios(
-          {
-            url: url,
-            method: "get",
-            headers: {
-              token: localStorage.jwt
-            }
-          }
-        )
-        this.$store.state.practica1.previo = {}
+        const response = await axios({
+          url: url,
+          method: "get",
+          headers: {
+            token: localStorage.jwt,
+          },
+        });
+        this.$store.state.practica1.previo = {};
         this.$store.state.practica1.previo = response.data.cuestionario_previo;
-      } catch(err){
-        console.log(url)
-        config_info.error_description = err
+      } catch (err) {
+        console.log(url);
+        config_info.error_description = err;
         router.push("/error");
       }
-    }
+    },
   },
   beforeMount: async function () {
-    this.loadQuestions()  
+    this.loadQuestions();
   },
   watch: {
-    '$route.query.practica_id'(){
-      this.loadQuestions()  
-    }
+    "$route.query.practica_id"() {
+      this.loadQuestions();
+    },
   },
-  unmounted: function(){
+  unmounted: function () {
     window.location.reload();
-  }
- 
+  },
 };
 </script>
 
