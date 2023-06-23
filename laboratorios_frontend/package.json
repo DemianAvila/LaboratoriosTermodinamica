@@ -23,7 +23,7 @@
     "node-fetch": "^2.6.1",
     "stream-browserify": "^3.0.0",
     "tailwind": "^2.2.0",
-    "three": "^0.144.0",
+    "three": "^0.153.0",
     "url": "^0.11.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",

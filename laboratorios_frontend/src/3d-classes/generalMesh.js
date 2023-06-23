@@ -144,10 +144,13 @@ export default class GeneralMesh {
     pointer.x = ((event.clientX - this.offsetX) / this.width) * 2 - 1;
     pointer.y = (-(event.clientY - this.offsetY) / this.height) * 2 + 1;
     raycaster.setFromCamera(pointer, this.camera);
-    let intersects = raycaster.intersectObjects(this.scene.children);
+    let intersects = raycaster.intersectObjects(this.scene.children, true);
+    //let intersects  = raycaster.intersectObjects(
+    //  this.meshes.filter(x => x.isUserControlled()).map(x=>x.mesh));
     //FILTER THE INTERSECTIONS THAT ARE INVISIBLE
     intersects = intersects.map((x) => x.object);
     intersects = intersects.filter((x) => x.material.name != "invisible");
+    console.log(intersects)
     return intersects;
   }
 

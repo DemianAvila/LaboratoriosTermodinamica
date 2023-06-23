@@ -13,12 +13,12 @@ db.textures.insertMany([
     },
     {
         name: "genericWater",
-        color: 0x008000,
+        color: 0x000000,
         metalness: 0.9,
         roughness: 0.1,
         transmission: 0.9,
         transparent: true,
-        opacity: 0.4,
+        opacity: 0.5,
         needsUpdate: true
     },
     {
@@ -43,7 +43,7 @@ db.metadata.insertOne({
             fluido_vaso: "genericWater",
             campana: "glass",
             vaso: "glass",
-            tubo_fluido: "invisible",
+            tubo_fluido: "glass",
             Cube: "invisible",
             manguera: "plastic"
         },

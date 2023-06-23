@@ -119,7 +119,7 @@ export default {
     const offsetY = rect.top;
     //-----------SCENE, CAMERA AND RENDERER
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.001, 3000);
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.0001, 3000);
     camera.position.set(0, 0, 5);
     const renderer = new THREE.WebGLRenderer({});
     renderer.setSize(width, height);
@@ -151,8 +151,7 @@ export default {
     const loader = new GLTFLoader();
     loader.load(dataUrl, (gltf) => {
       gltf.scene.traverse((object) => {
-
-
+        object.frustumCulled = false;
         if (metadata.scene_meshes.includes(object.name)) {
           let submesh = new Submesh({
               name: object.name,
@@ -173,16 +172,14 @@ export default {
               )
                 ? true
                 : false,
+              ThreeInstance: THREE,
+              scene: scene, 
+              renderer: renderer,
+              camera: camera,
+              boxTest: false
             });
-            
-            console.log(submesh)
-          
           generalMesh.addMesh(submesh);
-
- 
-
-          
-          
+              
           //submesh.setTexture(textures[ metadata.textures[object.name]])
           if (
             THREE.AnimationClip.findByName(gltf.animations, object.name) != null
@@ -204,8 +201,19 @@ export default {
 
       //------------PAINT THE LOADED GLB
       gltf.scene.position.set(0, 0, 0);
+      console.log(gltf.scene)
       scene.add(gltf.scene)
+
+      window.addEventListener('mousemove', (event) => {
+        generalMesh.onMouseMove(event)
+      }, false);
+
+      window.addEventListener('mousedown', (event)=>{
+        generalMesh.onMouseDown(event)
+      }, false);
     });
+
+    
 
     function animate() {
       requestAnimationFrame(animate);
@@ -215,11 +223,6 @@ export default {
     }
     animate();
 
-    console.log(models);
-    console.log(metadata);
-    console.log(textures);
-    console.debug(dataUrl);
-    console.debug(offsetX, offsetY);
   },
   components: { ModalValoresExperimentales, MeasureButtons },
 };

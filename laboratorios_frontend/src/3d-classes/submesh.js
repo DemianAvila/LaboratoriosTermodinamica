@@ -9,19 +9,66 @@ export default class Submesh {
     this.clipAction = object.clipAction;
     //this.mesh.material = object.texture;
     this.onHover = false;
-    //this.originalColor = object.texture.color;
+    this.originalColor = object.material.color;
     this.selected = false;
     this.dependants = [];
     this.isDependentOf = null;
     this.animationType = null;
     this.interactions = [];
     this.timeRelations = [];
-    this.material = object.material
-    this.setMaterial()
+    this.material = object.material;
+    this.related_meshes = [];
+    this.ThreeInstance = object.ThreeInstance;
+    this.scene = object.scene
+    this.renderer =  object.renderer
+    this.camera = object.camera
+    this.boxTest= object.boxTest
+    this.setMaterial(this.mesh, this.material);
+    //this.convertToMesh(this.mesh, this.material);
   }
 
-  setMaterial(){
-    this.mesh.material = this.material
+  /*convertToMesh(mesh, material){
+
+  }*/
+
+  setMaterial(mesh, material){
+    mesh.material = material
+    this.originalColor = material.color
+    /*CHECK IF OBJECT IS TYPE GROUP, IN WHICH CASE, 
+    ASSIGN THE CHILDREN ATHE OBJECT AS WELL*/
+    for (let i=0; i<mesh.children.length; i++){
+      if(mesh.children[i].type!="Bone"){
+        this.setMaterial(mesh.children[i], material)
+        this.related_meshes.push(mesh.children[i])
+      }
+    }
+    //SET BOX
+    // Assuming you have a scene, camera, and renderer set up
+    if(this.boxTest){
+      // Create a bounding box geometry
+      const boundingBox = new this.ThreeInstance.Box3().setFromObject(this.mesh);
+      const boxSize = boundingBox.getSize(new this.ThreeInstance.Vector3());
+      const boxGeometry = new this.ThreeInstance.BoxGeometry(boxSize.x, boxSize.y, boxSize.z);
+
+      // Create a material for the bounding box
+      const boxMaterial = new this.ThreeInstance.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
+
+      // Create a mesh with the box geometry and material
+      const boundingBoxMesh = new this.ThreeInstance.Mesh(boxGeometry, boxMaterial);
+
+      // Center the bounding box mesh around the object
+      boundingBoxMesh.position.copy(boundingBox.getCenter(new this.ThreeInstance.Vector3()));
+      // Add the bounding box mesh to the scene
+      this.scene.add(boundingBoxMesh);
+
+      // Render the scene
+      this.renderer.render(this.scene, this.camera);
+    }
+  }
+
+
+  getMaterial(){
+    return this.mesh.material
   }
 
   getName() {
