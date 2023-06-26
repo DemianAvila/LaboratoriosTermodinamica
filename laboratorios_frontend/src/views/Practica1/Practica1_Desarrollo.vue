@@ -119,7 +119,7 @@ export default {
     const offsetY = rect.top;
     //-----------SCENE, CAMERA AND RENDERER
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.0001, 3000);
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.01, 3000);
     camera.position.set(0, 0, 5);
     const renderer = new THREE.WebGLRenderer({});
     renderer.setSize(width, height);
@@ -201,7 +201,6 @@ export default {
 
       //------------PAINT THE LOADED GLB
       gltf.scene.position.set(0, 0, 0);
-      console.log(gltf.scene)
       scene.add(gltf.scene)
 
       window.addEventListener('mousemove', (event) => {

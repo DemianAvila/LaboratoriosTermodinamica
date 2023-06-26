@@ -144,13 +144,14 @@ export default class GeneralMesh {
     pointer.x = ((event.clientX - this.offsetX) / this.width) * 2 - 1;
     pointer.y = (-(event.clientY - this.offsetY) / this.height) * 2 + 1;
     raycaster.setFromCamera(pointer, this.camera);
-    let intersects = raycaster.intersectObjects(this.scene.children, true);
-    //let intersects  = raycaster.intersectObjects(
-    //  this.meshes.filter(x => x.isUserControlled()).map(x=>x.mesh));
+    //let intersects = raycaster.intersectObjects(this.scene.children, true);
+    let intersects  = raycaster.intersectObjects(
+      this.meshes.filter(x => x.isUserControlled()).map(x=>x.mesh),
+      true
+    );
     //FILTER THE INTERSECTIONS THAT ARE INVISIBLE
     intersects = intersects.map((x) => x.object);
     intersects = intersects.filter((x) => x.material.name != "invisible");
-    console.log(intersects)
     return intersects;
   }
 
@@ -240,8 +241,9 @@ export default class GeneralMesh {
 
   handleAnimationTime(mesh, time) {
     //FOR THE MESH THAT IS BEING PASSED, CHANGE THE TIME OF PARENT AND SONS
-
+    mesh.getClipAction().play()
     mesh.setAnimationTime(time);
+    console.log(mesh)
     for (let i = 0; i < mesh.getDependants().length; i++) {
       let dependant = mesh.getDependants()[i];
       dependant.getClipAction().play();
