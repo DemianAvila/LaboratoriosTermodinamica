@@ -17,9 +17,68 @@ export default createStore({
     models3d: {},
     metadata_practice: {},
     textures: {},
+    development_view: {
+      forward: true,
+      backward: false,
+    },
   },
-  getters: {},
-  mutations: {},
+  getters: {
+    getDataURLs(state){
+      return state.metadata_practice.dataURLs
+    }
+  },
+  mutations: {
+    setDataURLModels(state, payload){
+      if(!('dataURLs' in state.metadata_practice)){
+        state.metadata_practice.dataURLs = []
+      }
+      state.metadata_practice.dataURLs.push(payload)
+    },
+    deploymentViewChange(state, number){
+      if (number===1){
+        if (state.development_view.currentVariation < state.development_view.variations-1){
+          state.development_view.currentVariation ++;
+          state.development_view.backward = true;
+          state.development_view.forward = true;
+        }
+        else {
+          if (state.development_view.currentSubpractice < state.development_view.subpractices-1){
+            state.development_view.currentVariation = 0;
+            state.development_view.currentSubpractice ++;
+            state.development_view.variations = state.metadata_practice.metadata.subpractices[state.development_view.currentSubpractice].variation_nums
+            state.development_view.backward = true;
+            state.development_view.forward = true;
+
+          }
+          else {
+            state.development_view.backward = true;
+            state.development_view.forward = false;
+          }
+        }
+      }
+      else if(number===-1){
+        if (state.development_view.currentVariation > 0){
+          state.development_view.currentVariation --;
+          state.development_view.backward = true;
+          state.development_view.forward = true;
+        }
+        else {
+          if (state.development_view.currentSubpractice > 0){
+            state.development_view.currentVariation = 0;
+            state.development_view.currentSubpractice --;
+            state.development_view.variations = state.metadata_practice.metadata.subpractices[state.development_view.currentSubpractice].variation_nums
+            state.development_view.forward = true
+            state.development_view.backward = true
+          }
+          else {
+            state.development_view.backward = false;
+            state.development_view.forward = true;
+          }
+        }
+      }
+      
+    }
+  },
   actions: {
     async getModels(a, payload) {
       try {

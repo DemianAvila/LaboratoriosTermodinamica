@@ -64,6 +64,10 @@ export default {
         wireframe: 1,
       },
     ],
+    modal_instrucciones: {
+      show: false,
+      data: null
+    },
     valores_experimentales: {
       modal: false,
       datasets: {

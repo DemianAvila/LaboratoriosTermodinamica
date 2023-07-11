@@ -243,7 +243,6 @@ export default class GeneralMesh {
     //FOR THE MESH THAT IS BEING PASSED, CHANGE THE TIME OF PARENT AND SONS
     mesh.getClipAction().play()
     mesh.setAnimationTime(time);
-    console.log(mesh)
     for (let i = 0; i < mesh.getDependants().length; i++) {
       let dependant = mesh.getDependants()[i];
       dependant.getClipAction().play();
