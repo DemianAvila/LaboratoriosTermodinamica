@@ -24,12 +24,32 @@ export default class Submesh {
     this.camera = object.camera
     this.boxTest= object.boxTest
     this.setMaterial(this.mesh, this.material);
+    this.variations = object.variations
+    this.applyVariations()
     //this.convertToMesh(this.mesh, this.material);
   }
 
   /*convertToMesh(mesh, material){
 
   }*/
+
+  applyVariations(){
+    let variations = this.variations
+    //VARIATE THE TEXTURES
+      //FOR EACH TEXTURE VARIATION, CHANGE THE CURRENT TEXTURE 
+
+      //IF THIS SUBMESH IS INSIDE THE VARIATIONS, APPLY
+      if(Object.keys(variations.texture_variations).includes(this.name)){
+        for (let variation_name of Object.keys(variations.texture_variations[this.name])){
+          //CHANGE THE PROPERTY
+          //this.textures[texture_name][variation_name] = texture_variations[texture_name][variation_name][currentVariation]
+          this.material[variation_name] = variations.texture_variations[this.name][variation_name][variations.currentVariation]
+          console.log(variations.texture_variations[this.name][variation_name][variations.currentVariation])
+        }
+        this.setMaterial(this.mesh, this.material);
+        console.log(this.material)
+      }
+  }
 
   setMaterial(mesh, material){
     mesh.material = material

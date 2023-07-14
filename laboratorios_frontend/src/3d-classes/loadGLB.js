@@ -43,7 +43,8 @@ export default function loadGLB(args){
                 scene: args.scene, 
                 renderer: args.renderer,
                 camera: args.camera,
-                boxTest: false
+                boxTest: false,
+                variations: args.variations
               });
             generalMesh.addMesh(submesh);
                 

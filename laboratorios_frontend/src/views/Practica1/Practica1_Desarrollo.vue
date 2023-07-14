@@ -24,14 +24,14 @@
     >
       <button
         class="absolute w-[10%] h-[10%] bg-white -translate-x-1/2 rounded-full"
-        @click="this.$store.commit('deploymentViewChange', -1)"
+        @click="reload3DImage(-1)"
         v-if="this.$store.state.development_view.backward"
       >
           <i class="fa-solid fa-backward text-black"></i>
       </button>
       <button
         class="absolute w-[10%] h-[10%] bg-white -translate-x-1/2 left-full rounded-full"
-        @click="this.$store.commit('deploymentViewChange', 1)"
+        @click="reload3DImage(1)"
         v-if="this.$store.state.development_view.forward"
       >
         <i class="fa-solid fa-forward text-black"></i>
@@ -87,14 +87,6 @@ export default {
       ],
     };
   },
-  watch: {
-    "this.$store.state.development_view.currentSubpractice"(newValue, oldValue){
-      console.log(newValue, oldValue)
-    },
-    "this.$store.state.development_view.currentVariation"(newValue, oldValue){
-      console.log(newValue, oldValue)
-    }
-    }, 
   mounted: async function(){
     //const data = this
     //GET THE 3D MODELS
@@ -133,8 +125,31 @@ export default {
     this.$store.state.development_view.currentSubpractice = 0
     this.$store.state.development_view.variations = this.$store.state.metadata_practice.metadata.subpractices[this.$store.state.development_view.currentSubpractice].variation_nums
     this.$store.state.development_view.currentVariation = 0 
+    this.mount3DImage()
   },
   methods: {
+    reload3DImage: function(number){
+      this.removeTheCanvas()
+      this.$store.commit('deploymentViewChange', number);
+      this.mount3DImage()
+    },
+    removeTheCanvas: function(){
+      for (let object of this.$refs.canvatd.children){
+        if (object.localName === "canvas"){
+          this.$refs.canvatd.removeChild(object)
+        }
+      }
+    },
+    applyVariations(){
+      let ret = {}
+      //CHANGE THE METADATA OF THE OBJECTS ACCORDING TO THE NUMBER OF VARIATION
+      ret.currentVariation = this.$store.state.development_view.currentVariation;
+      ret.currentSubpractice = this.$store.state.development_view.currentSubpractice;
+      ret.variations = this.$store.state.metadata_practice.metadata.subpractices[ret.currentSubpractice].variations
+      ret.texture_variations = ret.variations.textures
+      
+      return ret
+    },
     mount3DImage: async function () {
      
       //LOAD THE VALUES NEEDED FOR THREE JS INITIALIZATION
@@ -180,7 +195,8 @@ export default {
         camera: camera,
         mixer: mixer,
         controls: controls,
-        canvas: canvas
+        canvas: canvas,
+        variations: this.applyVariations()
       })
     }
   },

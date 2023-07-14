@@ -43,28 +43,26 @@ db.metadata.insertOne({
                 file_name: "practica1.glb",
                 variation_nums: 5,
                 variations: {
-                    textures: [
-                        {
-                            fluido_vaso: {
-                                color: [
-                                    0x000000,
-                                    0x040075,
-                                    0xc700a2,
-                                    0x18b300,
-                                    0xe8ca07
-                                ]
-                            },
-                            fluido_tubo: {
-                                color: [
-                                    0x000000,
-                                    0xc700a2,
-                                    0x040075,
-                                    0xe8ca07,
-                                    0x18b300
-                                ]
-                            }
+                    textures: {
+                        fluido_vaso: {
+                            color: [
+                                0x000000,
+                                0x040075,
+                                0xc700a2,
+                                0x18b300,
+                                0xe8ca07
+                            ]
+                        },
+                        fluido_tubo: {
+                            color: [
+                                0x000000,
+                                0xc700a2,
+                                0x040075,
+                                0xe8ca07,
+                                0x18b300
+                            ]
                         }
-                    ]
+                    }
                 },
                 materials: [
                     {
