@@ -6,20 +6,20 @@ db.cuestionario_previo.insertMany([
     practica_id: practica9,
     question_type: "open",
     question: `Explique en qué consiste el experimento de Boyle-Mariotte.`,
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica9,
     question_type: "open",
     question: `¿Qué representa el área bajo la curva en un diagrama (V-P) para una\
     sustancia simple compresible?`,
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica9,
     question_type: "open",
     question: `¿Cómo se calcula el trabajo de expansión-comprensión de un gas?`,
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica9,
@@ -41,14 +41,13 @@ db.cuestionario_previo.insertMany([
   {
     practica_id: practica9,
     question_type: "answer_list",
-    question:
-      "Mencione tres aplicaciones de la ley de Boyle.",
+    question: "Mencione tres aplicaciones de la ley de Boyle.",
     needed_answers: ["textarea", "textarea", "textarea"],
   },
   {
     practica_id: practica9,
     question_type: "open",
     question: `¿Por qué es vital para un buzo conocer la ley de Boyle?`,
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
-])
+]);

@@ -29,20 +29,32 @@ db.cuestionario_previo.insertMany([
     question_type: "answer_list",
     question:
       "Mencione las unidades en que puede expresarse la presión (al menos cinco unidades distintas).",
-    needed_answers: ["textarea", "textarea", "textarea", "textarea", "textarea"],
+    needed_answers: [
+      "textarea",
+      "textarea",
+      "textarea",
+      "textarea",
+      "textarea",
+    ],
   },
   {
     practica_id: practica1,
     question_type: "answer_list",
     question:
       "Mencione al menos cinco instrumentos para medir la presión y explique brevemente su principio de funcionamiento.",
-    needed_answers: ["textarea", "textarea", "textarea", "textarea", "textarea"],
+    needed_answers: [
+      "textarea",
+      "textarea",
+      "textarea",
+      "textarea",
+      "textarea",
+    ],
   },
   {
     practica_id: practica1,
     question_type: "open",
     question: "¿Qué es la presión atmosférica y cómo se mide?",
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica1,
@@ -59,7 +71,7 @@ db.cuestionario_previo.insertMany([
     question_type: "open",
     question:
       "La presión, ¿es una propiedad extensiva o intensiva? Justifique su respuesta.",
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica1,
@@ -76,7 +88,7 @@ db.cuestionario_previo.insertMany([
         _id: ObjectId(),
         field: "Etilenglicol",
         type: "textarea",
-      }
+      },
     ],
   },
   {
@@ -92,13 +104,13 @@ db.cuestionario_previo.insertMany([
     question_type: "open",
     question:
       "Indique cómo varía la presión en un fluido que se encuentra estático",
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica1,
     question_type: "open",
     question: "Escriba la ecuación del gradiente de presión.",
-    answer_type: "math"
+    answer_type: "math",
   },
 ]);
 
@@ -165,22 +177,23 @@ db.diapositivas.insertMany([
   },
 ]);
 
-
 db.metadata.insertOne({
   practica_id: practica1,
-  slides3D:[{
-    cameraPos: {
-      x: 27.273,
-      y: 42.892,
-      z: 73.987
-    },
-    instrucciones:[
-      {
-        instrucciones: `Sumergir la campana de inmersión, que se encuentra conectada al manómetro \
+  slides3D: [
+    {
+      cameraPos: {
+        x: 27.273,
+        y: 42.892,
+        z: 73.987,
+      },
+      instrucciones: [
+        {
+          instrucciones: `Sumergir la campana de inmersión, que se encuentra conectada al manómetro \
         diferencial, en cadauno de los líquidos contenidos en los vasos de precipitados \
         de 1 litro y observar el cambio en el nivel del líquido manométrico.`,
-        automated_action:""
-      }
-    ]
-  }]
-})
+          automated_action: "",
+        },
+      ],
+    },
+  ],
+});

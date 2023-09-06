@@ -66,7 +66,7 @@ export default {
     ],
     modal_instrucciones: {
       show: false,
-      data: null
+      data: null,
     },
     valores_experimentales: {
       modal: false,

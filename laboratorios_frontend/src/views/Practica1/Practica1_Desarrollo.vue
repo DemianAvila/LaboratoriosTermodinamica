@@ -4,11 +4,11 @@
   >
     <div
       class="fixed h-full w-full flex flex-col bg-[rgba(0,0,0,0.9)]"
-      v-if="this.$store.state.practica1.modal_instrucciones.show               "
+      v-if="this.$store.state.practica1.modal_instrucciones.show"
     >
-      <ModalInstruciones/>
+      <ModalInstruciones />
     </div>
-    <div class="h-[10%] w-full flex flex-col justify-center items-center" >
+    <div class="h-[10%] w-full flex flex-col justify-center items-center">
       <button
         class="bg-emerald-600 rounded-lg text-xl p-2"
         @click="this.$store.state.practica1.modal_instrucciones.show = true"
@@ -27,7 +27,7 @@
         @click="reload3DImage(-1)"
         v-if="this.$store.state.development_view.backward"
       >
-          <i class="fa-solid fa-backward text-black"></i>
+        <i class="fa-solid fa-backward text-black"></i>
       </button>
       <button
         class="absolute w-[10%] h-[10%] bg-white -translate-x-1/2 left-full rounded-full"
@@ -68,7 +68,7 @@ import ModalInstruciones from "../../components/Instructiones/ModalInstruciones.
 //import MeasureButtons from "@/components/Botones/MeasureButtons.vue";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import loadGLB from "@/3d-classes/loadGLB.js"
+import loadGLB from "@/3d-classes/loadGLB.js";
 
 export default {
   name: "PracticaDesarrollo",
@@ -87,7 +87,7 @@ export default {
       ],
     };
   },
-  mounted: async function(){
+  mounted: async function () {
     //const data = this
     //GET THE 3D MODELS
     var payload = {
@@ -106,8 +106,12 @@ export default {
     this.metadata = this.$store.state.metadata_practice.metadata;
     //GET THE TEXTURES
     this.textures = this.$store.state.textures;
-    for (let j=0; j<this.metadata.subpractices.length; j++){
-      for (let i = 0; i < this.metadata.subpractices[j].needed_textures.length; i++) {
+    for (let j = 0; j < this.metadata.subpractices.length; j++) {
+      for (
+        let i = 0;
+        i < this.metadata.subpractices[j].needed_textures.length;
+        i++
+      ) {
         payload = {
           url: this.$store.state.config_info.api_url,
           token: localStorage.jwt,
@@ -120,38 +124,51 @@ export default {
     this.models = this.$store.state.models3d.current_data.models;
     //const dataUrl = `data:${models[0].glb.$type};base64,${models[0].glb.$binary}`;
     //this.$store.state.metadata_practice.dataUrl = `data:${models[0].glb.$type};base64,${models[0].glb.$binary}`;
-    this.models.map( x=> this.$store.commit('setDataURLModels', `data:${x.glb.$type};base64,${x.glb.$binary}`))
-    this.$store.state.development_view.subpractices = this.$store.state.metadata_practice.metadata.subpractices.length
-    this.$store.state.development_view.currentSubpractice = 0
-    this.$store.state.development_view.variations = this.$store.state.metadata_practice.metadata.subpractices[this.$store.state.development_view.currentSubpractice].variation_nums
-    this.$store.state.development_view.currentVariation = 0 
-    this.mount3DImage()
+    this.models.map((x) =>
+      this.$store.commit(
+        "setDataURLModels",
+        `data:${x.glb.$type};base64,${x.glb.$binary}`
+      )
+    );
+    this.$store.state.development_view.subpractices =
+      this.$store.state.metadata_practice.metadata.subpractices.length;
+    this.$store.state.development_view.currentSubpractice = 0;
+    this.$store.state.development_view.variations =
+      this.$store.state.metadata_practice.metadata.subpractices[
+        this.$store.state.development_view.currentSubpractice
+      ].variation_nums;
+    this.$store.state.development_view.currentVariation = 0;
+    this.mount3DImage();
   },
   methods: {
-    reload3DImage: function(number){
-      this.removeTheCanvas()
-      this.$store.commit('deploymentViewChange', number);
-      this.mount3DImage()
+    reload3DImage: function (number) {
+      this.removeTheCanvas();
+      this.$store.commit("deploymentViewChange", number);
+      this.mount3DImage();
     },
-    removeTheCanvas: function(){
-      for (let object of this.$refs.canvatd.children){
-        if (object.localName === "canvas"){
-          this.$refs.canvatd.removeChild(object)
+    removeTheCanvas: function () {
+      for (let object of this.$refs.canvatd.children) {
+        if (object.localName === "canvas") {
+          this.$refs.canvatd.removeChild(object);
         }
       }
     },
-    applyVariations(){
-      let ret = {}
+    applyVariations() {
+      let ret = {};
       //CHANGE THE METADATA OF THE OBJECTS ACCORDING TO THE NUMBER OF VARIATION
-      ret.currentVariation = this.$store.state.development_view.currentVariation;
-      ret.currentSubpractice = this.$store.state.development_view.currentSubpractice;
-      ret.variations = this.$store.state.metadata_practice.metadata.subpractices[ret.currentSubpractice].variations
-      ret.texture_variations = ret.variations.textures
-      
-      return ret
+      ret.currentVariation =
+        this.$store.state.development_view.currentVariation;
+      ret.currentSubpractice =
+        this.$store.state.development_view.currentSubpractice;
+      ret.variations =
+        this.$store.state.metadata_practice.metadata.subpractices[
+          ret.currentSubpractice
+        ].variations;
+      ret.texture_variations = ret.variations.textures;
+
+      return ret;
     },
     mount3DImage: async function () {
-     
       //LOAD THE VALUES NEEDED FOR THREE JS INITIALIZATION
       //========================================================
       //-------CANVAS CONTAINER, HEIGHT, WIDTH AND OFFSIDES
@@ -163,47 +180,61 @@ export default {
       const offsetY = rect.top;
       //-----------SCENE, CAMERA AND RENDERER
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, width / height, 0.01, 3000);
-      camera.position.set(0, 0, 5);
+      const camera = new THREE.PerspectiveCamera(
+        30,
+        width / height,
+        0.1,
+        4000
+      );
+      camera.position.set(35, 18, -29);
+      //camera.lookAt(-1000, -1000, -1000);
+      //console.log(camera)
       const renderer = new THREE.WebGLRenderer({});
       renderer.setSize(width, height);
       renderer.setClearColor(0xf5ede0, 0.1);
       //---------CONTROLS AND MIXER
       const controls = new OrbitControls(camera, renderer.domElement);
+      controls.target.set(0,0,0);
       var mixer = new THREE.AnimationMixer(scene);
       canvas.appendChild(renderer.domElement);
       //--------------ADD LIGHTS THO THE SCENE
-      const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 4);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
       directionalLight.position.set(50, 50, 50);
       scene.add(directionalLight);
       /*const backLight = new THREE.DirectionalLight(0xFFFFFF, 3);
       backLight.position.set(-10, -10, -10);
       scene.add(backLight);*/
       //------------------INITIALIZE THE GENERAL MESH OBJECT TO MANIPULATE THE 3D GLB
-      
+
       loadGLB({
-        model: this.$store.state.metadata_practice.dataURLs[this.$store.state.development_view.currentSubpractice],
+        model:
+          this.$store.state.metadata_practice.dataURLs[
+            this.$store.state.development_view.currentSubpractice
+          ],
         ThreeInstance: THREE,
-        height: height, 
+        height: height,
         width: width,
         offsetX: offsetX,
         offsetY: offsetY,
         scene: scene,
-        metadata: this.metadata.subpractices[this.$store.state.development_view.currentSubpractice],
+        metadata:
+          this.metadata.subpractices[
+            this.$store.state.development_view.currentSubpractice
+          ],
         textures: this.textures,
         renderer: renderer,
         camera: camera,
         mixer: mixer,
         controls: controls,
         canvas: canvas,
-        variations: this.applyVariations()
-      })
-    }
+        variations: this.applyVariations(),
+      });
+    },
   },
-  components: { 
-    //ModalValoresExperimentales, 
+  components: {
+    //ModalValoresExperimentales,
     ModalInstruciones,
-    //MeasureButtons 
+    //MeasureButtons
   },
 };
 </script>

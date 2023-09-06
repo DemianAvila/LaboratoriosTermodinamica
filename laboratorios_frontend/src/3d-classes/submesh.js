@@ -19,13 +19,13 @@ export default class Submesh {
     this.material = object.material;
     this.related_meshes = [];
     this.ThreeInstance = object.ThreeInstance;
-    this.scene = object.scene
-    this.renderer =  object.renderer
-    this.camera = object.camera
-    this.boxTest= object.boxTest
+    this.scene = object.scene;
+    this.renderer = object.renderer;
+    this.camera = object.camera;
+    this.boxTest = object.boxTest;
     this.setMaterial(this.mesh, this.material);
-    this.variations = object.variations
-    this.applyVariations()
+    this.variations = object.variations;
+    this.applyVariations();
     //this.convertToMesh(this.mesh, this.material);
   }
 
@@ -33,51 +33,75 @@ export default class Submesh {
 
   }*/
 
-  applyVariations(){
-    let variations = this.variations
+  applyVariations() {
+    let variations = this.variations;
     //VARIATE THE TEXTURES
-      //FOR EACH TEXTURE VARIATION, CHANGE THE CURRENT TEXTURE 
+    //FOR EACH TEXTURE VARIATION, CHANGE THE CURRENT TEXTURE
 
-      //IF THIS SUBMESH IS INSIDE THE VARIATIONS, APPLY
-      if(Object.keys(variations.texture_variations).includes(this.name)){
-        for (let variation_name of Object.keys(variations.texture_variations[this.name])){
-          //CHANGE THE PROPERTY
-          //this.textures[texture_name][variation_name] = texture_variations[texture_name][variation_name][currentVariation]
-          this.material[variation_name] = variations.texture_variations[this.name][variation_name][variations.currentVariation]
-          console.log(variations.texture_variations[this.name][variation_name][variations.currentVariation])
+    //IF THIS SUBMESH IS INSIDE THE VARIATIONS, APPLY
+    if (Object.keys(variations.texture_variations).includes(this.name)) {
+      for (let variation_name of Object.keys(
+        variations.texture_variations[this.name]
+      )) {
+        //CHANGE THE PROPERTY
+        if (variation_name === "color") {
+          this.material[variation_name] = new this.ThreeInstance.Color(
+            variations.texture_variations[this.name][variation_name][
+              variations.currentVariation
+            ]
+          );
+        } else {
+          this.material[variation_name] =
+            variations.texture_variations[this.name][variation_name][
+              variations.currentVariation
+            ];
         }
-        this.setMaterial(this.mesh, this.material);
-        console.log(this.material)
       }
+      this.setMaterial(this.mesh, this.material);
+    }
   }
 
-  setMaterial(mesh, material){
-    mesh.material = material
-    this.originalColor = material.color
+  setMaterial(mesh, material) {
+    mesh.material = material;
+    this.originalColor = material.color;
     /*CHECK IF OBJECT IS TYPE GROUP, IN WHICH CASE, 
     ASSIGN THE CHILDREN ATHE OBJECT AS WELL*/
-    for (let i=0; i<mesh.children.length; i++){
-      if(mesh.children[i].type!="Bone"){
-        this.setMaterial(mesh.children[i], material)
-        this.related_meshes.push(mesh.children[i])
+    for (let i = 0; i < mesh.children.length; i++) {
+      if (mesh.children[i].type != "Bone") {
+        this.setMaterial(mesh.children[i], material);
+        this.related_meshes.push(mesh.children[i]);
       }
     }
     //SET BOX
     // Assuming you have a scene, camera, and renderer set up
-    if(this.boxTest){
+    if (this.boxTest) {
       // Create a bounding box geometry
-      const boundingBox = new this.ThreeInstance.Box3().setFromObject(this.mesh);
+      const boundingBox = new this.ThreeInstance.Box3().setFromObject(
+        this.mesh
+      );
       const boxSize = boundingBox.getSize(new this.ThreeInstance.Vector3());
-      const boxGeometry = new this.ThreeInstance.BoxGeometry(boxSize.x, boxSize.y, boxSize.z);
+      const boxGeometry = new this.ThreeInstance.BoxGeometry(
+        boxSize.x,
+        boxSize.y,
+        boxSize.z
+      );
 
       // Create a material for the bounding box
-      const boxMaterial = new this.ThreeInstance.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
+      const boxMaterial = new this.ThreeInstance.MeshBasicMaterial({
+        color: 0xff0000,
+        wireframe: true,
+      });
 
       // Create a mesh with the box geometry and material
-      const boundingBoxMesh = new this.ThreeInstance.Mesh(boxGeometry, boxMaterial);
+      const boundingBoxMesh = new this.ThreeInstance.Mesh(
+        boxGeometry,
+        boxMaterial
+      );
 
       // Center the bounding box mesh around the object
-      boundingBoxMesh.position.copy(boundingBox.getCenter(new this.ThreeInstance.Vector3()));
+      boundingBoxMesh.position.copy(
+        boundingBox.getCenter(new this.ThreeInstance.Vector3())
+      );
       // Add the bounding box mesh to the scene
       this.scene.add(boundingBoxMesh);
 
@@ -86,9 +110,8 @@ export default class Submesh {
     }
   }
 
-
-  getMaterial(){
-    return this.mesh.material
+  getMaterial() {
+    return this.mesh.material;
   }
 
   getName() {

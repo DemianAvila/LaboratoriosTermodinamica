@@ -14,29 +14,44 @@
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
-        <div class="flex flex-col py-6 px-6">
-          <button  class="bg-emerald-600 rounded-lg text-xl p-2"
-          @click="shows.materials=!shows.materials">
+        <div class="py-6 px-6 w-full h-full overflow-y-scroll">
+          <button
+            class="bg-emerald-600 rounded-lg text-xl p-2 w-full"
+            @click="shows.materials = !shows.materials"
+          >
             Materiales
           </button>
-          {{ $store.state.metadata_practice.metadata }}
+          <div v-if="shows.materials">
+            <ListMaterialShow v-for="material, index in $store.state.metadata_practice.metadata.subpractices[
+              this.$store.state.development_view.currentSubpractice
+            ].materials" :key="index" :material="material" :index="index"
+            class="w-full h-[30rem] mt-6" />
+          </div>
+         
+          
+        
+          <!--{{ $store.state.metadata_practice.metadata }}
+
+          {{ $store.state.models3d.current_data }}-->
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-
+import ListMaterialShow from "@/components/Instructiones/ListMaterialShow.vue"
 export default {
   name: "ModalInstrucciones",
-  data: function(){
+  data: function () {
     return {
       shows: {
         materials: false,
         development: false,
-      }
-    }
+      },
+    };
+  },
+  components: {
+    ListMaterialShow
   }
-  
 };
 </script>

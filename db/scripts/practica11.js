@@ -6,19 +6,19 @@ db.cuestionario_previo.insertMany([
     practica_id: practica11,
     question_type: "open",
     question: `¿Qué es un proceso de estrangulamiento?`,
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica11,
     question_type: "open",
     question: `¿Qué es la calidad de un vapor y qué valores puede tener?`,
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica11,
     question_type: "open",
     question: `¿Qué es una caldera?`,
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica11,
@@ -26,36 +26,36 @@ db.cuestionario_previo.insertMany([
     question: `¿Cómo se expresa la entalpia de una mezcla líquido-vapor en equilibrio, en\
     términos de las entalpias del líquido y del vapor saturados, para el caso de un\
     fluido?`,
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica11,
     question_type: "many",
     question: `¿En qué dispositivos se llevan a cabo procesos de estrangulamiento?`,
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica11,
     question_type: "attachment",
-    question:
-      `Dibuje un esquema aproximado de la curva de inversión`,
+    question: `Dibuje un esquema aproximado de la curva de inversión`,
   },
   {
     practica_id: practica11,
     question_type: "open",
     question: `¿Por que se le llama curva de inversión?`,
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica11,
     question_type: "many",
     question: `Mencione algunos tipos de válvulas`,
-    answer_type: "textarea"
+    answer_type: "textarea",
   },
   {
     practica_id: practica11,
     question_type: "multiple_question",
-    question: "Investigue los valores de la entalpia de evaporización a las siguientes presiones:",
+    question:
+      "Investigue los valores de la entalpia de evaporización a las siguientes presiones:",
     fields: [
       {
         _id: ObjectId(),
@@ -101,17 +101,16 @@ db.cuestionario_previo.insertMany([
     options: [
       {
         option: "a",
-        answer: "positivo"
+        answer: "positivo",
       },
       {
         option: "b",
-        answer: "negativo"
+        answer: "negativo",
       },
       {
         option: "c",
-        answer: "igual a cero"
-      }
-    ]
+        answer: "igual a cero",
+      },
+    ],
   },
-])
-
+]);
