@@ -13,21 +13,31 @@ services:
       - "27017:27017"
 
   backend:
-    build: backend
+    build:
+      context: ../../backend
+      dockerfile: build/Dockerfile
     ports:
       - "81:80"
+    depends_on:
+      - database
     volumes:
       - ./backend/app:/app
       
   frontend:
-    build: laboratorios_frontend
+    build:
+      context: ../../frontend
+      dockerfile: build/Docker-dev
     ports:
       - "80:8080"
+    depends_on:
+      - database
     volumes:
       - ./laboratorios_frontend:/app
 
   upload_3d:
-    build: upload_3d
+    build:
+      context: ../../upload_3d
+      dockerfile: build/Dockerfile
     depends_on:
       - database
     volumes: 

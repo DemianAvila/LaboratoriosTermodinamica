@@ -1,10 +1,14 @@
 include .env 
 export
 
+build-dev:
+	pwd
+	docker compose -f setup_scripts/dev/docker-compose-dev.yml up
+
 preparare_env:
 	. setup_scripts/test_env.sh
 
-data_restart:
+data-restart:
 	docker rm laboratoriostermodinamica-backend-1 --force 
 	docker rm laboratoriostermodinamica-database-1 --force
 	docker rm laboratoriostermodinamica-frontend-1 --force

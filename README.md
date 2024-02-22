@@ -18,48 +18,25 @@ Algunas de las caracteristicas que incluye este artefacto de software son:
 
 - Sistema de autenticación gestionado por Google
 
+---
 
-## env file vars
+### Preparando el entorno para desplegar el proyecto
 
-API_URL_PROD= Url donde se aloja la api para producción
+- Verificar que se tenga instalado
+    - Docker versión 25 
+    - Make 4
 
-API_URL_DEV= Url donde se aloja la api para desarrollo
+- Copiar y llenar los valores del archivo env-example 
+    - Las variables con terminación "dev" son para la construcción de un entorno de desarrollo
+    - Las variables con terminación "prod" son para la construcción del proyecto en ambiente productivo monolítico (un solo servidor)
+    - Las variables que inician con "gcp" y las que terminan con "img" estan destinadas a la construccion y subida de imagenes en entorno serverless con el servicio "Cloud Run" de GCP 
 
-MONGO_INITDB_ROOT_USERNAME= usuario de mongo para inicio de la base de datos
-
-MONGO_INITDB_ROOT_PASSWORD= contraseña de mongo para inicio de la base de datos
-
-MONGO_IP_DEV= ip de la base de datos de mongo en desarrollo
-
-MONGO_PORT_DEV= puerto de mongo en desarrollo
-
-MONGO_USERNAME_DEV= usuario de mongo en desarrollo, genralmente es igual a ${MONGO_INITDB_ROOT_USERNAME}
-
-MONGO_PASS_DEV=contraseña de mongo en desarrollo, genralmente es igual a ${MONGO_INITDB_ROOT_PASSWORD}
-
-MONGO_AUTH_DB_DEV=nombre de la base de datos de mongo para la autenticación en desarrollo
-
-MONGO_DATABASE_DEV=nombre de la base de datos de mongo para laboratorio en desarrollo, generalmente la llamo "laboratorio_info"
-
-MONGO_IP_PROD=ip de la base de datos de mongo en produccion
-
-MONGO_PORT_PROD= puerto de mongo en producción
-
-MONGO_USERNAME_PROD=usuario de mongo en producción, genralmente es igual a ${MONGO_INITDB_ROOT_USERNAME}
-
-MONGO_PASS_PROD=usuario de mongo en desarrollo, genralmente es igual a ${MONGO_INITDB_ROOT_USERNAME}
-
-MONGO_AUTH_DB_PROD=nombre de la base de datos de mongo para la autenticación en producción
-
-MONGO_DATABASE_PROD=nombre de la base de datos de mongo para laboratorio en producción, generalmente la llamo "laboratorio_info"
-
-GCP_REGION=Region de la nube de google cloud donde despliego la info
-
-GCP_PROJECT=Id del proyecto de google cloud
-
-GCP_ARTIFACT_REG= Nombre del artifact registry de google cloud
-
-BACKEND_IMG=Nombre de la imagen de backend con la que se subirá a gcp, generalmente la llamo backend_dev
-
-FRONTEND_IMG=Nombre de la imagen de frontend con la que se subirá a gcp, generalmente la llamo frontend_dev
+- Para abrir el entorno de desarrollo, ejecutar: 
+```
+make build-dev 
+```
+- Para reiniciar el entorno (borrado de datos y reinicio de contenedors) 
+```
+make data-restart
+```
 
