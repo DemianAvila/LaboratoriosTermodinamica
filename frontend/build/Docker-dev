@@ -3,4 +3,4 @@ WORKDIR /app
 COPY app/* .
 RUN rm -rf node_modules package-lock.json dist 2> /dev/null
 RUN npm install 
-CMD ls; npm run serve 
+CMD npm run serve 

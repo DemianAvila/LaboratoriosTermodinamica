@@ -2,13 +2,14 @@ version: "3.3"
 services:
   database:
     image: "mongo:6.0.4"
+    build: ../../db
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
-      - ./db/scripts:/docker-entrypoint-initdb.d
-      - ./db/data_storage:/data/db
-      - ./db/3d-models:/3d-models
+      - ../../db/scripts:/docker-entrypoint-initdb.d
+      - ../../db/data_storage:/data/db
+      - ../../db/3d-models:/3d-models
     ports:
       - "27017:27017"
 
@@ -21,7 +22,7 @@ services:
     depends_on:
       - database
     volumes:
-      - ./backend/app:/app
+      - ../../backend/app:/app
       
   frontend:
     build:
@@ -32,7 +33,7 @@ services:
     depends_on:
       - database
     volumes:
-      - ./laboratorios_frontend:/app
+      - ../../frontend/app:/app
 
   upload_3d:
     build:
@@ -41,4 +42,4 @@ services:
     depends_on:
       - database
     volumes: 
-      - ./upload_3d:/app
+      - ../../upload_3d/app:/app
