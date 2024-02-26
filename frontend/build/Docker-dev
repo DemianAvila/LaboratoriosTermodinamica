@@ -1,6 +1,7 @@
 FROM node:16-alpine
 WORKDIR /app
-COPY app/* .
+COPY app/ .
 RUN rm -rf node_modules package-lock.json dist 2> /dev/null
 RUN npm install 
+RUN chmod -R 777 node_modules
 CMD npm run serve 

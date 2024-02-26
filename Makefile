@@ -1,9 +1,12 @@
 include .env 
 export
 
-build-dev:
+build-dev: 
 	bash setup_scripts/pre-build/check_if_env_exists.sh 
 	bash setup_scripts/pre-build/check_dev_variables.sh 
+	docker compose -f setup_scripts/dev/docker-compose-dev.yml build
+
+deploy-dev:
 	docker compose -f setup_scripts/dev/docker-compose-dev.yml up -d
 
 preparare_env:

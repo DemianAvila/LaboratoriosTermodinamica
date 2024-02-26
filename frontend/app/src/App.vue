@@ -3,9 +3,7 @@
     <div class="w-screen h-screen">
       <div
         class="bg-scroll bg-cover bg-no-repeat bg-center w-full h-full overflow-y-hidden flex flex-col lg:bg-scroll lg:bg-cover lg:bg-no-repeat lg:w-full lg:h-full"
-        style="
-          background-image: url(https://drive.google.com/uc?export=view&id=1OFFEYVQzewzqZwC3sNMAUaN5v9QSVxB_);
-        "
+        :style="{ backgroundImage: `url(${require('@/assets/img/fondo-desk-1.svg')})` }"
       >
         <div
           v-if="!inForbiddenRoute()"

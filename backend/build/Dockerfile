@@ -3,7 +3,7 @@ FROM python:3.10-bullseye
 
 WORKDIR /app
 
-COPY app/* .
+COPY app/ .
 
 RUN rm -rf *__pycache__*
 
