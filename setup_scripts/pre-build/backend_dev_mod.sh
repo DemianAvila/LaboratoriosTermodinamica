@@ -1,7 +1,6 @@
 #CHANGE DATABASE CREDENTIALS
 backend_config_file=$(pwd)/backend/app/endpoints/config/config_file.json
 
-echo ${MONGO_IP_DEV}
 
 sed -i \
 s/'    "mongo_ip".*'/"    \"mongo_ip\":\ \"${MONGO_IP_DEV}\","/ \
@@ -28,4 +27,4 @@ s/'    "database".*'/"    \"database\":\ \"${MONGO_DATABASE_DEV}\""/ \
 ${backend_config_file}
 
 
-cp ${backend_config_file} $(pwd)/upload_3d
+cp ${backend_config_file} $(pwd)/upload_3d/app

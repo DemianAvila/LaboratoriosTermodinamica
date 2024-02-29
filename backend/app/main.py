@@ -20,12 +20,14 @@ app.add_middleware(
         "https://demianavila.github.io",
         "http://localhost:81",
         "http://localhost:82",
-        "https://frontend-dev-kti7arbkqq-uc.a.run.app"
+        "https://frontend-dev-kti7arbkqq-uc.a.run.app",
+        "https://orange-broccoli-gr4rwjrvp96hv9j6-80.preview.app.github.dev",
+        "https://orange-broccoli-gr4rwjrvp96hv9j6-80.app.github.dev",
+
     ],
-    allow_credentials=True,
-    allow_methods=["*"],
+    
+    allow_methods=["OPTIONS", "DELETE", "POST", "GET", "PATCH", "PUT"],
     allow_headers=["*"],
-    expose_headers=[],
 )
 
 

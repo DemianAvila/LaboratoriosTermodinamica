@@ -1,46 +1,25 @@
 include .env 
 export
 
-build-dev: 
-	bash setup_scripts/pre-build/check_if_env_exists.sh 
-	bash setup_scripts/pre-build/check_dev_variables.sh 
-	docker compose -f setup_scripts/dev/docker-compose-dev.yml build
 
 deploy-dev:
+	bash setup_scripts/pre-build/check_if_env_exists.sh 
+	bash setup_scripts/pre-build/check_dev_variables.sh 
+	bash setup_scripts/pre-build/db_dev.sh
+	bash setup_scripts/pre-build/backend_dev_mod.sh
+	bash setup_scripts/pre-build/frontend_dev_mod.sh
 	docker compose -f setup_scripts/dev/docker-compose-dev.yml up -d
 
-preparare_env:
-	. setup_scripts/test_env.sh
+kill-dev:
+	docker rm lab_db_dev --force 
+	docker rm lab_backend_dev --force
+	docker rm lab_frontend_dev --force	
+	docker rm lab_upload3d_dev --force
+	sudo rm -rf ./db/data_storage/*
 
-data-restart:
-	docker rm laboratoriostermodinamica-backend-1 --force 
-	docker rm laboratoriostermodinamica-database-1 --force
-	docker rm laboratoriostermodinamica-frontend-1 --force
-	sudo rm -rf db/data_storage/*
-	docker compose up -d
+restart-dev:
+	make kill-dev
+	make deploy-dev
 
-restart:
-	docker compose restart
 
-build:
-	docker compose build
 
-up:
-	docker compose up -d
-
-kill:
-	docker rm laboratoriostermodinamica-backend-1 --force 
-	docker rm laboratoriostermodinamica-database-1 --force
-	docker rm laboratoriostermodinamica-frontend-1 --force	
-
-backend_prod:
-	. setup_scripts/backend_prod_mod.sh
-
-backend_dev:
-	. setup_scripts/backend_dev_mod.sh
-
-frontend_prod:
-	. setup_scripts/frontend_prod_mod.sh
-
-frontend_dev:
-	. setup_scripts/frontend_dev_mod.sh

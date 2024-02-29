@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Response, status
+from fastapi import APIRouter, Response, status, Request
 from pydantic import BaseModel
 from .config.get_mongo_client import get_mongo_client
 import jwt
@@ -14,7 +14,8 @@ router = APIRouter()
 
 
 @router.post("/signin_or_login", tags=["auth"])
-async def signin_or_login(response: Response,token: JWT):
+async def signin_or_login(response: Response,token: JWT, request: Request):
+    
     try:
         db = get_mongo_client()
         #DECODE JWT

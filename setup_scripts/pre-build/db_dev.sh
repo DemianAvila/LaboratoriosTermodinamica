@@ -1,0 +1,1 @@
+sed -i 's/db = db.getSiblingDB(".*");/db = db.getSiblingDB("'${MONGO_DATABASE_DEV}'");/g' ./db/scripts/*

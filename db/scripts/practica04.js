@@ -1,5 +1,5 @@
 //INSERTAR CUESTIONARIO PREVIO
-db = db.getSiblingDB("laboratorio_info");
+db = db.getSiblingDB("laboratorios");
 practica4 = 4;
 db.cuestionario_previo.insertMany([
   {

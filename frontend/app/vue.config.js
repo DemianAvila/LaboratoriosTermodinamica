@@ -7,5 +7,5 @@ module.exports = defineConfig({
       webSocketURL: 'auto://0.0.0.0:0/ws'
     }
   },
-  //.*publicPath: process.env.NODE_ENV === "production" ? "/LaboratoriosTermodinamica/" : "/",
+  //.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*//.*publicPath: process.env.NODE_ENV === "production" ? "/LaboratoriosTermodinamica/" : "/",
 });
