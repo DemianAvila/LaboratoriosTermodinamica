@@ -1,5 +1,6 @@
 <template>
-    <div class="w-full h-full flex flex-col items-center overflow-y-auto overflow-x-hidden">
+    <div class="w-full h-full flex flex-col items-center overflow-y-auto overflow-x-hidden
+    sm:flex-row sm:flex-wrap">
       
       <div class="w-full h-[20%] mx-6 my-6">
         <h1 class="text-center text-5xl">
@@ -7,7 +8,9 @@
         </h1>
       </div> 
 
-      <div class="w-[80%] min-h-[8%] my-6"
+      <div class="w-[80%] min-h-[8%] my-6
+      sm:h-[20%] sm:w-[50%] sm:px-4
+      "
         v-for="(item, index) in $store.state.practicas.practicas"
         :key="index">
         <ButtonFinished v-if="item.avance == 100" :item="item" :index="index" />

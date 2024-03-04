@@ -1,19 +1,22 @@
 <template>
   <!--SI AUN NO ESTA DISPONIBLE, PINTALA DE GRIS-->
-  <div
-    class="bg-gray-600 w-full mt-6 grid grid-cols-8 gap-2 content-center h-12 rounded-lg"
+  <button
+    class="bg-gray-600 w-full h-full flex flex-row items-center justify-center rounded-lg"
     :id="item.nombre"
   >
-    <div class="col-span-6 text-center px-2">
-      {{ item.titulo }}
+    <div class="w-[70%] h-full flex flex-col items-center justify-center">
+      <p class="w-[80%]">
+        {{ item.titulo }}
+      </p>
     </div>
-    <div class="grid grid-cols-1 content-center">
-      <IconSVG icon="disabled" color="white" w="100" h="100" class="w-full h-full"/>
+    <div class="w-[15%] h-full flex flex-col items-center justify-center">
+      <IconSVG icon="disabled" color="white" class="w-1/2 aspect-square"/>
     </div>
-    <div class="grid grid-cols-1 content-center">
-      <IconSVG icon="menu" color="white" w="100" h="100" class="w-full h-full"/>
-    </div>
-  </div>
+    <button class="w-[15%] h-full">
+      <!--SI SE DA CLICK, DESPLIEGA UN MENU DE TAREAS-->
+      <IconSVG icon="menu" color="white" class="w-1/2 aspect-square"/>
+    </button>
+  </button>
 </template>
 
 <script>
