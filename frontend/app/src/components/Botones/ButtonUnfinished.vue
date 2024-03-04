@@ -8,29 +8,24 @@
       {{ item.titulo }}
     </div>
     <div class="grid grid-cols-1 content-center">
-      <img
-        :src="$store.state.static_cont.progress"
-        alt="terminado"
-        class="object-fill w-4 h-4"
-      />
+      <IconSVG icon="resume" color="white" w="100" h="100" class="w-full h-full"/>
     </div>
     <button
       @click="show_modal(item.id)"
       class="grid grid-cols-1 content-center"
     >
       <!--SI SE DA CLICK, DESPLIEGA UN MENU DE TAREAS-->
-      <img
-        :src="$store.state.static_cont.drop_down"
-        alt="menu"
-        class="object-fill w-4 h-4"
-      />
+      <IconSVG icon="menu" color="white" w="100" h="100" class="w-full h-full"/>
     </button>
   </div>
 </template>
 
 <script>
+import IconSVG from '@/components/CustomIcons/IconSVG.vue';
+
 export default {
   name: "ButtonUnfinished",
+  components: {IconSVG},
   props: ["item"],
   methods: {
     show_modal: function (id_practica) {

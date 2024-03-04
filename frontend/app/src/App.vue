@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div class="w-screen h-screen">
+    <div class="w-screen h-screen text-slate-50">
       <div
-        class="bg-scroll bg-cover bg-no-repeat bg-center w-full h-full overflow-y-hidden flex flex-col lg:bg-scroll lg:bg-cover lg:bg-no-repeat lg:w-full lg:h-full"
+        class="bg-scroll bg-cover bg-no-repeat bg-center w-full h-full flex flex-col items-center"
         :style="{ backgroundImage: `url(${require('@/assets/img/fondo-desk-1.svg')})` }"
       >
         <div
           v-if="!inForbiddenRoute()"
           id="navbar"
-          class="w-full h-[6%] max-h-[55px] flex flex-row items-center justify-between"
+          class="w-full h-[6%] flex flex-row items-center justify-between"
         >
           <div @click="home" class="p-2 px-6">
             <i class="text-white fa-solid fa-flask fa-lg"></i>
@@ -17,7 +17,7 @@
             <i class="text-white fa-solid fa-bars fa-lg"></i>
           </div>
         </div>
-        <div id="routing-components" class="w-full h-[94%] overflow-y-auto">
+        <div id="routing-components" class="w-full h-[74%] overflow-y-auto">
           <div
             v-if="menu"
             class="fixed h-[90%] w-full text-white flex flex-col content-end"
@@ -68,6 +68,7 @@ body {
 </style>
 
 <script>
+
 export default {
   name: "app",
   data: function () {

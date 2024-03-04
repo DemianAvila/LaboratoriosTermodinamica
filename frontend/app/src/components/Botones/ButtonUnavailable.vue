@@ -8,25 +8,20 @@
       {{ item.titulo }}
     </div>
     <div class="grid grid-cols-1 content-center">
-      <img
-        :src="$store.state.static_cont.disabled"
-        alt="terminado"
-        class="object-fill w-4 h-4"
-      />
+      <IconSVG icon="disabled" color="white" w="100" h="100" class="w-full h-full"/>
     </div>
     <div class="grid grid-cols-1 content-center">
-      <img
-        :src="$store.state.static_cont.drop_down"
-        alt="menu"
-        class="object-fill w-4 h-4"
-      />
+      <IconSVG icon="menu" color="white" w="100" h="100" class="w-full h-full"/>
     </div>
   </div>
 </template>
 
 <script>
+import IconSVG from '@/components/CustomIcons/IconSVG.vue';
+
 export default {
   name: "ButtonUnavailable",
+  components: {IconSVG},
   props: ["item"],
 };
 </script>

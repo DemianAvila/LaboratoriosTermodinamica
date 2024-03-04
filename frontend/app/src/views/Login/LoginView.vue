@@ -1,43 +1,46 @@
 <template>
-  <div id="backg" class="w-full h-full overflow-y-hidden">
-    <div id="pagina" class="h-4/6 grid grid-rows-6 px-6 lg:grid lg:grid-cols-2">
+  <div id="backg" class="w-full h-full overflow-y-hidden flex flex-col items-center justify-center
+  sm:justify-start">
+    <div id="pagina" class="flex flex-col w-full h-[80%] 
+    sm:flex-row">
       <div
         id="titulo"
-        class="flex justify-center grid grid-cols-2 row-start-2 lg:col-start-1 lg:row-start-3"
-      >
-        <div class="col-span-2 grid grid-cols-4">
-          <h1 class="text-sky-100 text-center text-4xl lg:text-7xl col-span-3">
+        class="flex flex-col w-full h-[40%] items-center justify-center
+        sm:w-[60%] sm:h-full sm:flex-row">
+        <div class="w-full h-[40%] flex flex-row items-center justify-center py-6
+        sm:h-full sm:w-[70%]">
+          <h1 class="text-sky-100 text-center text-4xl">
             Laboratorio de termodinámica
           </h1>
-          <img
-            class="p-2 lg:p-4 lg:pr-10"
+        </div>
+        <div class="flex flex-row w-full h-[60%] items-center justify-center py-6
+        sm:h-full sm:w-[30%]">
+          <img class="max-w-full max-h-full"
             src="https://www.nicepng.com/png/full/1010-10105314_escudo-y-lema-de-la-unam.png"
           />
         </div>
       </div>
-      <div
-        class="h-0 lg:h-full lg:col-start-1 lg:border-r-2 lg:border-sky-100 lg:row-start-2 lg:row-span-4"
-      ></div>
-      <div class="grid grid-flow-row row-start-3 lg:col-start-1 lg:w-0 lg:h-0">
-        <div class="lg:border-r-2 border-sky-100"></div>
-        <div class="border-t-2 border-sky-100 lg:w-0 lg:h-0"></div>
-      </div>
-
+      <div id="separador"
+      class="flex flex-col w-full h-[5%] items-center justify-center 
+      sm:w-[4%] sm:h-full">
+        <div class="border-t-2 border-sky-100 w-[90%] sm:hidden"></div>
+        <div class="border-l-2 border-sky-100 h-[90%] hidden sm:block"></div>
+      </div> 
       <div
         id="ingresa"
-        class="flex justify-center grid grid-cols-2 row-start-4 lg:row-start-3 lg:col-start-2"
+        class="flex flex-col w-full h-[40%] items-center justify-center
+        sm:w-[36%] sm:h-full"
       >
-        <div class="col-span-2">
-          <h1 class="text-sky-100 text-center text-xl">
+        <div class="w-full h-[30%] flex flex-col items-center justify-center sm:h-[30%]">
+          <h1 class="text-sky-100 text-center text-xl w-[80%]">
             Ingresa o regístrate con tu cuenta institucional
           </h1>
         </div>
-      </div>
-
-      <div
-        class="w-full flex flex-row justify-center"
+        <div
+        class="w-full h-[50%] flex flex-col items-center justify-center sm:h-[20%]"
         ref="google_button"
-      ></div>
+        ></div>
+      </div>
     </div>
   </div>
 </template>

@@ -1,43 +1,27 @@
 <template>
-  <div class="p-8 text-slate-50 grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
+    <div class="w-full h-full flex flex-col items-center overflow-y-auto overflow-x-hidden">
+      
+      <div class="w-full h-[20%] mx-6 my-6">
+        <h1 class="text-center text-5xl">
+          Prácticas
+        </h1>
+      </div> 
+
+      <div class="w-[80%] min-h-[8%] my-6"
+        v-for="(item, index) in $store.state.practicas.practicas"
+        :key="index">
+        <ButtonFinished v-if="item.avance == 100" :item="item" :index="index" />
+        <ButtonUnfinished v-if="item.avance < 100 && item.fecha_entrega > Date.now() && item.disponible" :item="item" :index="index" />
+        <ButtonOutOfTime v-if=" item.avance < 100 && item.fecha_entrega < Date.now() && item.disponible" :item="item" :index="index"/>
+        <ButtonUnavailable v-if="!item.disponible" :item="item" :index="index"/>
+      </div>
+    </div>
+
     <ModalPracticas
       v-if="$store.state.practicas.modal_subtareas.show"
       class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full h-full bg-[rgba(0,0,0,0.9)]"
-    >
-    </ModalPracticas>
-    <div class="w-full h-full overflow-y-auto">
-      <h1 class="text-center text-5xl my-4 lg:col-span-2">Prácticas</h1>
-      <div
-        v-for="(item, index) in $store.state.practicas.practicas"
-        :key="index"
-      >
-        <ButtonFinished v-if="item.avance == 100" :item="item" :index="index">
-        </ButtonFinished>
-        <ButtonUnfinished
-          v-if="
-            item.avance < 100 &&
-            item.fecha_entrega > Date.now() &&
-            item.disponible
-          "
-          :item="item"
-          :index="index"
-        >
-        </ButtonUnfinished>
-        <ButtonOutOfTime
-          v-if="
-            item.avance < 100 &&
-            item.fecha_entrega < Date.now() &&
-            item.disponible
-          "
-          :item="item"
-          :index="index"
-        >
-        </ButtonOutOfTime>
-        <ButtonUnavailable v-if="!item.disponible" :item="item" :index="index">
-        </ButtonUnavailable>
-      </div>
-    </div>
-  </div>
+    />
+
 </template>
 
 <script>

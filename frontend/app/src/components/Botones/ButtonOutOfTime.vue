@@ -1,36 +1,28 @@
 <template>
   <!--SI AUN NO SE TERMINA PERO LA FECHA DE ENTREGA NO ES OPTIMA, PINTALA DE NARANJA-->
-  <div
-    class="bg-yellow-600 w-full mt-6 grid grid-cols-8 gap-2 content-center h-12 rounded-lg"
-    :id="item.nombre"
-  >
-    <div class="col-span-6 text-center px-2">
-      {{ item.titulo }}
+  <button class="bg-yellow-600 w-full h-full flex flex-row items-center justify-center rounded-lg" :id="item.nombre" @click="show_modal(item.id)">
+    <div class="w-[70%] h-full flex flex-col items-center justify-center">
+      <p class="w-[80%]">
+        {{ item.titulo }}
+      </p>
+      
     </div>
-    <div class="grid grid-cols-1 content-center">
-      <img
-        :src="$store.state.static_cont.exclamation"
-        alt="terminado"
-        class="object-fill w-5 h-5"
-      />
+    <div class="w-[15%] h-full flex flex-col items-center justify-center">
+      <IconSVG icon="warning" color="white" class="w-1/2 aspect-square"/>
     </div>
-    <button
-      @click="show_modal(item.id)"
-      class="grid grid-cols-1 content-center"
-    >
+    <button @click="show_modal(item.id)" class="w-[15%] h-full">
       <!--SI SE DA CLICK, DESPLIEGA UN MENU DE TAREAS-->
-      <img
-        :src="$store.state.static_cont.drop_down"
-        alt="menu"
-        class="object-fill w-4 h-4"
-      />
+      <IconSVG icon="menu" color="white" class="w-1/2 aspect-square"/>
     </button>
-  </div>
+  </button>
 </template>
 
 <script>
+import IconSVG from '@/components/CustomIcons/IconSVG.vue';
+
 export default {
   name: "ButtonOutOfTime",
+  components: {IconSVG},
   props: ["item"],
   methods: {
     show_modal: function (id_practica) {
