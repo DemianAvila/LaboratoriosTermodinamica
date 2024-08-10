@@ -1,5 +1,5 @@
 //INSERTAR CUESTIONARIO PREVIO
-db = db.getSiblingDB("laboratorios");
+db = db.getSiblingDB("laboratorio_info");
 db.textures.insertMany([
   {
     name: "glass",

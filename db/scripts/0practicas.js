@@ -1,4 +1,4 @@
-db = db.getSiblingDB("laboratorios");
+db = db.getSiblingDB("laboratorio_info");
 db.practicas.insertMany([
   {
     id: 1,
