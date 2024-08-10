@@ -1,5 +1,5 @@
 *.env
-db/data_storage/
-node_modules
-__pycache__
-config_file.json
+*/db/data_storage/
+*node_modules
+*__pycache__
+*config_file.json
